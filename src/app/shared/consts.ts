@@ -11,36 +11,6 @@ export const v1234 = new Audio(`${audioPath}/v1234.m4a`);
 
 import { Observable } from 'rxjs';
 
-import { AlternateTempo } from '../models/alternate-tempo.model';
-export const alternateTempoObservable = (settings: AlternateTempo): Observable<number> => {
-  // !!! force math calculation
-  let go: number = +settings.goBeats;
-  let totalBeats: number = +settings.goBeats;
-  totalBeats += +settings.stopBeats;
-  let t: number = 0;
-
-  return new Observable(subscriber => {
-    subscriber.next(0);
-
-    const intervalId = setInterval(() => {
-      if (++t == go) {
-        subscriber.next(1);
-      }
-      // console.log('- ' + totalBeats + '/' + settings.goBeats + '/' + settings.stopBeats + ', ' + t);
-      if (t == totalBeats) {
-        subscriber.next(0);
-        t = 0;
-      }
-    }, settings.tempo);
-
-    // return unsubscribe for subsciber to dispose
-    return () => {
-      console.log('unsubscribe');
-      clearInterval(intervalId);
-    }
-  });
-}
-
 import { AlternateTempoSettingModel } from '../models/tempo-settings.model';
 export const alternateBeat = (settings: AlternateTempoSettingModel): Observable<any> => {
   return new Observable(subscriber => {
