@@ -13,24 +13,23 @@ import { Observable } from 'rxjs';
 
 import { AlternateTempo } from '../models/alternate-tempo.model';
 export const alternateTempoObservable = (settings: AlternateTempo): Observable<number> => {
+  // !!! force math calculation
+  let go: number = +settings.goBeats;
+  let totalBeats: number = +settings.goBeats;
+  totalBeats += +settings.stopBeats;
   let t: number = 0;
-  let go: number = +settings.goBeats - 1;
-  let totalBeats: number = +go;
-  totalBeats += +settings.stopBeats - 1;
 
   return new Observable(subscriber => {
     subscriber.next(0);
 
     const intervalId = setInterval(() => {
-      if (t == go) {
+      if (++t == go) {
         subscriber.next(1);
       }
       // console.log('- ' + totalBeats + '/' + settings.goBeats + '/' + settings.stopBeats + ', ' + t);
       if (t == totalBeats) {
-        t = 0;
         subscriber.next(0);
-      } else {
-        ++ t;
+        t = 0;
       }
     }, settings.tempo);
 
