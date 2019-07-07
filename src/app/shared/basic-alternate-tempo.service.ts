@@ -9,15 +9,20 @@ import { AlternateTempo } from '../models/alternate-tempo.model';
 export class BasicAlternateTempoService {
   alternateTempo: AlternateTempo;
   subscription: any;
+  _tempoBeat: number;
 
   constructor() {}
 
   get inSession(): boolean {
     return (this.subscription) ? true : false;
   }
+  get tempoBeat(): number {
+    return this._tempoBeat;
+  }
   start(tempo: AlternateTempo) {
     this.subscription = alternateTempoObservable(tempo)
         .subscribe(b => {
+            this._tempoBeat = b;
             console.log(b);
             audios[b].play();
     });
