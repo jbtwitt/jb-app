@@ -1,13 +1,17 @@
 <div style="text-align:left">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<h1>Welcome to {{ title }}!</h1>
+
+<button mat-raised-button [matMenuTriggerFor]="exerciseMenu">Exercise<mat-icon>keyboard_arrow_down</mat-icon></button>
+<mat-menu #exerciseMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="/bat">Basic Alternate Tempo</button>
+  <button mat-menu-item routerLink="/bat-counter">BAT Counter</button>
+</mat-menu>
 </div>
+
+
 <!-- <nav>
   <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
   <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
 </nav> -->
-
-<!-- <app-basic-alternate-tempo></app-basic-alternate-tempo> -->
 
 <router-outlet></router-outlet>

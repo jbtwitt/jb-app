@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/bat', pathMatch: 'full' }
+  { path: '', redirectTo: '/bat-counter', pathMatch: 'full' }
 ];
 
 @NgModule({
