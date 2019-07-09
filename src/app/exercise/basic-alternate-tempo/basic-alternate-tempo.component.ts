@@ -10,7 +10,7 @@ import { BasicAlternateTempoService } from '../../shared/basic-alternate-tempo.s
 export class BasicAlternateTempoComponent implements OnInit {
   @Input() alternateTempo: AlternateTempo = new AlternateTempo();
 
-  constructor(private batService: BasicAlternateTempoService) { }
+  constructor(public batService: BasicAlternateTempoService) { }
 
   ngOnInit() {
   }

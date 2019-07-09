@@ -1,6 +1,7 @@
-<mat-expansion-panel>
+<mat-card>
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
-      Alternate Tempo Settings
+      Alternate Tempo: Go {{batCounter.alternateTempo.goBeats}}, Stop {{batCounter.alternateTempo.stopBeats}}
     </mat-expansion-panel-header>
   
     <app-alternate-tempo-form [alternateTempo]="batCounter.alternateTempo"></app-alternate-tempo-form>
@@ -8,14 +9,30 @@
     <!-- <mat-action-row>
       <button mat-button>Click me</button>
     </mat-action-row> -->
-</mat-expansion-panel>
-<mat-card>
+  </mat-expansion-panel>
+
+  <br>
+
   <mat-card-content>
+  <div>
+      <mat-form-field>
+      <mat-label>Target Count</mat-label>
+      <input matInput placeholder="Target Count" [(ngModel)]="batCounter.targetCount">
+      </mat-form-field>
+
+      <mat-form-field>
+      <mat-label>Estimated Time</mat-label>
+      <input matInput placeholder="Estimated Time"
+        value="{{estimatedTime | date: 'm:s'}}" readonly>
+      </mat-form-field>
+  </div>
+
     {{batMulticastService.count}}
+
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button *ngIf="!batMulticastService.inSession"
-        (click)="batMulticastService.start(batCounter.alternateTempo)">
+        (click)="batMulticastService.start(batCounter)">
         <mat-icon>play_arrow</mat-icon>Start</button>
     <button mat-raised-button *ngIf="batMulticastService.inSession"
         (click)="batMulticastService.stop()">

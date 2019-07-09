@@ -11,10 +11,13 @@ import { BasicAlternateTempoMulticastService } from '../../shared/basic-alternat
 export class BatCounterMainComponent implements OnInit {
   batCounter: BatCounter = new BatCounter();
 
-  constructor(private batMulticastService: BasicAlternateTempoMulticastService) { }
+  constructor(public batMulticastService: BasicAlternateTempoMulticastService) { }
 
   ngOnInit() {
     console.log(this.batCounter);
   }
-
+  get estimatedTime(): number {
+    return this.batCounter.targetCount * this.batCounter.alternateTempo.tempo *
+      (this.batCounter.alternateTempo.goBeats + this.batCounter.alternateTempo.stopBeats);
+  }
 }
