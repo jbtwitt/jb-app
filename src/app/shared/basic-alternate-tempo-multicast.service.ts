@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 import { alternateTempoSubject } from './alternate-tempo-subject';
 import { AlternateTempo } from '../models/alternate-tempo.model';
 import { BatCounter } from '../models/bat-counter.model';
-import { audios, vGoodJob } from './consts';
+import { audios, vGoodJob, vSetGo } from './consts';
 
 @Injectable({
   providedIn: 'root'
@@ -31,23 +31,32 @@ export class BasicAlternateTempoMulticastService {
     let miss = batCounter.alternateTempo.tempo * batCounter.alternateTempo.stopBeats;
     this.multicaster = alternateTempoSubject(batCounter.alternateTempo);
 
-    // alternating beats
-    this.tempoSubscription = this.multicaster.pipe(filter(b => b === 0 || b === 1)).subscribe(b => {
-            this.tempoBeat = b;
-            audios[b].play();
-            console.log(b);
+    // ready set go
+    let setGo = this.multicaster.pipe(first()).subscribe(() => {
+      console.log('ready set go');
+      vSetGo.play();
+      setGo.unsubscribe();
     });
-    // count tempo
-    this.count = 0;
-    this.countSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(b => {
-      if (++this.count == batCounter.targetCount) {
+
+    // alternating beats
+    this.tempoSubscription = this.multicaster.pipe(filter(b => b === 0 || b === 1)).subscribe((b: number) => {
+      this.tempoBeat = b;
+      if (this.count == batCounter.targetCount && b === 0) {
         this.stop();
         vGoodJob.play();
+      } else {
+        audios[b].play();
+        console.log(b);
       }
-    })
+    });
+
+    // count tempo
+    this.count = 0;
+    this.countSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(() => ++ this.count);
+
     // trace time & calc time
     this.startTime = new Date();
-    this.timeSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(b => {
+    this.timeSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(() => {
       this.runTime = (new Date()).getTime() - this.startTime.getTime() + miss;
     });
 

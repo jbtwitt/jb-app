@@ -9,14 +9,14 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
   
     return new Observable(subscriber => {
   
-      subscriber.next(0);
-      let t: number = 0;
+      subscriber.next(-1);
+      let t: number = -2;  //delay for: ready set go
       const intervalId = setInterval(() => {
         if (++t == go) {
           subscriber.next(1);
         }
         // console.log('- ' + totalBeats + '/' + settings.goBeats + '/' + settings.stopBeats + ', ' + t);
-        if (t == totalBeats) {
+        if (t == 0 || t == totalBeats) {
           subscriber.next(0);
           t = 0;
         }
