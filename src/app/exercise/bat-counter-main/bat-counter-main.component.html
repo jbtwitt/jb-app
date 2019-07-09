@@ -1,4 +1,7 @@
 <mat-card>
+  <mat-card-title>
+    Count Helper
+  </mat-card-title>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       Alternate Tempo: Go {{batCounter.alternateTempo.goBeats}}, Stop {{batCounter.alternateTempo.stopBeats}}
@@ -6,9 +9,6 @@
   
     <app-alternate-tempo-form [alternateTempo]="batCounter.alternateTempo"></app-alternate-tempo-form>
   
-    <!-- <mat-action-row>
-      <button mat-button>Click me</button>
-    </mat-action-row> -->
   </mat-expansion-panel>
 
   <br>
@@ -27,7 +27,19 @@
       </mat-form-field>
   </div>
 
-    {{batMulticastService.count}}
+  <div>
+    <mat-form-field>
+      <mat-label>Counting</mat-label>
+      <input matInput placeholder="Counting"
+        value="{{batMulticastService.count}}" readonly>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Run Time</mat-label>
+      <input matInput placeholder="Run Time"
+        value="{{batMulticastService.runTime | date: 'm:s'}}" readonly>
+    </mat-form-field>
+  </div>
 
   </mat-card-content>
   <mat-card-actions>

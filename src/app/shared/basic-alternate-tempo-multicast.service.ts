@@ -15,6 +15,8 @@ export class BasicAlternateTempoMulticastService {
   alternateTempo: AlternateTempo;
   _tempoBeat: number;
   _count: number;
+  startTime: Date;
+  _runTime: number;
 
   constructor() { }
 
@@ -27,8 +29,15 @@ export class BasicAlternateTempoMulticastService {
   get count(): number {
     return this._count;
   }
+  get runTime(): number {
+    if (this.count > 0) {
+      return this._runTime;
+    }
+  }
 
   start(batCounter: BatCounter) {
+    let t = batCounter.alternateTempo.tempo * batCounter.alternateTempo.stopBeats;
+    this.startTime = new Date();
     this.multicaster = alternateTempoSubject(batCounter.alternateTempo);
     //
     this.tempoSubscription = this.multicaster
@@ -36,12 +45,14 @@ export class BasicAlternateTempoMulticastService {
             this._tempoBeat = b;
             console.log(b);
             audios[b].play();
-    });
+          });
     //
     this._count = 0;
     this.countSubscription = this.multicaster.subscribe(b => {
       if (b == 1) {
         ++this._count;
+        this._runTime = (new Date()).getTime() - this.startTime.getTime() + t;
+        // this._runTime += batCounter.alternateTempo.tempo * batCounter.alternateTempo.stopBeats;
       }
       if (this.count == batCounter.targetCount) {
         this.stop();
