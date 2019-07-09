@@ -28,7 +28,6 @@ export class BasicAlternateTempoMulticastService {
     return (this.multicaster) ? true : false;
   }
   start(batCounter: BatCounter) {
-    let miss = batCounter.alternateTempo.tempo * batCounter.alternateTempo.stopBeats;
     this.multicaster = alternateTempoSubject(batCounter.alternateTempo);
 
     // ready set go
@@ -40,11 +39,13 @@ export class BasicAlternateTempoMulticastService {
 
     // alternating beats
     this.tempoSubscription = this.multicaster.pipe(filter(b => b === 0 || b === 1)).subscribe((b: number) => {
-      this.tempoBeat = b;
+      // check reach target counting
       if (this.count == batCounter.targetCount && b === 0) {
+        this.runTime = (new Date()).getTime() - this.startTime.getTime();
         this.stop();
         vGoodJob.play();
       } else {
+        this.tempoBeat = b;
         audios[b].play();
         console.log(b);
       }
@@ -55,9 +56,10 @@ export class BasicAlternateTempoMulticastService {
     this.countSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(() => ++ this.count);
 
     // trace time & calc time
+    this.runTime = 0;
     this.startTime = new Date();
     this.timeSubscription = this.multicaster.pipe(filter(b => b === 1)).subscribe(() => {
-      this.runTime = (new Date()).getTime() - this.startTime.getTime() + miss;
+      this.runTime = (new Date()).getTime() - this.startTime.getTime();
     });
 
     this.multicaster.connect();
