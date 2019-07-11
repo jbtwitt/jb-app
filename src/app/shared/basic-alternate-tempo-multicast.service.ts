@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 import { alternateTempoSubject } from './alternate-tempo-subject';
 import { AlternateTempo } from '../models/alternate-tempo.model';

@@ -10,7 +10,7 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
     return new Observable(subscriber => {
   
       subscriber.next(-1);
-      let t: number = -2;  //delay for: ready set go
+      let t: number = -2;  //delay 2 intervals for: ready set go
       const intervalId = setInterval(() => {
         if (++t === go) {
           subscriber.next(1);
