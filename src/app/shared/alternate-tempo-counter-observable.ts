@@ -2,8 +2,9 @@ import { Observable } from 'rxjs';
 import { scan, filter } from 'rxjs/operators';
 import { AlternateTempo } from '../models/alternate-tempo.model';
 import { alternateTempoSubject } from './alternate-tempo-subject';
+import { BeatCounting } from '../models/beat-counting.model';
 
-export const alternateTempoCounterObservable = (settings: AlternateTempo): Observable<number> => {
+export const alternateTempoCounterObservable = (settings: AlternateTempo): Observable<BeatCounting> => {
   let multicaster: any;
 
   return new Observable(subscriber => {
@@ -15,7 +16,7 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
         tempoBeatSubscription.unsubscribe();
         subscriber.complete();
       }
-      subscriber.next(b);
+      subscriber.next({beat: b, count: count + 1});
     });
     let countSubscription = multicaster
       .pipe(
@@ -25,5 +26,11 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
         count = c;
       });
     multicaster.connect();
-  });
+    return () => {
+      console.log('unsubscribe');
+      countSubscription.unsubscribe();
+      tempoBeatSubscription.unsubscribe();
+      multicaster = null;
+    }
+});
 }
