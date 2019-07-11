@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 import { alternateTempoSubject } from './alternate-tempo-subject';
 import { AlternateTempo } from '../models/alternate-tempo.model';
-import { BatCounter } from '../models/bat-counter.model';
 import { audios, vGoodJob, vSetGo } from './consts';
 
 @Injectable({
@@ -27,8 +25,8 @@ export class BasicAlternateTempoMulticastService {
   get inSession(): boolean {
     return (this.multicaster) ? true : false;
   }
-  start(batCounter: BatCounter) {
-    this.multicaster = alternateTempoSubject(batCounter.alternateTempo);
+  start(alternateTempo: AlternateTempo) {
+    this.multicaster = alternateTempoSubject(alternateTempo);
 
     // ready set go
     let setGo = this.multicaster.pipe(first()).subscribe(() => {
@@ -40,7 +38,7 @@ export class BasicAlternateTempoMulticastService {
     // alternating beats
     this.tempoSubscription = this.multicaster.pipe(filter(b => b === 0 || b === 1)).subscribe((b: number) => {
       // check reach target counting
-      if (this.count == batCounter.targetCount && b === 0) {
+      if (this.count === +alternateTempo.repeat && b === 0) {
         this.runTime = (new Date()).getTime() - this.startTime.getTime();
         this.stop();
         vGoodJob.play();

@@ -4,10 +4,10 @@
   </mat-card-title>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      Alternate Tempo: Go {{batCounter.alternateTempo.goBeats}}, Stop {{batCounter.alternateTempo.stopBeats}}
+      Alternate Tempo: Go {{alternateTempo.goBeats}}, Stop {{alternateTempo.stopBeats}}
     </mat-expansion-panel-header>
   
-    <app-alternate-tempo-form [alternateTempo]="batCounter.alternateTempo"></app-alternate-tempo-form>
+    <app-alternate-tempo-form [alternateTempo]="alternateTempo"></app-alternate-tempo-form>
   
   </mat-expansion-panel>
 
@@ -17,7 +17,7 @@
   <div>
       <mat-form-field>
       <mat-label>Target Count</mat-label>
-      <input matInput placeholder="Target Count" [(ngModel)]="batCounter.targetCount">
+      <input matInput placeholder="Target Count" [(ngModel)]="alternateTempo.repeat">
       </mat-form-field>
 
       <mat-form-field>
@@ -44,7 +44,7 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button *ngIf="!batMulticastService.inSession"
-        (click)="batMulticastService.start(batCounter)">
+        (click)="batMulticastService.start(alternateTempo)">
         <mat-icon>play_arrow</mat-icon>Start</button>
     <button mat-raised-button *ngIf="batMulticastService.inSession"
         (click)="batMulticastService.stop()">

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlternateTempo } from '../../models/alternate-tempo.model';
-import { BatCounter } from '../../models/bat-counter.model';
 import { BasicAlternateTempoMulticastService } from '../../shared/basic-alternate-tempo-multicast.service';
 
 @Component({
@@ -9,15 +8,13 @@ import { BasicAlternateTempoMulticastService } from '../../shared/basic-alternat
   styleUrls: ['./bat-counter-main.component.sass']
 })
 export class BatCounterMainComponent implements OnInit {
-  batCounter: BatCounter = new BatCounter();
+  alternateTempo: AlternateTempo = new AlternateTempo();
 
   constructor(public batMulticastService: BasicAlternateTempoMulticastService) { }
 
   ngOnInit() {
-    console.log(this.batCounter);
   }
   get estimatedTime(): number {
-    return this.batCounter.targetCount * this.batCounter.alternateTempo.tempo *
-      (this.batCounter.alternateTempo.goBeats + this.batCounter.alternateTempo.stopBeats);
+    return this.alternateTempo.repeat * this.alternateTempo.tempo * (this.alternateTempo.goBeats + this.alternateTempo.stopBeats);
   }
 }
