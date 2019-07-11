@@ -3,6 +3,7 @@
 
 <button mat-raised-button [matMenuTriggerFor]="exerciseMenu">Exercise<mat-icon>keyboard_arrow_down</mat-icon></button>
 <mat-menu #exerciseMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="/at-collection">Alternate Tempo Collection</button>
   <button mat-menu-item routerLink="/bat">Basic Alternate Tempo</button>
   <button mat-menu-item routerLink="/bat-counter">BAT Counter</button>
 </mat-menu>

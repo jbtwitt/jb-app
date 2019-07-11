@@ -1,7 +1,8 @@
-<mat-expansion-panel *ngFor="let at of atCollection | keyvalue">
+<!-- <mat-accordion> -->
+<mat-expansion-panel *ngFor="let at of atCollection | keyvalue" [expanded]="1">
 
     <mat-expansion-panel-header>
-      Alternate Tempo: {{ at.key }} - Go {{at.value.goBeats}}, Stop {{at.value.stopBeats}}
+      Alternate Tempo: {{ at.key }} - Repeat: {{at.value.repeat}}, Go {{at.value.goBeats}}, Stop {{at.value.stopBeats}}
     </mat-expansion-panel-header>
   
     <app-alternate-tempo-form [alternateTempo]="at.value"></app-alternate-tempo-form>
@@ -10,3 +11,4 @@
         <button mat-raised-button (click)="atCollectionService.start(at.value)"><mat-icon>play_arrow</mat-icon> Go </button>
     </mat-action-row>
 </mat-expansion-panel>
+<!-- </mat-accordion> -->

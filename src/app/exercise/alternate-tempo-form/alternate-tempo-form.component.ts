@@ -14,4 +14,7 @@ export class AlternateTempoFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  get estimatedTime(): number {
+    return this.alternateTempo.repeat * this.alternateTempo.tempo * (this.alternateTempo.goBeats + this.alternateTempo.stopBeats);
+  }
 }

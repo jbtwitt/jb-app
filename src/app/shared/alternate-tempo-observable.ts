@@ -3,7 +3,6 @@ import { AlternateTempo } from '../models/alternate-tempo.model';
 
 export const alternateTempoObservable = (settings: AlternateTempo): Observable<number> => {
     // !!! force math calculation
-    let go: number = +settings.goBeats;
     let totalBeats: number = +settings.goBeats;
     totalBeats += +settings.stopBeats;
   
@@ -12,7 +11,7 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
       subscriber.next(-1);
       let t: number = -2;  //delay 2 intervals for: ready set go
       const intervalId = setInterval(() => {
-        if (++t === go) {
+        if (++t === +settings.goBeats) {
           subscriber.next(1);
         }
         // console.log('- ' + totalBeats + '/' + settings.goBeats + '/' + settings.stopBeats + ', ' + t);

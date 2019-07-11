@@ -10,20 +10,20 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
     let count = 0;
     multicaster = alternateTempoSubject(settings);
     let tempoBeatSubscription = multicaster.subscribe((b: number) => {
-      if (count === settings.repeat && b === 0) {
-        subscriber.complete();
+      if (count === +settings.repeat && b === 0) {
         countSubscription.unsubscribe();
         tempoBeatSubscription.unsubscribe();
+        subscriber.complete();
       }
       subscriber.next(b);
     });
-    let countSubscription = multicaster.pipe(
-      filter((b: number) => b === 1),
-      scan((c: number) => ++c, 0))
-      .subscribe((c: number) => {
-      console.log('count: ' + c + '/' + settings.repeat);
-      count = c;
-    });
+    let countSubscription = multicaster
+      .pipe(
+        filter((b: number) => b === 1),
+        scan((c: number) => ++c, 0)).subscribe((c: number) => {
+        console.log('count: ' + c + '/' + settings.repeat);
+        count = c;
+      });
     multicaster.connect();
   });
 }
