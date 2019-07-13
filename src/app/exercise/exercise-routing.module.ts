@@ -5,7 +5,7 @@ import { BatCounterMainComponent } from './bat-counter-main/bat-counter-main.com
 import { AlternateTempoCollectionFormComponent } from './alternate-tempo-collection-form/alternate-tempo-collection-form.component';
 
 const routes: Routes = [
-  { path: 'bat', component: BasicAlternateTempoComponent },
+  // { path: 'bat', component: BasicAlternateTempoComponent },
   { path: 'at-collection', component: AlternateTempoCollectionFormComponent },
   { path: 'bat-counter', component: BatCounterMainComponent }
 ];

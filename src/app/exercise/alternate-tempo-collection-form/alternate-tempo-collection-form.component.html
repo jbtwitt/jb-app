@@ -11,7 +11,7 @@
       <button mat-raised-button (click)="atCollectionService.start(at.value)" *ngIf="!atCollectionService.currentBeat">
         <mat-icon>play_arrow</mat-icon> Go 
       </button>
-      <button mat-raised-button (click)="atCollectionService.stop()" *ngIf="atCollectionService.currentBeat">
+      <button mat-raised-button (click)="atCollectionService.stop(at.value)" *ngIf="atCollectionService.currentBeat">
         <mat-icon>stop</mat-icon> Stop
         <mat-label>{{atCollectionService.currentBeat?.count}}</mat-label>
       </button>
