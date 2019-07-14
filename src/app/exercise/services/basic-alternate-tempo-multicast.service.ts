@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { filter, first } from 'rxjs/operators';
-import { alternateTempoSubject } from './alternate-tempo-subject';
-import { AlternateTempo } from '../models/alternate-tempo.model';
-import { audios, vGoodJob, vSetGo } from './consts';
+import { alternateTempoSubject } from '../../shared/alternate-tempo-subject';
+import { AlternateTempo } from '../../models/alternate-tempo.model';
+import { audios, vGoodJob, vSetGo } from '../../shared/consts';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,6 @@ import { audios, vGoodJob, vSetGo } from './consts';
 export class BasicAlternateTempoMulticastService {
   multicaster: any;
   multicasterSubscription: any;
-  // countSubscription: any;
-  // tempoSubscription: any;
-  // timeSubscription: any;
 
   alternateTempo: AlternateTempo;
   startTime: Date;
@@ -65,9 +62,6 @@ export class BasicAlternateTempoMulticastService {
   }
   stop(): void {
     if (this.multicaster) {
-      // this.tempoSubscription.unsubscribe();
-      // this.countSubscription.unsubscribe();
-      // this.timeSubscription.unsubscribe();
       this.multicasterSubscription.unsubscribe();
       this.multicaster = null;
     }

@@ -16,7 +16,7 @@ export const alternateTempoCounterAudioObservable = (settings: AlternateTempo, t
           audioPlayHelper.play(tempoAudio.background, true);
           break;
         default:
-          tempoAudio.beats[bc.beat].play();
+          audioPlayHelper.play(tempoAudio.beats[bc.beat]);
           subscriber.next(bc);
       }
     },
@@ -25,6 +25,7 @@ export const alternateTempoCounterAudioObservable = (settings: AlternateTempo, t
       tempoAudio.end.play();
       audioPlayHelper.stop(tempoAudio.background);
       subscription.unsubscribe();
+      subscriber.complete();
     });
 
     return () => {

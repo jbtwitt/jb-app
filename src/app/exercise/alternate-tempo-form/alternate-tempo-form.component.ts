@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlternateTempo } from '../../models/alternate-tempo.model';
+import { tempoAudioCollection } from '../../data/tempo-audio-collection';
 
 @Component({
   selector: 'app-alternate-tempo-form',
@@ -8,6 +9,7 @@ import { AlternateTempo } from '../../models/alternate-tempo.model';
 })
 export class AlternateTempoFormComponent implements OnInit {
   @Input() alternateTempo: AlternateTempo = new AlternateTempo();
+  taCollection = tempoAudioCollection;
 
   constructor() { }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlternateTempo, TempoAudio } from '../../models/alternate-tempo.model';
 import { alternateTempoCounterAudioObservable } from '../../shared/alternate-tempo-counter-audio-observable';
 import { BeatCounting } from '../../models/beat-counting.model';
-import { tempoAudioCollection } from '../../data/alternate-tempo-collection';
+import { tempoAudioCollection } from '../../data/tempo-audio-collection';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,18 @@ import { tempoAudioCollection } from '../../data/alternate-tempo-collection';
 export class AlternateTempoCollectionService {
   public currentBeat: BeatCounting;
   subscription: any;
-  tempoAudio: TempoAudio = tempoAudioCollection.default;
 
   constructor() { }
 
-  start(alternateTempo: AlternateTempo, tempoAudio: TempoAudio = tempoAudioCollection.default): void {
-    this.subscription = alternateTempoCounterAudioObservable(alternateTempo, tempoAudio).subscribe((bc: BeatCounting) => {
-      // console.log(bc);
-      this.currentBeat = bc;
-    })
+  start(alternateTempo: AlternateTempo): void {
+    this.subscription = alternateTempoCounterAudioObservable(alternateTempo, tempoAudioCollection[alternateTempo.sound])
+      .subscribe((bc: BeatCounting) => {
+          this.currentBeat = bc;
+        },
+        () => {},
+        () => {
+          this.stop(alternateTempo);
+        });
   }
   stop(alternateTempo: AlternateTempo): void {
     this.subscription.unsubscribe();
