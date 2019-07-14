@@ -6,14 +6,14 @@ import { BeatCounting } from '../models/beat-counting.model';
 
 export const alternateTempoCounterObservable = (settings: AlternateTempo): Observable<BeatCounting> => {
   let multicaster: any;
+  let multicasterSubscription: any;
 
   return new Observable(subscriber => {
     let count = 0;
     multicaster = alternateTempoSubject(settings);
     let tempoBeatSubscription = multicaster.subscribe((b: number) => {
       if (count === +settings.repeat && b === 0) {
-        countSubscription.unsubscribe();
-        tempoBeatSubscription.unsubscribe();
+        multicasterSubscription.unsubscribe();
         subscriber.complete();
       } else {
         subscriber.next({beat: b, count: count + 1});
@@ -23,10 +23,9 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
         console.log('count: ' + c + '/' + settings.repeat);
         count = c;
     });
-    multicaster.connect();
+    multicasterSubscription = multicaster.connect();
     return () => {
-      countSubscription.unsubscribe();
-      tempoBeatSubscription.unsubscribe();
+      multicasterSubscription.unsubscribe();
       multicaster = null;
     }
 });
