@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AlternateTempo } from '../../models/alternate-tempo.model';
-import { alternateTempoCounterObservable } from '../../shared/alternate-tempo-counter-observable';
-import { audios, vGoodJob, vSetGo } from '../../shared/consts';
+import { AlternateTempo, TempoAudio } from '../../models/alternate-tempo.model';
+import { alternateTempoCounterAudioObservable } from '../../shared/alternate-tempo-counter-audio-observable';
 import { BeatCounting } from '../../models/beat-counting.model';
+import { tempoAudioCollection } from '../../data/alternate-tempo-collection';
 
 @Injectable({
   providedIn: 'root'
@@ -10,29 +10,17 @@ import { BeatCounting } from '../../models/beat-counting.model';
 export class AlternateTempoCollectionService {
   public currentBeat: BeatCounting;
   subscription: any;
+  tempoAudio: TempoAudio = tempoAudioCollection.default;
 
   constructor() { }
 
-  start(alternateTempo: AlternateTempo): void {
-    this.subscription = alternateTempoCounterObservable(alternateTempo).subscribe((bc: BeatCounting) => {
-      console.log(bc);
+  start(alternateTempo: AlternateTempo, tempoAudio: TempoAudio = tempoAudioCollection.default): void {
+    this.subscription = alternateTempoCounterAudioObservable(alternateTempo, tempoAudio).subscribe((bc: BeatCounting) => {
+      // console.log(bc);
       this.currentBeat = bc;
-      switch(bc.beat) {
-        case -1:
-          console.log('ready set go');
-          vSetGo.play();
-          break;
-        default:
-          audios[bc.beat].play();
-      }
-    },
-    () => {}, // error
-    () => {   // complete
-      vGoodJob.play();
-      this.currentBeat = null;
-    });
+    })
   }
-  stop(): void {
+  stop(alternateTempo: AlternateTempo): void {
     this.subscription.unsubscribe();
     this.currentBeat = null;
   }

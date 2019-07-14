@@ -16,17 +16,15 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
         multicasterSubscription.unsubscribe();
         subscriber.complete();
       } else {
-        subscriber.next({beat: b, count: count + 1});
+        subscriber.next({beat: b, count: count});
       }
     });
-    let countSubscription = multicaster.pipe(filter((b: number) => b === 1),scan((c: number) => ++c, 0)).subscribe((c: number) => {
-        console.log('count: ' + c + '/' + settings.repeat);
-        count = c;
+    let countSubscription = multicaster.pipe(filter((b: number) => b === 0),scan((c: number) => ++c, 0)).subscribe((c: number) => {
+      count = c;
     });
     multicasterSubscription = multicaster.connect();
     return () => {
       multicasterSubscription.unsubscribe();
-      multicaster = null;
     }
 });
 }

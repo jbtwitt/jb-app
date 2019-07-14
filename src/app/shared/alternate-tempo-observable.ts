@@ -24,7 +24,7 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
       // return unsubscribe for subsciber to dispose
       return () => {
         clearInterval(intervalId);
-        console.log('unsubscribe');
+        console.log('unsubscribe: clear intervalId');
       }
     });
 }
