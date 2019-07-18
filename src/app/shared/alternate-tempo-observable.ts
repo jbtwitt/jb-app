@@ -7,6 +7,7 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
   totalBeats += +settings.stopBeats;
 
   return new Observable(subscriber => {
+    let intervalId: number;
 
     subscriber.next(-1);
     let t: number = 0;
@@ -21,13 +22,13 @@ export const alternateTempoObservable = (settings: AlternateTempo): Observable<n
           subscriber.next(0);
           t = 0;
         }
-      }, settings.tempo);
-  
-      // return unsubscribe for subsciber to dispose
-      return () => {
-        clearInterval(intervalId);
-        console.log('unsubscribe: clear intervalId');
-      }  
+      }, +settings.tempo);
     }, 2000);
+  
+    // return unsubscribe for subsciber to dispose
+    return () => {
+      clearInterval(intervalId);
+      console.log('unsubscribe: clear intervalId');
+    }  
   });
 }
