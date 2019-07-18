@@ -17,6 +17,8 @@ export class AlternateTempoFormComponent implements OnInit {
   }
 
   get estimatedTime(): number {
-    return this.alternateTempo.repeat * this.alternateTempo.tempo * (this.alternateTempo.goBeats + this.alternateTempo.stopBeats);
+    let n: number = +this.alternateTempo.goBeats;
+    n += +this.alternateTempo.stopBeats;
+    return n * this.alternateTempo.repeat * this.alternateTempo.tempo;
   }
 }
