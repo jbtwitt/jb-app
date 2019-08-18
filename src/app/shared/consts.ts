@@ -26,3 +26,14 @@ export const audioBackgrounds = [
     new Audio(`${audioPath}/howlingabyss_champselect.mp3`),
     new Audio(`${audioPath}/butchersbridge_champselect.mp3`),
 ];
+export const namedAudioBackgrounds = {
+    classic0: new Audio(`${audioPath}/1698 Pachelbel , Canon in D.mp3`),
+    classic1: new Audio(`${audioPath}/1731 Vivaldi , Flute Concerto in G minor 'La Notte', VI. Allegro.mp3`),
+    classic2: new Audio(`${audioPath}/1778 Rondo Alla Turca, from Piano Sonata in A.mp3`),
+    classic3: new Audio(`${audioPath}/1810 Beethoven- Fur Elise.mp3`),
+    classic4: new Audio(`${audioPath}/1848 Schumann - The Merry Peasant.mp3`),
+    classic5: new Audio(`${audioPath}/1858 J. Strauss II- Tritsch Tratsch Polka.mp3`),
+    classic6: new Audio(`${audioPath}/1865 Brahms- Waltz.mp3`),
+    classic7: new Audio(`${audioPath}/1896 R. Strauss - Also sprach Zarathustra - Fanfare.mp3`),
+    classic8: new Audio(`${audioPath}/1900 Rimsky-Korsakov - Dance of the Bumble Bee.mp3`),
+}

@@ -1,6 +1,14 @@
-import { audioBackgrounds, vGoodJob, vSetGo, alternateTempoAudioCollection } from '../shared/consts';
+import {
+    namedAudioBackgrounds,
+    audioBackgrounds, vGoodJob, vSetGo, alternateTempoAudioCollection } from '../shared/consts';
 export const tempoAudioCollection = {
     default: {
+        start: vSetGo,
+        background: namedAudioBackgrounds['classic0'],
+        beats: alternateTempoAudioCollection.oneTwo,
+        end: vGoodJob,
+    },
+    oneTwo_wo_background_music: {
         start: vSetGo,
         background: null,
         beats: alternateTempoAudioCollection.oneTwo,
@@ -14,7 +22,7 @@ export const tempoAudioCollection = {
     },
     upDown: {
         start: vSetGo,
-        background: audioBackgrounds[1],
+        background: namedAudioBackgrounds["classic6"],
         beats: alternateTempoAudioCollection.upDown,
         end: vGoodJob,
     },
