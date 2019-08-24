@@ -26,5 +26,5 @@ export const alternateTempoCounterObservable = (settings: AlternateTempo): Obser
     return () => {
       multicasterSubscription.unsubscribe();
     }
-});
+  });
 }
