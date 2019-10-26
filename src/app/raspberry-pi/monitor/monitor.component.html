@@ -1,22 +1,27 @@
-<mat-card class="example-card">
-    <!-- <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Raspberry 2</mat-card-title>
-      <mat-card-subtitle>2nd floor</mat-card-subtitle>
-    </mat-card-header> -->
-    <div>Timestamp: {{timestamp | date: 'HH:mm:ss'}}</div>
-    <!-- <img mat-card-image style="width: 50%" src="http://192.168.0.118:5000/snapshot" alt="Pi 1">
-    <img mat-card-image style="width: 50%" src="http://192.168.0.119:5000/snapshot" alt="Pi 2"> -->
-    <!-- <img mat-card-image style="width: 50%" [src]="pi1ImgSrc" alt="Pi 1">
-    <img mat-card-image style="width: 50%" [src]="pi2ImgSrc" alt="Pi 2"> -->
-    <img mat-card-image style="width: 50%" [src]="piImgs[0]" alt="Pi">
-    <img mat-card-image style="width: 50%" [src]="piImgs[1]" alt="Pi">
+<div style="width: 100%;">
+    <img style="width: 50%" 
+        *ngFor="let i of [1, 0]"
+        [src]="piImgs[i]"
+        alt="Pi {{i}}">
+</div>
+Timestamp: {{timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}
+<!-- <mat-card>
+    <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>Timestamp: {{timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}</mat-card-title>
+        <mat-card-subtitle>Timestamp: {{timestamp | date: 'HH:mm:ss'}}</mat-card-subtitle>
+    </mat-card-header>
+
+    all sreen refresh: not good
+    <span *ngFor="let piImg of piImgs; index as i">
+        <img mat-card-image style="width: 50%" [src]="piImgs[i]" alt="Pi {{piImg}}">
+    </span>
+    <span *ngFor="let i of [1, 0]">
+        <img mat-card-image style="width: 50%" [src]="piImgs[i]" alt="Pi {{i}}">
+    </span>
+
     <mat-card-content>
-      <p>
-      </p>
+        <mat-card-title>Timestamp: {{timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}</mat-card-title>
     </mat-card-content>
-    <mat-card-actions>
-      <!-- <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button> -->
-    </mat-card-actions>
-</mat-card>
+
+</mat-card> -->
