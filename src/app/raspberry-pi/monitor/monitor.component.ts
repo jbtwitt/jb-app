@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 const PiUrls = [
-  "http://192.168.0.118:5000/snapshot",
-  "http://192.168.0.119:5000/snapshot",
+  "http://192.168.0.118:5000/pi-monitor",
+  "http://192.168.0.119:5000/pi-monitor",
 ]
 
 @Component({
