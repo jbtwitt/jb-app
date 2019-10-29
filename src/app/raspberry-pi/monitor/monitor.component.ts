@@ -17,8 +17,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   seconds: number = 1.5;
 
   intervalId: any
-  // count: number = 0
-  // maxCount: number = 1000;
+  hoursAgo: string = ""
 
   constructor() { }
 
@@ -26,11 +25,13 @@ export class MonitorComponent implements OnInit, OnDestroy {
     this.intervalId = setInterval(() => {
       this.timestamp = new Date;
       for (let i = 0; i < this.piImgs.length; i++) {
-        this.piImgs[i] = PiUrls[i] + '?' + this.timestamp.getSeconds()
+        if (this.hoursAgo == "") {
+          this.piImgs[i] = PiUrls[i] + '?' + this.timestamp.getSeconds()
+        } else {
+          this.piImgs[i] = PiUrls[i] + '?hoursAgo=' + this.hoursAgo + '&' + this.timestamp.getSeconds()
+        }
       }
-      // if (++this.count > this.maxCount) {
-      //   clearInterval(this.intervalId)
-      // }
+      // console.log(this.piImgs)
     }, this.seconds * 1000);
   }
 

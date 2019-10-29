@@ -4,6 +4,12 @@
         [src]="piImgs[i]"
         alt="Pi {{i}}">
 </div>
+<mat-form-field>
+    <mat-label>Hours Ago</mat-label>
+    <input matInput placeholder="Hours Ago" type="text"
+        [(ngModel)]="hoursAgo">
+</mat-form-field>
+
 Timestamp: {{timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}
 <!-- <mat-card>
     <mat-card-header>
