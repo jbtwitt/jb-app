@@ -23,13 +23,14 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.intervalId = setInterval(() => {
-      this.timestamp = new Date;
+      this.timestamp = new Date();
+      let urlParameter = '?' + this.timestamp.getSeconds()
+      if (this.hoursAgo != "") {
+        urlParameter = '?hoursAgo=' + this.hoursAgo + '&' + this.timestamp.getSeconds()
+        this.timestamp.setHours(this.timestamp.getHours() - parseFloat(this.hoursAgo))
+      }
       for (let i = 0; i < this.piImgs.length; i++) {
-        if (this.hoursAgo == "") {
-          this.piImgs[i] = PiUrls[i] + '?' + this.timestamp.getSeconds()
-        } else {
-          this.piImgs[i] = PiUrls[i] + '?hoursAgo=' + this.hoursAgo + '&' + this.timestamp.getSeconds()
-        }
+        this.piImgs[i] = PiUrls[i] + urlParameter
       }
       // console.log(this.piImgs)
     }, this.seconds * 1000);
