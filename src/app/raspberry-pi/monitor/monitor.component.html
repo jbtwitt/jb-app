@@ -9,6 +9,11 @@
     <input matInput placeholder="Hours Ago" type="text"
         [(ngModel)]="hoursAgo">
 </mat-form-field>
+<mat-form-field>
+    <mat-label>Minutes Ago</mat-label>
+    <input matInput placeholder="Minutes Ago" type="text"
+        [(ngModel)]="minutesAgo">
+</mat-form-field>
 
 {{timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}
 <!-- <mat-card>

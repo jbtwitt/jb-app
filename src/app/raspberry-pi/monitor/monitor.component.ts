@@ -18,16 +18,24 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   intervalId: any
   hoursAgo: string = ""
+  minutesAgo: string = ""
 
   constructor() { }
 
   ngOnInit() {
     this.intervalId = setInterval(() => {
+      let minutes = 0
       this.timestamp = new Date();
       let urlParameter = '?' + this.timestamp.getSeconds()
       if (this.hoursAgo != "") {
-        urlParameter = '?hoursAgo=' + this.hoursAgo + '&' + this.timestamp.getSeconds()
-        this.timestamp.setHours(this.timestamp.getHours() - parseFloat(this.hoursAgo))
+        minutes = 60 * parseInt(this.hoursAgo)
+      }
+      if (this.minutesAgo != "") {
+        minutes += parseInt(this.minutesAgo)
+      }
+      if (minutes > 0) {
+        urlParameter = '?minutesAgo=' + minutes + '&' + this.timestamp.getSeconds()
+        this.timestamp.setMinutes(this.timestamp.getMinutes() - minutes)
       }
       for (let i = 0; i < this.piImgs.length; i++) {
         this.piImgs[i] = PiUrls[i] + urlParameter
