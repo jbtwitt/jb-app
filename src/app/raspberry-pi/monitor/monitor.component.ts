@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 const PiUrls = [
-  "http://192.168.0.118:5000/pi-monitor",
-  "http://192.168.0.119:5000/pi-monitor",
+  "http://192.168.0.110:5000/pi-monitor",
+  "http://192.168.0.107:5000/pi-monitor",
 ]
 
 @Component({
@@ -26,7 +26,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
     this.intervalId = setInterval(() => {
       let minutes = 0
       this.timestamp = new Date();
-      let urlParameter = '?' + this.timestamp.getSeconds()
+      let urlParameter = '?nocache=' + this.timestamp.getTime()
       if (this.hoursAgo != "") {
         minutes = 60 * parseInt(this.hoursAgo)
       }
@@ -34,7 +34,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
         minutes += parseInt(this.minutesAgo)
       }
       if (minutes > 0) {
-        urlParameter = '?minutesAgo=' + minutes + '&' + this.timestamp.getSeconds()
+        urlParameter = urlParameter + '&minutesAgo=' + minutes
         this.timestamp.setMinutes(this.timestamp.getMinutes() - minutes)
       }
       for (let i = 0; i < this.piImgs.length; i++) {
