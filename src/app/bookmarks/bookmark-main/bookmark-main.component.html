@@ -12,11 +12,11 @@
 </mat-nav-list>
 </td>
 
-<td>
+<td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers']">
 <mat-nav-list>
-    <mat-list-item *ngFor="let ticker of hqCollection.etf">
+    <mat-list-item *ngFor="let ticker of hqCollection[cat]">
     <mat-icon matListIcon>insert_chart_outlined</mat-icon>
-    <a style="width: 64px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
+    <a style="width: 72px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
     <a style="width: 16px;" [href]="hqChart(ticker)" target="_blank">C</a>
     <a [href]="hqHistory(ticker)" target="_blank">H</a>
     </mat-list-item>
