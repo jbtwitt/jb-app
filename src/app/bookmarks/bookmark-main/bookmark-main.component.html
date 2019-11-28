@@ -1,11 +1,27 @@
-<!-- <p>
-    <a *ngFor="let bookmark of bookmarksCollection" [href]="bookmark.url" target="_blank">{{ bookmark.title }}</a>
-</p> -->
+<table width="100%">
+<tr>
+
+<td valign="top">
 <mat-nav-list>
     <mat-list-item *ngFor="let bookmark of bookmarksCollection">
-    <mat-icon matListIcon>folder</mat-icon>{{ bookmark.category }}
+    <mat-icon matListIcon>library_books</mat-icon>{{ bookmark.category }}
     <a mat-list-item [href]="bookmark.url" target="_blank">
         {{ bookmark.title }}
     </a>
     </mat-list-item>
 </mat-nav-list>
+</td>
+
+<td>
+<mat-nav-list>
+    <mat-list-item *ngFor="let ticker of hqCollection.etf">
+    <mat-icon matListIcon>insert_chart_outlined</mat-icon>
+    <a style="width: 64px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
+    <a style="width: 16px;" [href]="hqChart(ticker)" target="_blank">C</a>
+    <a [href]="hqHistory(ticker)" target="_blank">H</a>
+    </mat-list-item>
+</mat-nav-list>
+</td>
+
+</tr>
+</table>

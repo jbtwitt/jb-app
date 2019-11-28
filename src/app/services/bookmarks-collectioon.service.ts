@@ -12,4 +12,7 @@ export class BookmarksCollectioonService {
   getBookmarksCollection(): Observable<any[]> {
     return this.httpClient.get<any[]>('/assets/bookmarks-collection.json');
   }
+  getHqCollection(): Observable<any[]> {
+    return this.httpClient.get<any[]>('/assets/hqrobot.json');
+  }
 }
