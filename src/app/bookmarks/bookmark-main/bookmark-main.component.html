@@ -1,0 +1,11 @@
+<!-- <p>
+    <a *ngFor="let bookmark of bookmarksCollection" [href]="bookmark.url" target="_blank">{{ bookmark.title }}</a>
+</p> -->
+<mat-nav-list>
+    <mat-list-item *ngFor="let bookmark of bookmarksCollection">
+    <mat-icon matListIcon>folder</mat-icon>{{ bookmark.category }}
+    <a mat-list-item [href]="bookmark.url" target="_blank">
+        {{ bookmark.title }}
+    </a>
+    </mat-list-item>
+</mat-nav-list>
