@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { constBookmarksCollection } from "../../data/bookmarks-collection";
+import { BookmarksCollectioonService } from 'src/app/services/bookmarks-collectioon.service';
 
 @Component({
   selector: 'app-bookmark-main',
@@ -7,11 +7,14 @@ import { constBookmarksCollection } from "../../data/bookmarks-collection";
   styleUrls: ['./bookmark-main.component.sass']
 })
 export class BookmarkMainComponent implements OnInit {
-  bookmarksCollection = constBookmarksCollection;
+  bookmarksCollection: any;
 
-  constructor() { }
+  constructor(private bookmarkService: BookmarksCollectioonService) { }
 
   ngOnInit() {
+    this.bookmarkService.getBookmarksCollection().subscribe(data => {
+      this.bookmarksCollection = data;
+    })
   }
 
 }

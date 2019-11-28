@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { BookmarksModule } from './bookmarks/bookmarks.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
