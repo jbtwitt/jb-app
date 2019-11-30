@@ -1,27 +1,29 @@
-<table width="100%">
-<tr>
+<mat-tab-group>
+    <mat-tab label="Library">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let bookmark of bookmarksCollection">
+            <mat-icon matListIcon>library_books</mat-icon>
+            <a [href]="bookmark.url" target="_blank">{{ bookmark.title }}</a>
+            &nbsp; | {{ bookmark.category }}
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+    <mat-tab label="HQ">
+        <table width="100%">
+        <tr>
 
-<td valign="top">
-<mat-nav-list>
-    <mat-list-item *ngFor="let bookmark of bookmarksCollection">
-    <mat-icon matListIcon>library_books</mat-icon>{{ bookmark.category }}
-    <a mat-list-item [href]="bookmark.url" target="_blank">
-        {{ bookmark.title }}
-    </a>
-    </mat-list-item>
-</mat-nav-list>
-</td>
+        <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers']">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let ticker of hqCollection[cat]">
+            <mat-icon matListIcon>insert_chart_outlined</mat-icon>
+            <a style="width: 96px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
+            <a style="width: 16px;" [href]="hqChart(ticker)" target="_blank">C</a>
+            <a [href]="hqHistory(ticker)" target="_blank">H</a>
+            </mat-list-item>
+        </mat-nav-list>
+        </td>
 
-<td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers']">
-<mat-nav-list>
-    <mat-list-item *ngFor="let ticker of hqCollection[cat]">
-    <mat-icon matListIcon>insert_chart_outlined</mat-icon>
-    <a style="width: 72px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
-    <a style="width: 16px;" [href]="hqChart(ticker)" target="_blank">C</a>
-    <a [href]="hqHistory(ticker)" target="_blank">H</a>
-    </mat-list-item>
-</mat-nav-list>
-</td>
-
-</tr>
-</table>
+        </tr>
+        </table>
+    </mat-tab>
+</mat-tab-group>
