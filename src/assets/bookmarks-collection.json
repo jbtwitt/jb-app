@@ -1,14 +1,21 @@
 [
-    {
-        "category": "Report",
-        "title": "Solari Report",
-        "url": "https://home.solari.com/"
-    },
-    {
-        "category": "Law",
-        "title": "The American Bar Association",
-        "url": "https://www.americanbar.org/"
-    },
+    { "category": "Finance", "title": "US Securities and Exchange Commission", "url": "https://www.sec.gov/" },
+    { "category": "Finance", "title": "The Four Most Important Market Indicators", "url": "https://www.youtube.com/watch?v=FnhjJJLQ_0I" },
+    { "category": "Finance", "title": "Tom Lee Site", "url": "https://fsinsight.com/" },
+
+    { "category": "Report", "title": "Solari Report", "url": "https://home.solari.com/" },
+
+    { "category": "Law", "title": "The American Bar Association", "url": "https://www.americanbar.org/" },
+
+    { "category": "AudioBook", "title": "The Magic of Thinking Big| David Schwartz Audiobook", "url": "https://www.youtube.com/watch?v=p13s38JW9ng" },
+
+    { "category": "Tech", "title": "Web Technology Mozilla", "url": "https://developer.mozilla.org/en-US/docs/Web" },
+    { "category": "Tech", "title": "Tensorflow", "url": "https://www.tensorflow.org/" },
+    { "category": "Tech", "title": "FFmpeg", "url": "https://www.ffmpeg.org/" },
+    { "category": "Tech", "title": "OpenCV", "url": "https://opencv.org/" },
+    { "category": "Tech", "title": "Kubernets", "url": "https://kubernetes.io/" },
+
+    { "category": "", "title": "", "url": "" },
     {
         "category": "",
         "title": "",

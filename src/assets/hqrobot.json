@@ -1,0 +1,23 @@
+{
+    "repo": "/gitrepo/robotRepo",
+    "hqDays": 520,
+    "tickers": [
+        "MSFT", "SAP", "SPCE", "BA",
+        "ATHX", "STML", "WATT", "NVAX", "BCRX", "AGEN", "GBTC", "FIT",
+        "NVDA", "IPGP", "SNAP", "BLNK", "MEIP",
+        "JNCE", "EIGR", "SNDX", "CARA", "VSTM", "GEVO"],
+    "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST", "SQQQ", "TQQQ",
+        "YINN", "YANG", "GUSH", "DRIP"],
+    "idx": ["^IXIC", "^GSPC", "^DJI", "^TNX", "DX-Y.NYB", "GCZ19.CMX"],
+    "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
+    "vix": ["SVXY", "VXX", "UVXY"],
+    "hqUrl": {
+        "yf": "https://finance.yahoo.com/",
+        "q": "https://finance.yahoo.com/quote/{}?p={}",
+        "h": "https://finance.yahoo.com/quote/{}/history?p={}",
+        "c": "https://finance.yahoo.com/chart/{}"
+    },
+    "etf-bear": ["LABD", "ERY", "DUST", "VXX", "TQQQ"],
+    "target": {},
+    "sleep": 1
+}

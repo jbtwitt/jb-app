@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BookmarksCollectioonService {
+export class DataService {
 
   constructor(private httpClient: HttpClient) { }
 
@@ -14,5 +14,8 @@ export class BookmarksCollectioonService {
   }
   getHqCollection(): Observable<any[]> {
     return this.httpClient.get<any[]>('/assets/hqrobot.json');
+  }
+  getPiAddr(): Observable<any[]> {
+    return this.httpClient.get<any[]>('/assets/pi-addr.json');
   }
 }

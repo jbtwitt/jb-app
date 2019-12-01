@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookmarksCollectioonService } from 'src/app/services/bookmarks-collectioon.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-bookmark-main',
@@ -10,13 +10,13 @@ export class BookmarkMainComponent implements OnInit {
   bookmarksCollection: any;
   hqCollection: any;
 
-  constructor(private bookmarkService: BookmarksCollectioonService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.bookmarkService.getBookmarksCollection().subscribe(data => {
+    this.dataService.getBookmarksCollection().subscribe(data => {
       this.bookmarksCollection = data;
     })
-    this.bookmarkService.getHqCollection().subscribe(data => {
+    this.dataService.getHqCollection().subscribe(data => {
       this.hqCollection = data;
     })
   }
