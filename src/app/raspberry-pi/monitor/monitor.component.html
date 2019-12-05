@@ -1,9 +1,20 @@
-<div style="width: 100%;">
-    <img style="width: 50%" 
-        *ngFor="let i of [1, 0]"
-        [src]="piImgs[i]"
-        alt="Pi {{i}}">
+<div *ngIf="piImgs.length > 0" style="width: 100%;">
+    <span *ngFor="let piImg of piImgs">
+        <img style="width: 50%"
+            [src]="piImg.url"
+            (click)="piImgOnClick(piImg)"
+            alt="Pi {{piImg.url}}">
+    </span>
 </div>
+<!-- full picture -->
+<div *ngIf="piImgs.length > 0" style="width: 100%;">
+    <span *ngFor="let piImg of piImgs">
+        <img *ngIf="piImg.show"
+            [src]="piImg.url"
+            (click)="piImgOnClick(piImg)">
+    </span>
+</div>
+
 <mat-form-field>
     <mat-label>Hours Ago</mat-label>
     <input matInput placeholder="Hours Ago" type="text"
