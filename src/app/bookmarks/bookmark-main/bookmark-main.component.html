@@ -9,7 +9,7 @@
         </mat-nav-list>
     </mat-tab>
     <mat-tab label="HQ">
-        <table width="100%">
+        <table *ngIf="hqCollection != null" width="100%">
         <tr>
 
         <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers']">
