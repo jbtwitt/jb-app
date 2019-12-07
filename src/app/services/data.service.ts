@@ -9,6 +9,9 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getNotes(): Observable<any[]> {
+    return this.httpClient.get<any[]>('/assets/notes.json');
+  }
   getBookmarksCollection(): Observable<any[]> {
     return this.httpClient.get<any[]>('/assets/bookmarks-collection.json');
   }

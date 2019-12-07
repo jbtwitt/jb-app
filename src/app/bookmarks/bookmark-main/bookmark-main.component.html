@@ -1,6 +1,14 @@
 <mat-tab-group>
+    <mat-tab label="Notes">
+        <mat-nav-list *ngIf="notes != null">
+            <mat-list-item *ngFor="let note of notes">
+            <a [href]="note.url" target="_blank">{{ note.text }}</a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+
     <mat-tab label="Library">
-        <mat-nav-list>
+        <mat-nav-list *ngIf="bookmarksCollection != null">
             <mat-list-item *ngFor="let bookmark of bookmarksCollection">
             <mat-icon matListIcon>library_books</mat-icon>
             <a [href]="bookmark.url" target="_blank">{{ bookmark.title }}</a>
@@ -8,6 +16,7 @@
             </mat-list-item>
         </mat-nav-list>
     </mat-tab>
+
     <mat-tab label="HQ">
         <table *ngIf="hqCollection != null" width="100%">
         <tr>

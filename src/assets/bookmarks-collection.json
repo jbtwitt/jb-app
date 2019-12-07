@@ -14,6 +14,7 @@
     { "category": "Tech", "title": "FFmpeg", "url": "https://www.ffmpeg.org/" },
     { "category": "Tech", "title": "OpenCV", "url": "https://opencv.org/" },
     { "category": "Tech", "title": "Kubernets", "url": "https://kubernetes.io/" },
+    { "category": "Tech", "title": "PyTorch", "url": "https://www.youtube.com/watch?v=v5cngxo4mIg&list=PLZbbT5o_s2xrfNyHZsM6ufI0iZENK9xgG" },
 
     { "category": "", "title": "", "url": "" },
     {

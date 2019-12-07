@@ -7,12 +7,16 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./bookmark-main.component.sass']
 })
 export class BookmarkMainComponent implements OnInit {
-  bookmarksCollection: any;
+  bookmarksCollection: any[];
   hqCollection: any;
+  notes: any[];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.getNotes().subscribe(data => {
+      this.notes = data;
+    })
     this.dataService.getBookmarksCollection().subscribe(data => {
       this.bookmarksCollection = data;
     })
