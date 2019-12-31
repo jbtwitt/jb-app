@@ -1,4 +1,15 @@
 <mat-tab-group>
+
+    <mat-tab label="Educations">
+        <mat-nav-list *ngIf="educations != null">
+            <mat-list-item *ngFor="let edu of educations">
+            <mat-icon matListIcon>school</mat-icon>
+            <a [href]="edu.url" target="_blank">{{ edu.title }}</a>
+            <!-- &nbsp; | {{ edu.category }} -->
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+
     <mat-tab label="Notes">
         <mat-nav-list *ngIf="notes != null">
             <mat-list-item *ngFor="let note of notes">

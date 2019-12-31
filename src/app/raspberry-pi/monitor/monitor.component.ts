@@ -20,7 +20,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getPiAddr().subscribe(data => {
+    this.dataService.getAssetData('pi-addr.json').subscribe(data => {
       this.piUrls = data;
       this.piUrls.forEach(url => {
         this.piImgs.push({url: url, show: 0})
