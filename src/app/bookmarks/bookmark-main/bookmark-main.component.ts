@@ -11,6 +11,7 @@ export class BookmarkMainComponent implements OnInit {
   hqCollection: any;
   notes: any[];
   educations: any[]
+  hqPrice: number
 
   constructor(private dataService: DataService) { }
 
