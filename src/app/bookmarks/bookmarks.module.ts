@@ -5,9 +5,10 @@ import { MatListModule, MatIconModule, MatTabsModule, MatInputModule } from '@an
 
 import { BookmarksRoutingModule } from './bookmarks-routing.module';
 import { BookmarkMainComponent } from './bookmark-main/bookmark-main.component';
+import { HqPercentListComponent } from './components/hq-percent-list/hq-percent-list.component';
 
 @NgModule({
-  declarations: [BookmarkMainComponent],
+  declarations: [BookmarkMainComponent, HqPercentListComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -29,38 +29,12 @@
     </mat-tab>
 
     <mat-tab label="HQ">
-        <div>
-            <div style="float: left; padding-left: 20px;">
-            <mat-form-field style="width: 64px;">
-                <mat-label>hq</mat-label>
-                <input matInput placeholder="hq" type="number"
-                    [(ngModel)]="hqPrice">
-            </mat-form-field>
-            </div>
-            <div style="float: left; padding-left: 10px;">
-                <table>
-                    <tr>
-                        <td *ngFor="let i of percentList" style="color: blue; text-align: right;">
-                            {{ 100 * i | number: .0 }}%
-                        </td>
-                    </tr>
-                    <tr>
-                        <td *ngFor="let i of percentList" style="text-align: right;">
-                            &nbsp;{{ hqPrice + hqPrice * i | currency:'USD':symbol: '.2-2' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td *ngFor="let i of percentList" style="color: red; text-align: right;">
-                            <span *ngIf="i > 0">
-                            &nbsp;{{ hqPrice - hqPrice * i | currency:'USD':symbol: '.2-2' }}
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div style="clear: left"></div>
-        </div>
-        
+    <div>
+    <div style="float: left;">
+        <app-hq-percent-list></app-hq-percent-list>
+    </div>
+
+    <div style="float: left;">
         <table *ngIf="hqCollection != null" width="100%">
         <tr>
 
@@ -77,5 +51,9 @@
 
         </tr>
         </table>
+    </div>
+
+    <div style="clear: left;"></div>
+    </div>
     </mat-tab>
 </mat-tab-group>

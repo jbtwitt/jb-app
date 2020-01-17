@@ -11,8 +11,6 @@ export class BookmarkMainComponent implements OnInit {
   hqCollection: any;
   notes: any[];
   educations: any[]
-  hqPrice: number
-  percentList = [ 0, .01, .02,.03,.04,.05,.06, .07, .08, .09, .1 ]
 
   constructor(private dataService: DataService) { }
 
