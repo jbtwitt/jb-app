@@ -1,20 +1,21 @@
 <!-- <mat-accordion> -->
 <mat-expansion-panel *ngFor="let at of atCollection | keyvalue" [expanded]="1">
 
-    <mat-expansion-panel-header>
-      Alternate Tempo: {{ at.key }} - Repeat: {{at.value.repeat}}, Go {{at.value.goBeats}}, Stop {{at.value.stopBeats}}
-    </mat-expansion-panel-header>
+  <mat-expansion-panel-header>
+    Alternate Tempo: {{ at.key }} - Repeat: {{at.value.repeat}}, Go {{at.value.goBeats}}, Stop {{at.value.stopBeats}}
+  </mat-expansion-panel-header>
   
-    <app-alternate-tempo-form [alternateTempo]="at.value"></app-alternate-tempo-form>
+  <app-alternate-tempo-form [alternateTempo]="at.value"></app-alternate-tempo-form>
 
-    <mat-action-row>
-      <button mat-raised-button (click)="atCollectionService.start(at.value)" *ngIf="!atCollectionService.currentBeat">
-        <mat-icon>play_arrow</mat-icon> Go 
-      </button>
-      <button mat-raised-button (click)="atCollectionService.stop(at.value)" *ngIf="atCollectionService.currentBeat">
-        <mat-icon>stop</mat-icon> Stop
-        <mat-label>{{atCollectionService.currentBeat?.count}}</mat-label>
-      </button>
-    </mat-action-row>
-</mat-expansion-panel>
+  <mat-action-row>
+    <button mat-raised-button (click)="atCollectionService.start(at.value)" *ngIf="!atCollectionService.currentBeat">
+      <mat-icon>play_arrow</mat-icon> Go 
+    </button>
+    <button mat-raised-button (click)="atCollectionService.stop(at.value)" *ngIf="atCollectionService.currentBeat">
+      <mat-icon>stop</mat-icon> Stop
+      <mat-label>{{atCollectionService.currentBeat?.count}}</mat-label>
+    </button>
+  </mat-action-row>
+
+  </mat-expansion-panel>
 <!-- </mat-accordion> -->

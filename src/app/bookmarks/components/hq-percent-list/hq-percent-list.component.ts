@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-const TOP = 12
+const TOP = 15
 
 @Component({
   selector: 'app-hq-percent-list',

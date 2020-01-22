@@ -10,6 +10,6 @@ export class DataService {
   constructor(private httpClient: HttpClient) { }
 
   getAssetData(uri: string): Observable<any[]> {
-    return this.httpClient.get<any[]>('/assets/' + uri);
+    return this.httpClient.get<any[]>(`/assets/${uri}`);
   }
 }
