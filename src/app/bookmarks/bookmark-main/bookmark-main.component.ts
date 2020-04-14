@@ -15,16 +15,16 @@ export class BookmarkMainComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getAssetData('notes.json').subscribe(data => {
+    this.dataService.getAssetJsonData('notes.json').subscribe(data => {
       this.notes = data;
     })
-    this.dataService.getAssetData('bookmarks-collection.json').subscribe(data => {
+    this.dataService.getAssetJsonData('bookmarks-collection.json').subscribe(data => {
       this.bookmarksCollection = data;
     })
-    this.dataService.getAssetData('hqrobot.json').subscribe(data => {
+    this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
       this.hqCollection = data;
     })
-    this.dataService.getAssetData('educations.json').subscribe(data => {
+    this.dataService.getAssetJsonData('educations.json').subscribe(data => {
       this.educations = data
     })
   }

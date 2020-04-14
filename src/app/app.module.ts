@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExerciseModule } from './exercise/exercise.module';
 import { RaspberryPiModule } from './raspberry-pi/raspberry-pi.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
+import { PortfolioModule } from './hq/portfolio/portfolio.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BookmarksModule } from './bookmarks/bookmarks.module';
     ExerciseModule,
     RaspberryPiModule,
     BookmarksModule,
+    PortfolioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,43 @@
+<table mat-table width="100%"
+    [dataSource]="portfolio" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Ticker">
+      <th mat-header-cell *matHeaderCellDef> Ticker </th>
+      <td mat-cell *matCellDef="let element"> {{element.Ticker}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Shares">
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Shares </th>
+      <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.Shares}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="BuyPrice">
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Buy Price </th>
+      <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.BuyPrice}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="SoldPrice">
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Sold Price </th>
+      <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.SoldPrice}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="BuyDate">
+      <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Date Bought </th>
+      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.BuyDate}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="SoldDate">
+      <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Date Sold </th>
+      <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.SoldDate}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Broker">
+      <th mat-header-cell *matHeaderCellDef> Broker </th>
+      <td mat-cell *matCellDef="let element"> {{element.Broker}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  
