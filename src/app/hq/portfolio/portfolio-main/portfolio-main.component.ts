@@ -16,6 +16,8 @@ export class PortfolioMainComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(arr => {
       this.portfolio = arr;
+      // open tickers
+      // this.portfolio = arr.filter(p => p.soldDate === '');
     })
   }
 

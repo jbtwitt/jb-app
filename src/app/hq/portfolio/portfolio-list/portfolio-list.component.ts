@@ -7,20 +7,15 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class PortfolioListComponent implements OnChanges {
   @Input() portfolio: any[] = [];
-  displayedColumns: string[] = [
-    'Ticker',
-    'Shares',
-    'BuyPrice',
-    'SoldPrice',
-    'BuyDate',
-    'SoldDate',
-    'Broker'
-  ];
+  displayedColumns: string[];
 
   constructor() { }
 
   ngOnChanges() {
-    console.log(this.portfolio)
+    console.log(this.portfolio);
+    if (this.portfolio && this.portfolio.length > 0) {
+      this.displayedColumns = Object.keys(this.portfolio[0]);
+    }
   }
 
 }

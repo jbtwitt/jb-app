@@ -13,7 +13,8 @@ export class DataService {
   getAssetJsonData(uri: string): Observable<any[]> {
     return this.httpClient.get<any[]>(`/assets/${uri}`);
   }
-  // convert string array to object
+  // convert csv string array to object
+  // first row must be header
   array2Json(srcArr: any[]): any[] {
     const header = srcArr[0];
     const result = [];
@@ -31,9 +32,10 @@ export class DataService {
     return this.httpClient
       .get<any>(`/assets/${uri}`, {responseType: 'text' as 'json',})
       .pipe(
-        map((str: string) => {
-          // transform csv string to array
-          const lines = str.split('\n').filter(l => l.length > 0);
+        // transform csv string to array
+        map((str: string) => str.split('\n').filter(l => l.length > 0)),
+        // convert to json
+        map((lines: string[]) => {
           const rows = [];
           lines.forEach(line => {
             line = line.replace('\r', '');
