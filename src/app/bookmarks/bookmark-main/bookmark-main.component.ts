@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-bookmark-main',
@@ -8,11 +9,13 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class BookmarkMainComponent implements OnInit {
   bookmarksCollection: any[];
-  hqCollection: any;
   notes: any[];
-  educations: any[]
+  educations: any[];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    public uiService: UiService,
+    private dataService: DataService,
+  ) { }
 
   ngOnInit() {
     this.dataService.getAssetJsonData('notes.json').subscribe(data => {
@@ -21,20 +24,17 @@ export class BookmarkMainComponent implements OnInit {
     this.dataService.getAssetJsonData('bookmarks-collection.json').subscribe(data => {
       this.bookmarksCollection = data;
     })
-    this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
-      this.hqCollection = data;
-    })
     this.dataService.getAssetJsonData('educations.json').subscribe(data => {
       this.educations = data
     })
   }
   hqUrl(ticker: string): string {
-    return this.hqCollection.hqUrl.q.replace(/{}/g, ticker);
+    return this.uiService.hqRobotJson.hqUrl.q.replace(/{}/g, ticker);
   }
   hqChart(ticker: string): string {
-    return this.hqCollection.hqUrl.c.replace("{}", ticker);
+    return this.uiService.hqRobotJson.hqUrl.c.replace("{}", ticker);
   }
   hqHistory(ticker: string): string {
-    return this.hqCollection.hqUrl.h.replace(/{}/g, ticker);
+    return this.uiService.hqRobotJson.hqUrl.h.replace(/{}/g, ticker);
   }
 }
