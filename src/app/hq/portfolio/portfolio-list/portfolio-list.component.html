@@ -17,7 +17,7 @@
           target="_blank">c</a> -->
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="shares">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Shares </th>
       <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.shares}} </td>
@@ -68,5 +68,3 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
-  

@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class HqstatMainComponent implements OnInit {
   hqStatData: any[];
+  csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
 
   constructor(
     private dataService: DataService,
@@ -16,7 +17,7 @@ export class HqstatMainComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
       this.hqStatData = data;
-    })
+    });
   }
 
 }

@@ -17,6 +17,9 @@ export class DataService {
   // first row must be header
   array2Json(srcArr: any[]): any[] {
     const header = srcArr[0];
+    for (let j=0; j<header.length; j++) {
+      header[j] = header[j].replace(' ', '_');
+    }
     const result = [];
     for (let i=1; i<srcArr.length; i++) {
       const row = srcArr[i];

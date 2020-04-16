@@ -5,9 +5,10 @@ import { HqstatRoutingModule } from './hqstat-routing.module';
 import { HqstatMainComponent } from './hqstat-main/hqstat-main.component';
 import { HqstatListComponent } from './hqstat-list/hqstat-list.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
+import { HqhistoryListComponent } from './hqhistory-list/hqhistory-list.component';
 
 @NgModule({
-  declarations: [HqstatMainComponent, HqstatListComponent],
+  declarations: [HqstatMainComponent, HqstatListComponent, HqhistoryListComponent],
   imports: [
     CommonModule,
     MatTableModule,
