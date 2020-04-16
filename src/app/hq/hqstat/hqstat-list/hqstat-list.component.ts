@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { UiService } from 'src/app/services/ui.service';
 
@@ -9,6 +9,7 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class HqstatListComponent implements OnInit, OnChanges {
   @Input() hqStatData: any[];
+  @Output() onCsvPathSelected: EventEmitter<string> = new EventEmitter<string>();
   displayedColumns: string[];
   // moreDisplay =  ['gainLoss', 'gainLossP'];
   dataSource: MatTableDataSource<any[]>;
@@ -23,7 +24,9 @@ export class HqstatListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log(this.hqStatData)
     if (this.hqStatData && this.hqStatData.length > 0) {
-      const cols = Object.keys(this.hqStatData[0]).filter(k => k !== 'cPos');
+      const cols = Object.keys(this.hqStatData[0]).filter(
+        k => k !== 'cPos' && k !== 'csvPath'
+      );
       // use spread syntax instead of using array push
       // this.displayedColumns = ['broker', ...cols, ...this.moreDisplay];
       this.displayedColumns = cols;
@@ -32,4 +35,7 @@ export class HqstatListComponent implements OnInit, OnChanges {
     }
   }
 
+  setCsvPath(path: string) {
+    this.onCsvPathSelected.emit(path);
+  }
 }

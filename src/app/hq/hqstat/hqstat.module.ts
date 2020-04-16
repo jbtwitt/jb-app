@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HqstatRoutingModule } from './hqstat-routing.module';
 import { HqstatMainComponent } from './hqstat-main/hqstat-main.component';
 import { HqstatListComponent } from './hqstat-list/hqstat-list.component';
-import { MatTableModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatSortModule, MatTabsModule } from '@angular/material';
 import { HqhistoryListComponent } from './hqhistory-list/hqhistory-list.component';
 
 @NgModule({
@@ -13,6 +13,7 @@ import { HqhistoryListComponent } from './hqhistory-list/hqhistory-list.componen
     CommonModule,
     MatTableModule,
     MatSortModule,
+    MatTabsModule,
     HqstatRoutingModule
   ]
 })

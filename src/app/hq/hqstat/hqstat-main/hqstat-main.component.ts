@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class HqstatMainComponent implements OnInit {
   hqStatData: any[];
-  csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
+  csvPath: string;
 
   constructor(
     private dataService: DataService,
@@ -20,4 +20,7 @@ export class HqstatMainComponent implements OnInit {
     });
   }
 
+  setCsvPath(path: string) {
+    this.csvPath = path;
+  }
 }

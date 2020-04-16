@@ -1,5 +1,15 @@
-<app-hqstat-list
-    [hqStatData]="hqStatData"></app-hqstat-list>
+<mat-tab-group>
 
-<app-hqhistory-list
-    [csvPath]="csvPath"></app-hqhistory-list>
+    <mat-tab label="Hq Stat">
+    <app-hqstat-list
+        (onCsvPathSelected)="setCsvPath($event)"
+        [hqStatData]="hqStatData"></app-hqstat-list>
+    </mat-tab>
+
+    <mat-tab label="Hq History">
+    <app-hqhistory-list
+        *ngIf="csvPath"
+        [csvPath]="csvPath"></app-hqhistory-list>
+    </mat-tab>
+
+</mat-tab-group>
