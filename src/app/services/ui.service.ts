@@ -10,7 +10,7 @@ export class UiService {
   constructor(
     private dataService: DataService,
   ) {
-    console.log('----- ui service')
+    console.log('-----construct ui service')
     this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
       this.hqRobotJson = data;
     });

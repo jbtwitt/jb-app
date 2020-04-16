@@ -1,5 +1,5 @@
 {
-    "repo": "/gitrepo/robotRepo",
+    "repo": "/gitrepo/jb/jb-app/src/assets/hqcsv",
     "hqDays": 520,
     "tickers": [
         "MSFT", "SAP", "SPCE", "BA",
@@ -8,7 +8,7 @@
         "JNCE", "EIGR", "SNDX", "CARA", "VSTM", "GEVO"],
     "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST", "SQQQ", "TQQQ",
         "YINN", "YANG", "GUSH", "DRIP"],
-    "idx": ["^IXIC", "^GSPC", "^DJI", "^TNX", "DX-Y.NYB", "GCZ19.CMX"],
+    "idx": ["^IXIC", "^GSPC", "^DJI", "^TNX"],
     "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
     "vix": ["SVXY", "VXX", "UVXY"],
     "hqUrl": {

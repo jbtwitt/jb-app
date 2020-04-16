@@ -10,6 +10,7 @@ import { ExerciseModule } from './exercise/exercise.module';
 import { RaspberryPiModule } from './raspberry-pi/raspberry-pi.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { PortfolioModule } from './hq/portfolio/portfolio.module';
+import { HqstatModule } from './hq/hqstat/hqstat.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PortfolioModule } from './hq/portfolio/portfolio.module';
     RaspberryPiModule,
     BookmarksModule,
     PortfolioModule,
+    HqstatModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
