@@ -6,7 +6,7 @@ import { UiService } from 'src/app/services/ui.service';
 @Component({
   selector: 'app-portfolio-list',
   templateUrl: './portfolio-list.component.html',
-  styleUrls: ['./portfolio-list.component.sass']
+  styleUrls: ['./portfolio-list.component.css']
 })
 export class PortfolioListComponent implements OnInit, OnChanges {
   @Input() portfolio: any[] = [];

@@ -20,6 +20,16 @@ export class PortfolioMainComponent implements OnInit {
       this.portfolio = arr;
       this.portfolioOpen = arr.filter(p => p.soldDate === '');
       this.portfolioClose = arr.filter(p => p.soldDate !== '');
+
+      // use destructuring assignment
+      // to fill in latest close price
+      // in the place of sold
+      this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
+        this.portfolioOpen.forEach(p => {
+          const curInfo = data.filter(d => d.ticker === p.ticker)[0];
+          [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
+        });
+      });
     })
   }
 

@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { MatTabGroup } from '@angular/material';
 
 @Component({
   selector: 'app-hqstat-main',
@@ -8,8 +9,10 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./hqstat-main.component.sass']
 })
 export class HqstatMainComponent implements OnInit {
+  @ViewChild('hqtab', {static: false}) hqtab: MatTabGroup;
   hqStatData: any[];
   csvPath: string;
+  hqLabel: string;
 
   constructor(
     private dataService: DataService,
@@ -28,5 +31,7 @@ export class HqstatMainComponent implements OnInit {
 
   setCsvPath(path: string) {
     this.csvPath = path;
+    this.hqLabel = path;
+    this.hqtab.selectedIndex = 1;
   }
 }

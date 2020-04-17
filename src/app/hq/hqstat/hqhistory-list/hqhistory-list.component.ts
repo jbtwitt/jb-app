@@ -10,9 +10,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 })
 export class HqhistoryListComponent implements OnInit {
   @Input() csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
-  hqData: any[];
   displayedColumns: string[];
-  // moreDisplay =  ['gainLoss', 'gainLossP'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -22,13 +20,11 @@ export class HqhistoryListComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getAssetCsvData(this.csvPath).subscribe(data => {
-      // this.hqData = data;
       _.reverse(data)
-      console.log(data)
+      // console.log(data)
       const cols = Object.keys(data[0]);//.filter(k => k !== 'Adj Close');
       // use spread syntax instead of using array push
-      // this.displayedColumns = ['broker', ...cols, ...this.moreDisplay];
-      this.displayedColumns = cols;
+      this.displayedColumns = ['position', ...cols];
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
     });
