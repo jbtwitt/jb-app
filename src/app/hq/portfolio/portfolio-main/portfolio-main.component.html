@@ -1,2 +1,13 @@
-<app-portfolio-list
-    [portfolio]="portfolio"></app-portfolio-list>
+<mat-tab-group>
+
+    <mat-tab label="Open">
+    <app-portfolio-list
+        [portfolio]="portfolioOpen"></app-portfolio-list>
+    </mat-tab>
+
+    <mat-tab label="Close">
+    <app-portfolio-list
+        [portfolio]="portfolioClose"></app-portfolio-list>
+    </mat-tab>
+
+</mat-tab-group>

@@ -8,6 +8,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class PortfolioMainComponent implements OnInit {
   portfolio: any[];
+  portfolioOpen: any[];
+  portfolioClose: any[];
 
   constructor(
     private dataService: DataService,
@@ -16,8 +18,8 @@ export class PortfolioMainComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(arr => {
       this.portfolio = arr;
-      // open tickers
-      // this.portfolio = arr.filter(p => p.soldDate === '');
+      this.portfolioOpen = arr.filter(p => p.soldDate === '');
+      this.portfolioClose = arr.filter(p => p.soldDate !== '');
     })
   }
 

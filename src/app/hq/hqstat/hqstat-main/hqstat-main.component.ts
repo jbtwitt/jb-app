@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 
@@ -16,7 +17,12 @@ export class HqstatMainComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
-      this.hqStatData = data;
+      data.forEach(obj => {
+        obj.lPos = +obj.lPos;
+        obj.hPos = +obj.hPos;
+        obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose
+      })
+      this.hqStatData = _.orderBy(data, ['lPos'], ['asc']);
     });
   }
 

@@ -25,31 +25,38 @@
       <td style="text-align: right;" mat-cell *matCellDef="let row">
         {{row.cClose | number:'.2-2'}}
       </td>
-  </ng-container>
+    </ng-container>
+
+    <ng-container matColumnDef="lDelta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>L Delta </th>
+      <td style="text-align: right;" mat-cell *matCellDef="let row">
+        {{100 * row.lDelta | number:'.2-2'}}%
+      </td>
+    </ng-container>
 
     <ng-container matColumnDef="lDate">
-        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Date </th>
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef>L Date </th>
         <td style="text-align: center;" mat-cell *matCellDef="let row">
           {{row.lDate | date: 'MM/dd/yyyy'}}
         </td>
     </ng-container>
 
     <ng-container matColumnDef="lClose">
-      <th style="text-align: right;" mat-header-cell *matHeaderCellDef> L Close </th>
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef>L Close </th>
       <td style="text-align: right;" mat-cell *matCellDef="let row">
         {{row.lClose | number:'.2-2'}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="lPos">
-      <th style="text-align: right;" mat-header-cell *matHeaderCellDef mat-sort-header> Days Ago </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>L Days Ago </th>
       <td style="text-align: right;" mat-cell *matCellDef="let row">
         <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.lPos }} </a>
       </td>
     </ng-container>
   
     <ng-container matColumnDef="hDate">
-        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Date </th>
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef>H Date </th>
         <td style="text-align: center;" mat-cell *matCellDef="let row">
           {{row.hDate | date: 'MM/dd/yyyy'}}
         </td>
@@ -63,7 +70,7 @@
   </ng-container>
 
     <ng-container matColumnDef="hPos">
-      <th style="text-align: right;" mat-header-cell *matHeaderCellDef mat-sort-header> Days Ago </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>H Days Ago </th>
       <td style="text-align: right;" mat-cell *matCellDef="let row">
         <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.hPos }} </a>
       </td>
