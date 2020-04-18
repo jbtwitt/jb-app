@@ -2,10 +2,12 @@
 
     <mat-tab label="Open">
     <app-portfolio-list
-        [portfolio]="portfolioOpen"></app-portfolio-list>
+        (onGroupTickerSelected)="groupTickerSelected($event)"
+        [portfolio]="groupPortfolioOpen"></app-portfolio-list>
 
-    <app-portfolio-list
-        [portfolio]="groupOpen"></app-portfolio-list>
+    <br>
+    <app-portfolio-list *ngIf="groupTicker"
+        [portfolio]="groupList"></app-portfolio-list>
     </mat-tab>
 
     <mat-tab label="Close">

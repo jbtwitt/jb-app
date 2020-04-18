@@ -11,7 +11,9 @@ export class PortfolioMainComponent implements OnInit {
   portfolio: any[];
   portfolioOpen: any[];
   portfolioClose: any[];
-  groupOpen: any[];
+  groupPortfolioOpen: any[];
+
+  groupTicker: string;
 
   constructor(
     private dataService: DataService,
@@ -28,7 +30,7 @@ export class PortfolioMainComponent implements OnInit {
       this.portfolioOpen = arr.filter(p => p.soldDate === '');
       this.portfolioClose = arr.filter(p => p.soldDate !== '');
 
-      this.groupOpen = this.groupByTicker(this.portfolioOpen);
+      this.groupPortfolioOpen = this.createGroupByTicker(this.portfolioOpen);
 
       // use destructuring assignment
       // to fill in latest close price
@@ -38,7 +40,7 @@ export class PortfolioMainComponent implements OnInit {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
           [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
         });
-        this.groupOpen.forEach(p => {
+        this.groupPortfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
           [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
         });
@@ -47,13 +49,19 @@ export class PortfolioMainComponent implements OnInit {
 
   }
 
-  groupByTicker_(data) {
+  groupTickerSelected(ticker) {
+    this.groupTicker = ticker;
+  }
+  get groupList() {
+    return this.portfolioOpen.filter(p => p.ticker === this.groupTicker);
+  }
+  // groupByTicker_(data) {
     // const groupBy = _.chain(data)
     //     .groupBy("ticker")
     //     // .map((value, key) => )
     //     .value();
-  }
-  groupByTicker(data) {
+  // }
+  createGroupByTicker(data) {
     // let copy = Object.assign({}, data); // assign doesn't do deep cloning
     const copy = JSON.parse(JSON.stringify(data));
     const groupBy = copy.reduce((acc, row) => {
@@ -62,6 +70,7 @@ export class PortfolioMainComponent implements OnInit {
         key.shares += row.shares;
         key.buyCost += row.buyCost;
         key.buyPrice = key.buyCost / key.shares;
+        key.buyDate = '';
       } else {
         acc[row.ticker] = row;
         delete row.ticker;
@@ -73,7 +82,7 @@ export class PortfolioMainComponent implements OnInit {
       groupBy[key] = {ticker: key, ...groupBy[key]};
       result.push(groupBy[key]);
     })
-    console.log(result)
+    // console.log(result)
     return result;
   }
 }

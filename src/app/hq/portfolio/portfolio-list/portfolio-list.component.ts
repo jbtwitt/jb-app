@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UiService } from 'src/app/services/ui.service';
@@ -10,12 +10,13 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class PortfolioListComponent implements OnInit, OnChanges {
   @Input() portfolio: any[] = [];
-  dataSource: MatTableDataSource<any[]>;
+  @Output() onGroupTickerSelected: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataSource: MatTableDataSource<any[]>;
   displayedColumns = [
     "broker", "ticker", "shares",
     "buyPrice", "buyDate",
-    "soldPrice", "soldDate",
+    "soldPrice", "soldDate", "buyCost",
     'gainLoss', 'gainLossP',
   ];
 
@@ -37,4 +38,7 @@ export class PortfolioListComponent implements OnInit, OnChanges {
     }
   }
 
+  groupTicker(ticker) {
+    this.onGroupTickerSelected.emit(ticker);
+  }
 }
