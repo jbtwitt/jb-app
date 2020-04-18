@@ -28,7 +28,8 @@ export class HqstatMainComponent implements OnInit {
           data.forEach(obj => {
             obj.lPos = +obj.lPos;
             obj.hPos = +obj.hPos;
-            obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose
+            obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose;
+            obj.hDelta = (+obj.hClose - obj.cClose) / obj.hClose;
           })
           this.hqStatData[i] = _.orderBy(data, ['lPos'], ['asc']);
         });  

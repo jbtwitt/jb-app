@@ -34,6 +34,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="hDelta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>H Delta </th>
+      <td style="text-align: right;" mat-cell *matCellDef="let row">
+        -{{100 * row.hDelta | number:'.2-2'}}%
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="lDate">
         <th style="text-align: center;" mat-header-cell *matHeaderCellDef>L Date </th>
         <td style="text-align: center;" mat-cell *matCellDef="let row">

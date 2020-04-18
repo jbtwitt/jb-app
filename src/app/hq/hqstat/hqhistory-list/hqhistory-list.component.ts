@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
@@ -8,7 +8,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
   templateUrl: './hqhistory-list.component.html',
   styleUrls: ['./hqhistory-list.component.sass']
 })
-export class HqhistoryListComponent implements OnInit {
+export class HqhistoryListComponent implements OnChanges {
   @Input() csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
   displayedColumns: string[];
   dataSource: MatTableDataSource<any[]>;
@@ -18,7 +18,7 @@ export class HqhistoryListComponent implements OnInit {
     private dataService: DataService,
   ) { }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.dataService.getAssetCsvData(this.csvPath).subscribe(data => {
       _.reverse(data)
       // console.log(data)

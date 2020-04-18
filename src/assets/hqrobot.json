@@ -12,7 +12,7 @@
     "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
     "vix": ["SVXY", "VXX", "UVXY"],
     "covid19": [
-        "BA", "UAL", "MAR", "RDFN", "Z",
+        "UAL", "MAR", "RDFN", "Z",
         "XOM",
         "ZM"
     ],

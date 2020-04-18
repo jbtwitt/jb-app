@@ -15,7 +15,7 @@ export class HqstatListComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     "ticker", "cDate", "cClose",
     "lDate", "lClose", "lPos", "lDelta",
-    "hDate", "hClose", "hPos",
+    "hDate", "hClose", "hPos", "hDelta"
   ];
 
   constructor(
