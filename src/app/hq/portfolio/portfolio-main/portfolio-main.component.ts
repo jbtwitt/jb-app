@@ -38,11 +38,11 @@ export class PortfolioMainComponent implements OnInit {
       this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
         this.portfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
-          [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
+          [p.soldPrice, p.soldDate, p.csvPath] = [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
         });
         this.groupPortfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
-          [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
+          [p.soldPrice, p.soldDate, p.csvPath] = [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
           // find group ticker if any, to show detailed list
           if (!p.buyDate) {
             this.groupTicker = p.ticker;

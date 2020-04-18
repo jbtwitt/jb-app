@@ -2,24 +2,38 @@ import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hqhistory-list',
   templateUrl: './hqhistory-list.component.html',
   styleUrls: ['./hqhistory-list.component.sass']
 })
-export class HqhistoryListComponent implements OnChanges {
+export class HqhistoryListComponent implements OnInit, OnChanges {
   @Input() csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
   displayedColumns: string[];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private dataService: DataService,
   ) { }
 
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.csvPath = params['csvPath'];
+      console.log(this.csvPath)
+      this.getCsvData(this.csvPath);
+    });
+  }
+
   ngOnChanges() {
-    this.dataService.getAssetCsvData(this.csvPath)
+    this.getCsvData(this.csvPath);
+  }
+
+  getCsvData(csvPath) {
+    this.dataService.getAssetCsvData(csvPath)
       .subscribe(data => {
 
         // calc close change appended to array item
