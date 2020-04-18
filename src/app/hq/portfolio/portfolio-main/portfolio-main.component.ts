@@ -43,6 +43,10 @@ export class PortfolioMainComponent implements OnInit {
         this.groupPortfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
           [p.soldPrice, p.soldDate] = [curInfo.cClose, curInfo.cDate];
+          // find group ticker if any, to show detailed list
+          if (!p.buyDate) {
+            this.groupTicker = p.ticker;
+          }
         });
       });
     })

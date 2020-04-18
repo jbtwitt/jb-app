@@ -3,7 +3,7 @@
     [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> </th>
+    <th mat-header-cell *matHeaderCellDef>Pos</th>
     <td mat-cell *matCellDef="let i = index">{{i}}</td>
     </ng-container>
 
@@ -41,7 +41,14 @@
     <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Volume </th>
     <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Volume}} </td>
     </ng-container>
-    
+
+    <ng-container matColumnDef="closeChange">
+    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>Change %</th>
+    <td style="text-align: right;" mat-cell *matCellDef="let row">
+        {{ 100 * row.closeChange | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

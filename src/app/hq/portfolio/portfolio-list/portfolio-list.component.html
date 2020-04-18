@@ -31,7 +31,9 @@
   
     <ng-container matColumnDef="buyPrice">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Buy Price </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.buyPrice}} </td>
+      <td style="text-align: right;" mat-cell *matCellDef="let row">
+        {{row.buyPrice | currency:'USD':symbol:'.2-2'}}
+      </td>
     </ng-container>
   
     <ng-container matColumnDef="soldPrice">

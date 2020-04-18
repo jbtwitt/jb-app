@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { UiService } from 'src/app/services/ui.service';
@@ -27,6 +28,7 @@ export class HqstatListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log(this.hqStatData)
     if (this.hqStatData && this.hqStatData.length > 0) {
+      this.hqStatData = _.orderBy(this.hqStatData, ['lDelta'], ['asc']);
       this.dataSource = new MatTableDataSource(this.hqStatData);
       this.dataSource.sort = this.sort;
     }

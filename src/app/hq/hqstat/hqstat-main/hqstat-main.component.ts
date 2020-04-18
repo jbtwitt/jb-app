@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { MatTabGroup } from '@angular/material';
@@ -20,18 +19,17 @@ export class HqstatMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.daysList.forEach((n, i) => {
-      // const path = `hqcsv/hqstat-${n}.csv`;
-      // console.log(i + path)
-      this.dataService.getAssetCsvData(`hqcsv/hqstat-${n}.csv`)
+    this.daysList.forEach((days, i) => {
+      this.dataService
+        .getAssetCsvData(`hqcsv/hqstat-${days}.csv`)
         .subscribe(data => {
           data.forEach(obj => {
             obj.lPos = +obj.lPos;
             obj.hPos = +obj.hPos;
             obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose;
             obj.hDelta = (+obj.hClose - obj.cClose) / obj.hClose;
-          })
-          this.hqStatData[i] = _.orderBy(data, ['lPos'], ['asc']);
+          });
+          this.hqStatData[i] = data;
         });  
     });
   }
