@@ -38,7 +38,7 @@
         <table *ngIf="uiService.hqRobotJson != null" width="100%">
         <tr>
 
-        <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers']">
+        <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers', 'covid19']">
         <mat-nav-list>
             <mat-list-item *ngFor="let ticker of uiService.hqRobotJson[cat]">
             <mat-icon matListIcon>insert_chart_outlined</mat-icon>
