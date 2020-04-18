@@ -10,28 +10,34 @@ import { MatTabGroup } from '@angular/material';
 })
 export class HqstatMainComponent implements OnInit {
   @ViewChild('hqtab', {static: false}) hqtab: MatTabGroup;
-  hqStatData: any[];
   csvPath: string;
   hqLabel: string;
+  daysList = [200, 130, 70];
+  hqStatData: any[] = new Array(this.daysList.length);
 
   constructor(
     private dataService: DataService,
   ) { }
 
   ngOnInit() {
-    this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
-      data.forEach(obj => {
-        obj.lPos = +obj.lPos;
-        obj.hPos = +obj.hPos;
-        obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose
-      })
-      this.hqStatData = _.orderBy(data, ['lPos'], ['asc']);
+    this.daysList.forEach((n, i) => {
+      // const path = `hqcsv/hqstat-${n}.csv`;
+      // console.log(i + path)
+      this.dataService.getAssetCsvData(`hqcsv/hqstat-${n}.csv`)
+        .subscribe(data => {
+          data.forEach(obj => {
+            obj.lPos = +obj.lPos;
+            obj.hPos = +obj.hPos;
+            obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose
+          })
+          this.hqStatData[i] = _.orderBy(data, ['lPos'], ['asc']);
+        });  
     });
   }
 
   setCsvPath(path: string) {
     this.csvPath = path;
     this.hqLabel = path;
-    this.hqtab.selectedIndex = 1;
+    this.hqtab.selectedIndex = this.daysList.length;
   }
 }
