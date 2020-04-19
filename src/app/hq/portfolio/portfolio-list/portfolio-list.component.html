@@ -47,7 +47,8 @@
   
     <ng-container matColumnDef="soldPrice">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Sold Price </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.soldPrice}} </td>
+      <td [class]="uiService.cssGainLoss(+row.soldPrice - row.buyPrice)"
+        mat-cell *matCellDef="let row"> {{row.soldPrice}} </td>
     </ng-container>
   
     <ng-container matColumnDef="buyDate">
@@ -75,7 +76,8 @@
 
     <ng-container matColumnDef="gainLoss">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Gain/Loss </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td [class]="uiService.cssGainLoss(+row.soldPrice - row.buyPrice)"
+        mat-cell *matCellDef="let row">
         <span *ngIf="row.soldPrice !== ''">
         {{+row.shares * (+row.soldPrice - row.buyPrice) | currency:'USD':symbol:'.2-2'}}
         </span>
@@ -84,7 +86,8 @@
 
     <ng-container matColumnDef="gainLossP">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Gain/Loss % </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td [class]="uiService.cssGainLoss(+row.soldPrice - row.buyPrice)"
+        mat-cell *matCellDef="let row">
         <span *ngIf="row.soldPrice !== ''">
         {{100 * (+row.soldPrice - row.buyPrice) / row.buyPrice | number:'.2-2'}}%
         </span>

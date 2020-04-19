@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-hqhistory-list',
@@ -16,6 +17,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
+    public uiService: UiService,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
   ) { }

@@ -29,7 +29,8 @@
 
     <ng-container matColumnDef="Close">
     <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Close </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Close}} </td>
+    <td [class]="uiService.cssGainLoss(row.closeChange)"
+        mat-cell *matCellDef="let row"> {{row.Close}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Adj_Close">
@@ -58,7 +59,8 @@
 
     <ng-container matColumnDef="closeChange">
     <th style="text-align: right;" mat-header-cell *matHeaderCellDef>C %</th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row">
+    <td [class]="uiService.cssGainLoss(row.closeChange)"
+        mat-cell *matCellDef="let row">
         {{ 100 * row.closeChange | number: '.2-2'}}%
     </td>
     </ng-container>

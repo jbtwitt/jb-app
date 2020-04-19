@@ -15,6 +15,13 @@ export class UiService {
       this.hqConf = data;
     });
   }
+
+  // css class
+  cssGainLoss(delta: number) {
+    return (delta > 0) ? 'gain' : 'loss';
+  }
+
+  // hq Url
   hqQUrl(ticker: string): string {
     return this.hqConf.hqUrl.q.replace(/{}/g, ticker);
   }
