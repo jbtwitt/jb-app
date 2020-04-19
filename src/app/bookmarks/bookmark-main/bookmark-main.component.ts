@@ -28,13 +28,4 @@ export class BookmarkMainComponent implements OnInit {
       this.educations = data
     })
   }
-  hqUrl(ticker: string): string {
-    return this.uiService.hqRobotJson.hqUrl.q.replace(/{}/g, ticker);
-  }
-  hqChart(ticker: string): string {
-    return this.uiService.hqRobotJson.hqUrl.c.replace("{}", ticker);
-  }
-  hqHistory(ticker: string): string {
-    return this.uiService.hqRobotJson.hqUrl.h.replace(/{}/g, ticker);
-  }
 }

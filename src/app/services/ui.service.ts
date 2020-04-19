@@ -15,4 +15,13 @@ export class UiService {
       this.hqConf = data;
     });
   }
+  hqQUrl(ticker: string): string {
+    return this.hqConf.hqUrl.q.replace(/{}/g, ticker);
+  }
+  hqCUrl(ticker: string): string {
+    return this.hqConf.hqUrl.c.replace("{}", ticker);
+  }
+  hqHUrl(ticker: string): string {
+    return this.hqConf.hqUrl.h.replace(/{}/g, ticker);
+  }
 }

@@ -5,10 +5,6 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Broker </th>
       <td mat-cell *matCellDef="let row">
 
-        <a [routerLink]="['/hqhistory/:csvPath']"
-           [queryParams]="{csvPath: row.csvPath}"
-          target="_blank">Hq</a>
-
         {{row.broker}}
 
       </td>
@@ -17,10 +13,17 @@
     <ng-container matColumnDef="ticker">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
       <td mat-cell *matCellDef="let row">
-        <a [href]="uiService.hqConf.hqUrl.c.replace('{}', row.ticker)"
+        <a [href]="uiService.hqQUrl(row.ticker)"
           target="_blank">
-          {{row.ticker}}
-        </a>
+          {{row.ticker}}</a>
+        |
+        <a [href]="uiService.hqCUrl(row.ticker)"
+          target="_blank">
+          C</a>
+        |
+        <a [routerLink]="['/hqhistory/:csvPath']"
+           [queryParams]="{csvPath: row.csvPath}"
+          target="_blank">H</a>
       </td>
     </ng-container>
 

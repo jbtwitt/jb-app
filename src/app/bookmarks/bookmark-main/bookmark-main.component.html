@@ -35,16 +35,16 @@
     </div>
 
     <div style="float: left;">
-        <table *ngIf="uiService.hqRobotJson != null" width="100%">
+        <table width="100%">
         <tr>
 
         <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers', 'covid19']">
         <mat-nav-list>
-            <mat-list-item *ngFor="let ticker of uiService.hqRobotJson[cat]">
+            <mat-list-item *ngFor="let ticker of uiService.hqConf[cat]">
             <mat-icon matListIcon>insert_chart_outlined</mat-icon>
-            <a style="width: 96px;" [href]="hqUrl(ticker)" target="_blank">{{ ticker }}</a>
-            <a style="width: 16px;" [href]="hqChart(ticker)" target="_blank">C</a>
-            <a [href]="hqHistory(ticker)" target="_blank">H</a>
+            <a style="width: 96px;" [href]="uiService.hqQUrl(ticker)" target="_blank">{{ ticker }}</a>
+            <a style="width: 16px;" [href]="uiService.hqCUrl(ticker)" target="_blank">C</a>
+            <a [href]="uiService.hqHUrl(ticker)" target="_blank">H</a>
             </mat-list-item>
         </mat-nav-list>
         </td>
