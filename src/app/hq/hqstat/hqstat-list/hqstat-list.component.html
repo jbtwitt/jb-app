@@ -43,7 +43,7 @@
     <ng-container matColumnDef="volumeChange">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
       <td class="alignR" mat-cell *matCellDef="let row">
-        {{100 * (+row.v0Volume - row.v1Volume) / row.v1Volume | number:'.2-2'}}%
+        {{100 * row.volumeChange | number:'.2-2'}}%
       </td>
     </ng-container>
 
@@ -110,10 +110,10 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="hvChange">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HV %</th>
+    <ng-container matColumnDef="hvVolume">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>HV</th>
       <td class="alignR" mat-cell *matCellDef="let row">
-        {{100 * row.hvChange | number:'.2-2'}}%
+        {{ row.hvVolume }}
       </td>
     </ng-container>
 
@@ -131,10 +131,10 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="lvChange">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>LV %</th>
+    <ng-container matColumnDef="lvVolume">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>LV</th>
       <td class="alignR" mat-cell *matCellDef="let row">
-        {{100 * row.lvChange | number:'.2-2'}}%
+        {{row.lvVolume}}
       </td>
     </ng-container>
 
