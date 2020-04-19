@@ -11,7 +11,7 @@ export class HqstatMainComponent implements OnInit {
   @ViewChild('hqtab', {static: false}) hqtab: MatTabGroup;
   csvPath: string;
   hqLabel: string;
-  daysList = [200, 130, 70];
+  daysList = [200, 130, 70, 20];
   hqStatData: any[] = new Array(this.daysList.length);
 
   constructor(

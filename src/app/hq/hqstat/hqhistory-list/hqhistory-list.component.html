@@ -65,6 +65,14 @@
     </td>
     </ng-container>
 
+    <ng-container matColumnDef="volChange">
+    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>Vol %</th>
+    <td [class]="uiService.cssGainLoss(row.volChange)"
+        mat-cell *matCellDef="let row">
+        {{ 100 * row.volChange | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

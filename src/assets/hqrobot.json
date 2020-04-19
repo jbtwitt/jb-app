@@ -3,17 +3,17 @@
     "hqDays": 520,
     "tickers": [
         "MSFT", "SAP", "SPCE", "BA",
-        "ATHX", "STML", "WATT", "NVAX", "BCRX", "AGEN", "GBTC", "FIT",
+        "ATHX", "VSTM", "WATT", "NVAX", "BCRX", "AGEN", "GBTC", "FIT",
         "NVDA", "IPGP", "SNAP", "BLNK", "MEIP",
-        "JNCE", "EIGR", "SNDX", "CARA", "VSTM", "GEVO"],
+        "JNCE", "EIGR", "SNDX", "CARA", "STML", "GEVO"],
     "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST", "SQQQ", "TQQQ",
         "YINN", "YANG", "GUSH", "DRIP"],
     "idx": ["^IXIC", "^GSPC", "^DJI", "^TNX"],
     "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
     "vix": ["SVXY", "VXX", "UVXY"],
     "covid19": [
-        "UAL", "MAR", "RDFN", "Z",
-        "XOM",
+        "AAL", "UAL", "RDFN", "Z",
+        "XOM", "TRIP", "EXPE", "MAR",
         "ZM"
     ],
     "hqUrl": {

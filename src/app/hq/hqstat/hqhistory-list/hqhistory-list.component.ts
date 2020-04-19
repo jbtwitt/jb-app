@@ -41,10 +41,11 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
         // calc close change appended to array item
         data.forEach((row, pos) => {
           if (pos > 0) {
-            const prevClose = +data[pos - 1].Close;
+            const prev = data[pos - 1];
             row.hcDelta = (+row.High - row.Close) / row.Low;
             row.hlDelta = (+row.High - row.Low) / row.Low;
-            row.closeChange = (+row.Close - prevClose) / prevClose;
+            row.closeChange = (+row.Close - prev.Close) / prev.Close;
+            row.volChange = (+row.Volume - prev.Volume) / prev.Volume;
           }
         });
 
