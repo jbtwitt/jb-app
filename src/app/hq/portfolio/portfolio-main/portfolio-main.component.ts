@@ -24,7 +24,8 @@ export class PortfolioMainComponent implements OnInit {
       this.portfolio = arr;
       // string to number
       arr.forEach(item => {
-        item.shares = + item.shares;
+        item.shares = +item.shares;
+        item.buyPrice = +item.buyPrice;
         item.buyCost = +item.shares * item.buyPrice;
       });
       this.portfolioOpen = arr.filter(p => p.soldDate === '');
@@ -38,7 +39,7 @@ export class PortfolioMainComponent implements OnInit {
       this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
         this.portfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
-          [p.soldPrice, p.soldDate, p.csvPath] = [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+          [p.soldPrice, p.soldDate, p.csvPath] = [+curInfo.cClose, curInfo.cDate, curInfo.csvPath];
         });
         this.groupPortfolioOpen.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];

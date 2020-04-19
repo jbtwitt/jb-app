@@ -28,21 +28,21 @@
 
     <ng-container matColumnDef="cClose">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Close </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         {{row.cClose | number:'.2-2'}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="lDelta">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>L Delta </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         {{100 * row.lDelta | number:'.2-2'}}%
       </td>
     </ng-container>
 
     <ng-container matColumnDef="hDelta">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>H Delta </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         -{{100 * row.hDelta | number:'.2-2'}}%
       </td>
     </ng-container>
@@ -56,14 +56,14 @@
 
     <ng-container matColumnDef="lClose">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef>L Close </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         {{row.lClose | number:'.2-2'}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="lPos">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>L Days Ago </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.lPos }} </a>
       </td>
     </ng-container>
@@ -77,14 +77,14 @@
 
     <ng-container matColumnDef="hClose">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> H Close </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         {{row.hClose | number:'.2-2'}}
       </td>
   </ng-container>
 
     <ng-container matColumnDef="hPos">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>H Days Ago </th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
+      <td class="alignR" mat-cell *matCellDef="let row">
         <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.hPos }} </a>
       </td>
     </ng-container>
