@@ -33,6 +33,20 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="closeChange">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
+      <td [class]="uiService.cssGainLoss(+row.cClose - row.c1Close)" mat-cell *matCellDef="let row">
+        {{100 * (+row.cClose - row.c1Close) / row.c1Close | number:'.2-2'}}%
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="volumeChange">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
+      <td class="alignR" mat-cell *matCellDef="let row">
+        {{100 * (+row.v0Volume - row.v1Volume) / row.v1Volume | number:'.2-2'}}%
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="lDelta">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>L Delta </th>
       <td class="alignR" mat-cell *matCellDef="let row">

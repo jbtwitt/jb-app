@@ -14,7 +14,7 @@ export class HqstatListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
-    "ticker", "cDate", "cClose",
+    "ticker", "cDate", "cClose", "closeChange", "volumeChange",
     "lDate", "lClose", "lPos", "lDelta",
     "hDate", "hClose", "hPos", "hDelta"
   ];
