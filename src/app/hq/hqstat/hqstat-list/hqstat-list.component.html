@@ -4,7 +4,7 @@
     <ng-container matColumnDef="ticker">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
       <td mat-cell *matCellDef="let row">
-        <a [href]="uiService.hqRobotJson.hqUrl.c.replace('{}', row.ticker)"
+        <a [href]="uiService.hqConf.hqUrl.c.replace('{}', row.ticker)"
           target="_blank">
           {{row.ticker}}
         </a>

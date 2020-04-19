@@ -40,6 +40,8 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
         data.forEach((row, pos) => {
           if (pos > 0) {
             const prevClose = +data[pos - 1].Close;
+            row.hcDelta = (+row.High - row.Close) / row.Low;
+            row.hlDelta = (+row.High - row.Low) / row.Low;
             row.closeChange = (+row.Close - prevClose) / prevClose;
           }
         });

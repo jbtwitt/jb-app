@@ -5,14 +5,14 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 export class UiService {
-  hqRobotJson: any = {}
+  hqConf: any = {}
 
   constructor(
     private dataService: DataService,
   ) {
     console.log('-----construct ui service')
     this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
-      this.hqRobotJson = data;
+      this.hqConf = data;
     });
   }
 }

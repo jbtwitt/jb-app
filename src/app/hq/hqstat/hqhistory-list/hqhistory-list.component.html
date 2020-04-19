@@ -42,8 +42,22 @@
     <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Volume}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="hlDelta">
+    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>HL %</th>
+    <td style="text-align: right;" mat-cell *matCellDef="let row">
+        {{ 100 * row.hlDelta | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hcDelta">
+    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>HC %</th>
+    <td style="text-align: right;" mat-cell *matCellDef="let row">
+        {{ 100 * row.hcDelta | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
     <ng-container matColumnDef="closeChange">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>Change %</th>
+    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>C %</th>
     <td style="text-align: right;" mat-cell *matCellDef="let row">
         {{ 100 * row.closeChange | number: '.2-2'}}%
     </td>
