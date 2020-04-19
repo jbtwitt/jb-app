@@ -26,6 +26,8 @@ export class HqstatMainComponent implements OnInit {
           data.forEach(obj => {
             obj.lPos = +obj.lPos;
             obj.hPos = +obj.hPos;
+            [obj.hvChange, obj.hvPos] = [+obj.hvChange, +obj.hvPos];
+            [obj.lvChange, obj.lvPos] = [+obj.lvChange, +obj.lvPos];
             obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose;
             obj.hDelta = (+obj.hClose - obj.cClose) / obj.hClose;
           });
