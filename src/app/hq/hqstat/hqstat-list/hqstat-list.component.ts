@@ -17,8 +17,9 @@ export class HqstatListComponent implements OnInit, OnChanges {
     "ticker", "cDate", "cClose", "closeChange", "volumeChange",
     "lDate", "lClose", "lPos", "lDelta",
     "hDate", "hClose", "hPos", "hDelta",
-    "hvDate", "hvVolume", "hvPos",
-    "lvDate", "lvVolume", "lvPos",
+    "hvDate", "hvPos", //"hvVolume",
+    "lvDate", "lvPos", //"lvVolume",
+    "hlvDelta",
   ];
 
   constructor(

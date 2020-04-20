@@ -110,12 +110,12 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="hvVolume">
+    <!-- <ng-container matColumnDef="hvVolume">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>HV</th>
       <td class="alignR" mat-cell *matCellDef="let row">
         {{ row.hvVolume }}
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="hvPos">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>HV Pos</th>
@@ -131,17 +131,24 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="lvVolume">
+    <!-- <ng-container matColumnDef="lvVolume">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>LV</th>
       <td class="alignR" mat-cell *matCellDef="let row">
         {{row.lvVolume}}
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="lvPos">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>LV Pos</th>
       <td class="alignR" mat-cell *matCellDef="let row">
         <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.lvPos }} </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hlvDelta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>HL V %</th>
+      <td class="alignR" mat-cell *matCellDef="let row">
+        {{100 * row.hlvDelta | number:'.2-2'}}%
       </td>
     </ng-container>
 

@@ -28,10 +28,12 @@ export class PortfolioMainComponent implements OnInit {
         item.buyPrice = +item.buyPrice;
         item.buyCost = +item.shares * item.buyPrice;
       });
-      this.portfolioOpen = arr.filter(p => p.soldDate === '');
+      this.portfolioOpen = arr.filter(
+        p => p.soldDate === '' && p.broker !== 'Test *');
       this.portfolioClose = arr.filter(p => p.soldDate !== '');
+      this.groupPortfolioOpen = arr.filter(p => p.soldDate === '');
 
-      this.groupPortfolioOpen = this.createGroupByTicker(this.portfolioOpen);
+      this.groupPortfolioOpen = this.createGroupByTicker(this.groupPortfolioOpen);
 
       // use destructuring assignment
       // to fill in latest close price
@@ -50,8 +52,7 @@ export class PortfolioMainComponent implements OnInit {
           }
         });
       });
-    })
-
+    });
   }
 
   groupTickerSelected(ticker) {

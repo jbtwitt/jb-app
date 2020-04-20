@@ -2,6 +2,11 @@
 
     <mat-tab label="Open">
     <app-portfolio-list
+        [portfolio]="portfolioOpen"></app-portfolio-list>
+    </mat-tab>
+
+    <mat-tab label="Test">
+    <app-portfolio-list
         (onGroupTickerSelected)="groupTickerSelected($event)"
         [portfolio]="groupPortfolioOpen"></app-portfolio-list>
 
