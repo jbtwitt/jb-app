@@ -24,15 +24,12 @@ export class HqstatMainComponent implements OnInit {
         .getAssetCsvData(`hqcsv/hqstat-${days}.csv`)
         .subscribe(data => {
           data.forEach(obj => {
-            // string to number
             // close
-            [obj.lPos, obj.hPos] = [+obj.lPos, +obj.hPos];
-            obj.lDelta = (+obj.cClose - obj.lClose) / obj.lClose;
-            obj.hDelta = (+obj.hClose - obj.cClose) / obj.hClose;
+            obj.lDelta = (obj.cClose - obj.lClose) / obj.lClose;
+            obj.hDelta = (obj.hClose - obj.cClose) / obj.hClose;
             // volume
-            [obj.hvVolume, obj.hvPos] = [+obj.hvVolume, +obj.hvPos];
-            [obj.lvVolume, obj.lvPos] = [+obj.lvVolume, +obj.lvPos];
-            obj.volumeChange = (+obj.v0Volume - obj.v1Volume) / obj.v1Volume;
+            obj.closeChange = (obj.cClose - obj.c1Close) / obj.c1Close;
+            obj.volumeChange = (obj.v0Volume - obj.v1Volume) / obj.v1Volume;
             obj.hlvDelta = (obj.hvVolume - obj.lvVolume) / obj.lvVolume
           });
           this.hqStatData[i] = data;

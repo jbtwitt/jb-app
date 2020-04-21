@@ -11,6 +11,7 @@ export class PortfolioMainComponent implements OnInit {
   portfolio: any[];
   portfolioOpen: any[];
   portfolioClose: any[];
+  groupTestPortfolio: any[];
   groupPortfolioOpen: any[];
 
   groupTicker: string;
@@ -24,16 +25,14 @@ export class PortfolioMainComponent implements OnInit {
       this.portfolio = arr;
       // string to number
       arr.forEach(item => {
-        item.shares = +item.shares;
-        item.buyPrice = +item.buyPrice;
-        item.buyCost = +item.shares * item.buyPrice;
+        item.buyCost = item.shares * item.buyPrice;
       });
       this.portfolioOpen = arr.filter(
         p => p.soldDate === '' && p.broker !== 'Test *');
       this.portfolioClose = arr.filter(p => p.soldDate !== '');
-      this.groupPortfolioOpen = arr.filter(p => p.soldDate === '');
 
-      this.groupPortfolioOpen = this.createGroupByTicker(this.groupPortfolioOpen);
+      this.groupTestPortfolio = arr.filter(p => p.soldDate === '');
+      this.groupPortfolioOpen = this.createGroupByTicker(this.groupTestPortfolio);
 
       // use destructuring assignment
       // to fill in latest close price
@@ -59,7 +58,7 @@ export class PortfolioMainComponent implements OnInit {
     this.groupTicker = ticker;
   }
   get groupList() {
-    return this.portfolioOpen.filter(p => p.ticker === this.groupTicker);
+    return this.groupTestPortfolio.filter(p => p.ticker === this.groupTicker);
   }
   // groupByTicker_(data) {
     // const groupBy = _.chain(data)

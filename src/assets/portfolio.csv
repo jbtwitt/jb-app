@@ -1,4 +1,4 @@
-ticker,shares,buyPrice,soldPrice,buyDate,soldDate,broker
+s:ticker,shares,buyPrice,soldPrice,s:buyDate,s:soldDate,s:broker
 ATHX,1000,  2.52,2.52,4/15/2016,3/30/2020,ET Mon
 ATHX,1000,  2.52,2.62,4/15/2016,3/30/2020,ET Mon
 ATHX,1000,  1.97,2.5,1/9/2018,3/30/2020,ET IRA
@@ -25,7 +25,6 @@ NUGT,150,   31.26,33.7,2/27/2020,3/5/2020,ET IRA
 NUGT,200,    31.2,,3/6/2020,,ET IRA
 NUGT,200,     6.6,,3/13/2020,,ET IRA
 NUGT,400,     10,,3/13/2020,,Test *
-VSTM,1000,     3,,3/13/2020,,Test *
 Z,100,    36,,3/13/2020,,Test *
 RDFN,100,    18,,3/13/2020,,Test *
 SPCE,100,     18,,3/13/2020,,Test *

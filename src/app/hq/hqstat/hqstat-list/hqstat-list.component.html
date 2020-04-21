@@ -36,7 +36,7 @@
     <ng-container matColumnDef="closeChange">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
       <td [class]="uiService.cssGainLoss(+row.cClose - row.c1Close)" mat-cell *matCellDef="let row">
-        {{100 * (+row.cClose - row.c1Close) / row.c1Close | number:'.2-2'}}%
+        {{100 * row.closeChange | number:'.2-2'}}%
       </td>
     </ng-container>
 
