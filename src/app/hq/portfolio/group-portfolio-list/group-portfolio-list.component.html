@@ -1,0 +1,10 @@
+
+<app-portfolio-list
+    (onGroupSelected)="groupSelected($event)"
+    [portfolio]="groupPortfolio"></app-portfolio-list>
+
+<br>
+
+<app-portfolio-list
+    *ngIf="selectedGroup"
+    [portfolio]="groupList"></app-portfolio-list>

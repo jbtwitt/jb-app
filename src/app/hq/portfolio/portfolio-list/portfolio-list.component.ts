@@ -10,7 +10,7 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class PortfolioListComponent implements OnInit, OnChanges {
   @Input() portfolio: any[] = [];
-  @Output() onGroupTickerSelected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onGroupSelected: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<any[]>;
   displayedColumns = [
@@ -39,6 +39,6 @@ export class PortfolioListComponent implements OnInit, OnChanges {
   }
 
   groupTicker(ticker) {
-    this.onGroupTickerSelected.emit(ticker);
+    this.onGroupSelected.emit(ticker);
   }
 }
