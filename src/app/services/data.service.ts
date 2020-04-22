@@ -17,11 +17,15 @@ export class DataService {
   // convert csv line string array to object
   // first row must be header
   // ****************************
-  // Header data type format
-  // s:column - "s:ticker"
-  // where s: indicates string type, n: is number also default value
+  // Header format
+  // s:column
+  // where  ":" separates data type and column name
+  //        "s:" indicates string type,
+  //        "n:" is number and also default value
+  // ex. "s:ticker" - ticker is the column name and string type
   csvLine2Json(lines: any[]): any[] {
     const headers = lines[0];
+    // replace if there are spaces characters with column name
     for (let i=0; i<headers.length; i++) {
       headers[i] = headers[i].replace(' ', '_');
     }
@@ -32,11 +36,13 @@ export class DataService {
       for (let j=0; j<headers.length; j++) {
         const header = headers[j]
         // parse data type
+        // s: string
+        // n: number is the default
         const dataType = header.substring(0, 2)
         if (dataType === 's:') {
           obj[header.substring(2)] = row[j]
         } else {
-          obj[header] = row[j];
+          obj[header] = +row[j];
         }
       }
       result.push(obj);
