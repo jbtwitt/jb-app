@@ -11,6 +11,7 @@ export class PortfolioMainComponent implements OnInit {
   portfolio: any[];
   portfolioOpen: any[];
   portfolioClose: any[];
+  portfolioTest: any[];
   groupTestPortfolio: any[];
   groupPortfolioOpen: any[];
 
@@ -23,34 +24,53 @@ export class PortfolioMainComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(arr => {
       this.portfolio = arr;
-      // string to number
+
       arr.forEach(item => {
         item.buyCost = item.shares * item.buyPrice;
       });
-      this.portfolioOpen = arr.filter(
-        p => p.soldDate === '' && p.broker !== 'Test *');
+
       this.portfolioClose = arr.filter(p => p.soldDate !== '');
 
-      this.groupTestPortfolio = arr.filter(p => p.soldDate === '');
-      this.groupPortfolioOpen = this.createGroupByTicker(this.groupTestPortfolio);
-
-      // use destructuring assignment
-      // to fill in latest close price
-      // in the place of sold
       this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
-        this.portfolioOpen.forEach(p => {
+
+        const opens = arr.filter(
+          p => p.soldDate === ''
+        );
+
+        // use destructuring assignment
+        // to fill in close price
+        // in the place of sold date
+        opens.forEach(p => {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
-          [p.soldPrice, p.soldDate, p.csvPath] = [+curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+          [p.soldPrice, p.soldDate, p.csvPath] =
+            [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
         });
-        this.groupPortfolioOpen.forEach(p => {
-          const curInfo = data.filter(d => d.ticker === p.ticker)[0];
-          [p.soldPrice, p.soldDate, p.csvPath] = [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
-          // find group ticker if any, to show detailed list
-          if (!p.buyDate) {
-            this.groupTicker = p.ticker;
-          }
-        });
+
+        this.portfolioTest = opens;
+  
+        this.portfolioOpen = this.portfolioTest.filter(
+          p => p.broker !== 'Test *'
+        );
       });
+
+
+      // this.groupTestPortfolio = arr.filter(p => p.soldDate === '');
+      // this.groupPortfolioOpen = this.createGroupByTicker(this.groupTestPortfolio);
+
+      // this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
+      //   // this.portfolioOpen.forEach(p => {
+      //   //   const curInfo = data.filter(d => d.ticker === p.ticker)[0];
+      //   //   [p.soldPrice, p.soldDate, p.csvPath] = [+curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+      //   // });
+      //   this.groupPortfolioOpen.forEach(p => {
+      //     const curInfo = data.filter(d => d.ticker === p.ticker)[0];
+      //     [p.soldPrice, p.soldDate, p.csvPath] = [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+      //     // find group ticker if any, to show detailed list
+      //     if (!p.buyDate) {
+      //       this.groupTicker = p.ticker;
+      //     }
+      //   });
+      // });
     });
   }
 

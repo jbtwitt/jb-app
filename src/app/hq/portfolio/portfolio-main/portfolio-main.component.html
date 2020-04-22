@@ -8,18 +8,32 @@
     </mat-tab>
 
     <mat-tab label="Test">
-    <app-portfolio-list
+        <app-group-portfolio-list
+            groupBy="ticker"
+            [portfolio]="portfolioTest"></app-group-portfolio-list>
+
+    <!-- <app-portfolio-list
         (onGroupSelected)="groupTickerSelected($event)"
         [portfolio]="groupPortfolioOpen"></app-portfolio-list>
 
     <br>
     <app-portfolio-list *ngIf="groupTicker"
-        [portfolio]="groupList"></app-portfolio-list>
+        [portfolio]="groupList"></app-portfolio-list> -->
     </mat-tab>
 
-    <mat-tab label="Close">
+    <mat-tab label="Close - Group By Ticker">
+        <app-group-portfolio-list
+            groupBy="ticker"
+            [portfolio]="portfolioClose"></app-group-portfolio-list>
+<!-- 
     <app-portfolio-list
-        [portfolio]="portfolioClose"></app-portfolio-list>
+        [portfolio]="portfolioClose"></app-portfolio-list> -->
+    </mat-tab>
+
+    <mat-tab label="Close - Group By Broker">
+        <app-group-portfolio-list
+        groupBy="broker"
+        [portfolio]="portfolioClose"></app-group-portfolio-list>
     </mat-tab>
 
 </mat-tab-group>
