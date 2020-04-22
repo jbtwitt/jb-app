@@ -44,15 +44,19 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
         key.buyDate = '';
       } else {
         acc[row[by]] = row;
-        delete row.ticker;
+        // delete row.ticker;
+        delete row[by];
       }
       return acc;
     }, {});
     // console.log(reduceList)
     const result = [];
     Object.keys(reduceList).forEach(key => {
-      reduceList[key] = {ticker: key, ...reduceList[key]};
-      result.push(reduceList[key]);
+      reduceList[key] = { ...reduceList[key] };
+      const row = reduceList[key];
+      row.ticker = (row.buyDate === '') ? "" : row.ticker;
+      row[by] = key;
+      result.push(row);
     })
     // console.log(result)
     return result;

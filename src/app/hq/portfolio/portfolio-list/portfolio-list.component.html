@@ -31,7 +31,7 @@
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Shares </th>
       <td style="text-align: right;" mat-cell *matCellDef="let row">
         <a *ngIf="!row.buyDate"
-          (click)="groupTicker(row.ticker)"
+          (click)="groupSelected(row[groupBy])"
           title="Show more ..."
           href="javascript:">+</a>
         {{row.shares}}
