@@ -25,16 +25,19 @@ export class DataService {
   // ex. "s:ticker" - ticker is the column name and string type
   csvLine2Json(lines: any[]): any[] {
     const headers = lines[0];
-    // replace if there are spaces characters with column name
-    for (let i=0; i<headers.length; i++) {
-      headers[i] = headers[i].replace(' ', '_');
+    // 1. replace spaces characters with '_'
+    // 2. Process Hq csv where Date is not my header format
+    for (let i = 0; i<headers.length; i++) {
+      let header = headers[i];
+      header = header.replace(' ', '_');
+      headers[i] = (header === 'Date') ? "s:Date" : header;
     }
     const result = [];
     for (let i=1; i<lines.length; i++) {
       const obj = {};
       const row = lines[i];
       for (let j=0; j<headers.length; j++) {
-        const header = headers[j]
+        let header = headers[j]
         // parse data type
         // s: string
         // n: number is the default
