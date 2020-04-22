@@ -36,6 +36,11 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
     const reduceList = copy.reduce((acc, row) => {
       const key = acc[row[by]];
       if (key) {
+        if (!key.count) {
+          key.count = 2;
+        } else {
+          key.count ++;
+        }
         key.shares += row.shares;
         key.buyCost += row.buyCost;
         key.buyPrice = key.buyCost / key.shares;
