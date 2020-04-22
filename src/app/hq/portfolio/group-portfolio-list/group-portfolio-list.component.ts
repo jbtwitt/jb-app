@@ -39,6 +39,8 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
         key.shares += row.shares;
         key.buyCost += row.buyCost;
         key.buyPrice = key.buyCost / key.shares;
+        key.soldIncome += row.soldIncome;
+        key.soldPrice = key.soldIncome / key.shares;
         key.buyDate = '';
       } else {
         acc[row[by]] = row;

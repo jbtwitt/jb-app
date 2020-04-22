@@ -80,7 +80,7 @@
       <td [class]="uiService.cssGainLoss(row.soldPrice - row.buyPrice)"
         mat-cell *matCellDef="let row">
         <span *ngIf="row.soldPrice !== ''">
-        {{+row.shares * (row.soldPrice - row.buyPrice) | currency:'USD':symbol:'.2-2'}}
+        {{row.shares * (row.soldPrice - row.buyPrice) | currency:'USD':symbol:'.2-2'}}
         </span>
       </td>
     </ng-container>

@@ -23,6 +23,7 @@ export class PortfolioMainComponent implements OnInit {
 
       csv.forEach(item => {
         item.buyCost = item.shares * item.buyPrice;
+        item.soldIncome = item.shares * item.soldPrice;
       });
 
       this.portfolioClose = csv.filter(p => p.soldDate !== '');
@@ -39,6 +40,7 @@ export class PortfolioMainComponent implements OnInit {
           const curInfo = data.filter(d => d.ticker === p.ticker)[0];
           [p.soldPrice, p.soldDate, p.csvPath] =
             [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+          p.soldIncome = p.shares * p.soldPrice;
         });
 
         this.portfolioTest = opens;
