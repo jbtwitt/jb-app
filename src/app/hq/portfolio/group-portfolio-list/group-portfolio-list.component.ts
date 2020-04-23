@@ -19,6 +19,8 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.portfolio && this.portfolio.length > 0) {
       this.groupPortfolio = this.createGroupBy(this.portfolio, this.groupBy);
+      this.selectedGroup = this.groupPortfolio
+                              .filter(g => g.count > 1)[0][this.groupBy];
     }
   }
 
@@ -60,6 +62,7 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
       reduceList[key] = { ...reduceList[key] };
       const row = reduceList[key];
       row.ticker = (row.buyDate === '') ? "" : row.ticker;
+      row.broker = (row.buyDate === '') ? "" : row.broker;
       row[by] = key;
       result.push(row);
     })
