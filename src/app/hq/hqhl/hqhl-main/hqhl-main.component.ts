@@ -26,13 +26,13 @@ export class HqhlMainComponent implements OnInit {
           this.ndaysList = [...this.ndaysList, ndays]
           // ndaysList.push(ndays);
         }
-        this.selectedHqHl = this.getHqHl(this.ndaysList[0]);
-        console.log(this.selectedHqHl)
+        this.getHqHl(this.ndaysList[0]);
       });  
   }
 
   getHqHl(ndays: number) {
-    return this.hqHl.filter(q => q.ndaysHL === ndays);
+    this.selectedHqHl = this.hqHl.filter(q => q.ndaysHL === ndays);
+    // console.log(this.selectedHqHl)
   }
 
 }

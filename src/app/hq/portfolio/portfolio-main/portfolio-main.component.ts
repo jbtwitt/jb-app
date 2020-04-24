@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-portfolio-main',
@@ -14,6 +15,7 @@ export class PortfolioMainComponent implements OnInit {
   portfolioTest: any[];
 
   constructor(
+    private uiService: UiService,
     private dataService: DataService,
   ) { }
 
@@ -39,9 +41,8 @@ export class PortfolioMainComponent implements OnInit {
         opens.forEach(p => {
           const hq0 = data.filter(d => d.ticker === p.ticker)[0];
           // console.log(curInfo.Date + ',', curInfo.Date.substr(0,3))
-          const hqDate = hq0.date.replace(/-/g, '');
           [p.soldPrice, p.soldDate, p.csvPath] =
-            [hq0.close, hq0.date, `hqcsv/hq${hqDate}/${hq0.ticker}.y.csv`];
+            [hq0.close, hq0.date, this.uiService.csvPath(hq0)];
           p.soldIncome = p.shares * p.soldPrice;
         });
 

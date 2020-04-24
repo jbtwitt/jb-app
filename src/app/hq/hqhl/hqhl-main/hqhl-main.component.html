@@ -1,2 +1,7 @@
+<span *ngFor="let n of ndaysList">
+    <button mat-raised-button
+        (click)="getHqHl(n)">{{ n }}</button>
+</span>
 
-<app-hqhl-list></app-hqhl-list>
+<app-hqhl-list
+    [hqhl]="selectedHqHl"></app-hqhl-list>

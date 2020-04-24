@@ -16,6 +16,10 @@ export class UiService {
     });
   }
 
+  csvPath(hq) {
+    const hqDate = hq.date.replace(/-/g, '');
+    return `hqcsv/hq${hqDate}/${hq.ticker}.y.csv`;
+  }
   // css class
   cssGainLoss(delta: number) {
     return (delta > 0) ? 'gain' : 'loss';
