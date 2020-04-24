@@ -62,8 +62,10 @@ export class DataService {
         map((lines: string[]) => {
           const rows = [];
           lines.forEach(line => {
-            line = line.replace('\r', '');
-            rows.push(line.split(','))
+            if (line.substring(0, 1) !== '#') {
+              line = line.replace('\r', '');
+              rows.push(line.split(','));
+            }
           });
           return this.csvLine2Json(rows);
         }),
