@@ -11,6 +11,7 @@ import { RaspberryPiModule } from './raspberry-pi/raspberry-pi.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { PortfolioModule } from './hq/portfolio/portfolio.module';
 import { HqstatModule } from './hq/hqstat/hqstat.module';
+import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HqstatModule } from './hq/hqstat/hqstat.module';
     RaspberryPiModule,
     BookmarksModule,
     PortfolioModule,
+    HqhistoryModule,
     HqstatModule,
   ],
   providers: [],
