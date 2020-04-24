@@ -29,7 +29,7 @@ export class PortfolioListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.portfolio);
+    // console.log(this.portfolio);
     if (this.portfolio && this.portfolio.length > 0) {
       // const cols = Object.keys(this.portfolio[0]).filter(k => k !== 'broker');
       // use spread syntax instead of using array push

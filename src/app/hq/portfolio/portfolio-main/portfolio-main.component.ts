@@ -28,7 +28,7 @@ export class PortfolioMainComponent implements OnInit {
 
       this.portfolioClose = csv.filter(p => p.soldDate !== '');
 
-      this.dataService.getAssetCsvData("hqcsv/hqstat-200.csv").subscribe(data => {
+      this.dataService.getAssetCsvData("hqcsv/hqday0.hqcsv").subscribe(data => {
 
         const opens = csv.filter(
           p => p.soldDate === ''
@@ -37,9 +37,11 @@ export class PortfolioMainComponent implements OnInit {
         // use destructuring assignment
         // to fill in close price in the place of sold date
         opens.forEach(p => {
-          const curInfo = data.filter(d => d.ticker === p.ticker)[0];
+          const curInfo = data.filter(d => d.Ticker === p.ticker)[0];
+          // console.log(curInfo.Date + ',', curInfo.Date.substr(0,3))
+          const hqDate = curInfo.Date.replace(/-/g, '');
           [p.soldPrice, p.soldDate, p.csvPath] =
-            [curInfo.cClose, curInfo.cDate, curInfo.csvPath];
+            [curInfo.Close, curInfo.Date, `hqcsv/hq${hqDate}/${curInfo.Ticker}.y.csv`];
           p.soldIncome = p.shares * p.soldPrice;
         });
 
