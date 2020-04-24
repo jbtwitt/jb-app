@@ -14,11 +14,10 @@ export class HqhlListComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     "ticker", "ndaysHL",
     "date", "cClose", "cChange", "vChange",
-    "lvPos", "lvDate", //"lClose", "lDelta",
+    "lvPos", "lvDate", //"lClose",
     "hvPos", "hvDate", //"hVolume",
-    // "lcPos", "lcDate", //"hClose", "hDelta",
+    // "lcPos", "lcDate", //"hClose",
     // "lvDate", "lvPos", //"lvVolume",
-    // "hlvDelta",
   ];
 
   constructor(

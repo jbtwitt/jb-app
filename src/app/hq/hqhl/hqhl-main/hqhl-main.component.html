@@ -1,6 +1,6 @@
+Today: {{ today | date: 'MM/dd/yyyy' }} - ndaysHL
 <span *ngFor="let n of ndaysList">
-    <button mat-raised-button
-        (click)="getHqHl(n)">{{ n }}</button>
+  | <span (click)="getHqHl(n)">{{ n }}</span> |
 </span>
 
 <app-hqhl-list

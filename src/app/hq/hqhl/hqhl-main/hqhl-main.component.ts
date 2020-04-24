@@ -11,6 +11,7 @@ export class HqhlMainComponent implements OnInit {
   hqHl: any[];
   selectedHqHl: any[];
   ndaysList: any[] = [];
+  today: Date = new Date();
 
   constructor(
     private dataService: DataService,
