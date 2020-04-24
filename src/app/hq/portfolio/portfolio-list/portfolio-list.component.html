@@ -23,7 +23,7 @@
           C</a>
         |
         <a [routerLink]="['/hqhistory/:csvPath']"
-           [queryParams]="{csvPath: row.csvPath}"
+           [queryParams]="{csvPath: uiService.csvPath(row)}"
           target="_blank">H</a>
         </span>
       </td>

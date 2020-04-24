@@ -46,7 +46,7 @@
 
     <ng-container matColumnDef="vChange">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
+      <td [class]="uiService.cssGainLoss(row.vChange)" mat-cell *matCellDef="let row">
         {{100 * row.vChange | number:'.2-2'}}%
       </td>
     </ng-container>
@@ -63,6 +63,18 @@
           {{row.lvDate | date: 'MM/dd/yyyy'}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="hvPos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>HV Pos</th>
+      <td class="alignR" mat-cell *matCellDef="let row">
+        {{ row.hvPos }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hvDate">
+      <th style="text-align: center;" mat-header-cell *matHeaderCellDef>HV Date</th>
+      <td style="text-align: center;" mat-cell *matCellDef="let row">
+        {{row.hvDate | date: 'MM/dd/yyyy'}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="lClose">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef>L Close</th>
       <td class="alignR" mat-cell *matCellDef="let row">
@@ -70,12 +82,6 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="hDate">
-        <th style="text-align: center;" mat-header-cell *matHeaderCellDef>H Date</th>
-        <td style="text-align: center;" mat-cell *matCellDef="let row">
-          {{row.hDate | date: 'MM/dd/yyyy'}}
-        </td>
-    </ng-container>
 
     <ng-container matColumnDef="hClose">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef>H Close</th>
@@ -84,11 +90,6 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="hPos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>H Pos</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{ row.hPos }}</td>
-    </ng-container>
 
     <!-- <ng-container matColumnDef="hvVolume">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>HV</th>

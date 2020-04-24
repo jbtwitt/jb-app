@@ -17,7 +17,8 @@ export class UiService {
   }
 
   csvPath(hq) {
-    const hqDate = hq.date.replace(/-/g, '');
+    const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
+    const hqDate = hq[dateCol].replace(/-/g, '');
     return `hqcsv/hq${hqDate}/${hq.ticker}.y.csv`;
   }
   // css class

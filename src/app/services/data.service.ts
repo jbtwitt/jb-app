@@ -62,7 +62,8 @@ export class DataService {
         map((lines: string[]) => {
           const rows = [];
           lines.forEach(line => {
-            if (line.substring(0, 1) !== '#') {
+            if (line.substring(0, 1) !== '#'
+              && line.length > 0) {
               line = line.replace('\r', '');
               rows.push(line.split(','));
             }
