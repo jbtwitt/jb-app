@@ -12,6 +12,7 @@ import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { PortfolioModule } from './hq/portfolio/portfolio.module';
 import { HqstatModule } from './hq/hqstat/hqstat.module';
 import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
+import { HqhlModule } from './hq/hqhl/hqhl.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
     BookmarksModule,
     PortfolioModule,
     HqhistoryModule,
+    HqhlModule,
     HqstatModule,
   ],
   providers: [],

@@ -37,11 +37,11 @@ export class PortfolioMainComponent implements OnInit {
         // use destructuring assignment
         // to fill in close price in the place of sold date
         opens.forEach(p => {
-          const curInfo = data.filter(d => d.Ticker === p.ticker)[0];
+          const hq0 = data.filter(d => d.ticker === p.ticker)[0];
           // console.log(curInfo.Date + ',', curInfo.Date.substr(0,3))
-          const hqDate = curInfo.Date.replace(/-/g, '');
+          const hqDate = hq0.date.replace(/-/g, '');
           [p.soldPrice, p.soldDate, p.csvPath] =
-            [curInfo.Close, curInfo.Date, `hqcsv/hq${hqDate}/${curInfo.Ticker}.y.csv`];
+            [hq0.close, hq0.date, `hqcsv/hq${hqDate}/${hq0.ticker}.y.csv`];
           p.soldIncome = p.shares * p.soldPrice;
         });
 
