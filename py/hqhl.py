@@ -4,7 +4,7 @@ from hqrobot import CsvFolder, CsvFileName
 
 HqHlFileNameFormatter = "{}/hqhl.hqcsv"
 HqHlHeader = "s:ticker,ndaysHL,s:date,"
-HqHlHeader += "cClose,cChange,vChange,"
+HqHlHeader += "close,cChange,vChange,"
 HqHlHeader += "lcPos,s:lcDate,lClose,"
 HqHlHeader += "hcPos,s:hcDate,hClose,"
 HqHlHeader += "lvPos,s:lvDate,lVolume,"

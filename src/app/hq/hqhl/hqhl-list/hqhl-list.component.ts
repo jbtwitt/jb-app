@@ -13,11 +13,11 @@ export class HqhlListComponent implements OnInit, OnChanges {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
     "ticker", "ndaysHL",
-    "date", "cClose", "cChange", "vChange",
-    "lvPos", "lvDate", //"lClose",
+    "date", "close", "cChange", "vChange",
+    "lcPos", "lcDate", "lClose",
+    "hcPos", "hcDate", "hClose",
+    "lvPos", "lvDate", //"lVolume",
     "hvPos", "hvDate", //"hVolume",
-    // "lcPos", "lcDate", //"hClose",
-    // "lvDate", "lvPos", //"lvVolume",
   ];
 
   constructor(

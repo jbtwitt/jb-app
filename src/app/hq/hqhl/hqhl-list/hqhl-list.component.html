@@ -30,15 +30,15 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="cClose">
+    <ng-container matColumnDef="close">
       <th style="text-align: right;" mat-header-cell *matHeaderCellDef>Close</th>
       <td class="alignR" mat-cell *matCellDef="let row">
-        {{row.cClose | number:'.2-2'}}
+        <b>{{row.close | number:'.2-2'}}</b>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cChange">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;C %</th>
       <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
         {{100 * row.cChange | number:'.2-2'}}%
       </td>
@@ -52,8 +52,10 @@
     </ng-container>
 
     <ng-container matColumnDef="lvPos">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>LV Pos</th>
-    <td class="alignR" mat-cell *matCellDef="let row">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      &nbsp;&nbsp;&nbsp;
+      <span style="color: blue;">*** LV Pos ***</span></th>
+    <td style="color: blue; text-align: center;" mat-cell *matCellDef="let row">
         {{ row.lvPos }}</td>
     </ng-container>
 
@@ -75,61 +77,43 @@
         {{row.hvDate | date: 'MM/dd/yyyy'}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="lcPos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>LC Pos</th>
+      <td class="alignR" mat-cell *matCellDef="let row">
+        {{ row.lcPos }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lcDate">
+      <th style="text-align: center;" mat-header-cell *matHeaderCellDef>LC Date</th>
+      <td style="text-align: center;" mat-cell *matCellDef="let row">
+        {{row.lcDate | date: 'MM/dd/yyyy'}}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="lClose">
-      <th style="text-align: right;" mat-header-cell *matHeaderCellDef>L Close</th>
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef>LC Close</th>
       <td class="alignR" mat-cell *matCellDef="let row">
         {{row.lClose | number:'.2-2'}}
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="hcPos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>HC Pos</th>
+      <td class="alignR" mat-cell *matCellDef="let row">
+        {{ row.hcPos }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hcDate">
+      <th style="text-align: center;" mat-header-cell *matHeaderCellDef>HC Date</th>
+      <td style="text-align: center;" mat-cell *matCellDef="let row">
+        {{row.hcDate | date: 'MM/dd/yyyy'}}
+      </td>
+    </ng-container>
 
     <ng-container matColumnDef="hClose">
-      <th style="text-align: right;" mat-header-cell *matHeaderCellDef>H Close</th>
+      <th style="text-align: right;" mat-header-cell *matHeaderCellDef>HC Close</th>
       <td class="alignR" mat-cell *matCellDef="let row">
         {{row.hClose | number:'.2-2'}}
-      </td>
-    </ng-container>
-
-
-    <!-- <ng-container matColumnDef="hvVolume">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HV</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{ row.hvVolume }}
-      </td>
-    </ng-container> -->
-
-    <ng-container matColumnDef="hcPos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HV Pos</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.hvPos }} </a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="lcDate">
-        <th style="text-align: center;" mat-header-cell *matHeaderCellDef>LV Date</th>
-        <td style="text-align: center;" mat-cell *matCellDef="let row">
-          {{row.lvDate | date: 'MM/dd/yyyy'}}
-        </td>
-    </ng-container>
-
-    <!-- <ng-container matColumnDef="lvVolume">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>LV</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{row.lvVolume}}
-      </td>
-    </ng-container> -->
-
-    <ng-container matColumnDef="lcPos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>LV Pos</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        <a (click)="setCsvPath(row.csvPath)" href="javascript:"> {{ row.lvPos }} </a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="hlvDelta">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HL V %</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{100 * row.hlvDelta | number:'.2-2'}}%
       </td>
     </ng-container>
 
