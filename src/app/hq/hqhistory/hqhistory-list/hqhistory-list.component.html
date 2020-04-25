@@ -14,52 +14,52 @@
     </ng-container>
 
     <ng-container matColumnDef="Open">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Open </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Open}} </td>
+    <th mat-header-cell *matHeaderCellDef> Open </th>
+    <td class="alignR" mat-cell *matCellDef="let row"> {{row.Open}} </td>
     </ng-container>
 
     <ng-container matColumnDef="High">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> High </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.High}} </td>
+    <th mat-header-cell *matHeaderCellDef> High </th>
+    <td class="alignR" mat-cell *matCellDef="let row"> {{row.High}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Low">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Low </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Low}} </td>
+    <th mat-header-cell *matHeaderCellDef> Low </th>
+    <td class="alignR" mat-cell *matCellDef="let row"> {{row.Low}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Close">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Close </th>
+    <th mat-header-cell *matHeaderCellDef> Close </th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
         mat-cell *matCellDef="let row"> {{row.Close}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Adj_Close">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Adj Close </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Adj_Close}} </td>
+    <th mat-header-cell *matHeaderCellDef> Adj Close </th>
+    <td class="alignR" mat-cell *matCellDef="let row"> {{row.Adj_Close}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Volume">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef> Volume </th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row"> {{row.Volume}} </td>
+    <th mat-header-cell *matHeaderCellDef> Volume </th>
+    <td class="alignR" mat-cell *matCellDef="let row"> {{row.Volume}} </td>
     </ng-container>
 
     <ng-container matColumnDef="hlDelta">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>HL %</th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row">
-        {{ 100 * row.hlDelta | number: '.2-2'}}%
+    <th mat-header-cell *matHeaderCellDef>HL %</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+      {{ 100 * row.hlDelta | number: '.2-2'}}%
     </td>
     </ng-container>
 
     <ng-container matColumnDef="hcDelta">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>HC %</th>
-    <td style="text-align: right;" mat-cell *matCellDef="let row">
+    <th mat-header-cell *matHeaderCellDef>HC %</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
         {{ 100 * row.hcDelta | number: '.2-2'}}%
     </td>
     </ng-container>
 
     <ng-container matColumnDef="cChange">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>C %</th>
+    <th mat-header-cell *matHeaderCellDef>C %</th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
         mat-cell *matCellDef="let row">
         {{ 100 * row.cChange | number: '.2-2'}}%
@@ -67,13 +67,12 @@
     </ng-container>
 
     <ng-container matColumnDef="vChange">
-    <th style="text-align: right;" mat-header-cell *matHeaderCellDef>Vol %</th>
+    <th mat-header-cell *matHeaderCellDef>Vol %</th>
     <td [class]="uiService.cssGainLoss(row.vChange)"
         mat-cell *matCellDef="let row">
-        {{ 100 * row.vChange | number: '.2-2'}}%
-    </td>
+        {{ 100 * row.vChange | number: '.2-2'}}%</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

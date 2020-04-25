@@ -27,7 +27,7 @@ export class HqhlMainComponent implements OnInit {
           // ndaysList.push(ndays);
           this.ndaysList = [...this.ndaysList, ndays]
         }
-        this.getHqHl(this.ndaysList[1]);
+        this.getHqHl(this.ndaysList[0]);
       });  
   }
 

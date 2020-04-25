@@ -21,7 +21,7 @@ import hqday0
 hqday0.run(hqConf, hqDate)
 
 import hqhl
-hqhl.run(hqConf, hqDate, [30, 60, 120, 240])
+hqhl.run(hqConf, hqDate, [10, 30, 60, 120, 240])
 
 # import hqcsv
 # hqcsv.runHqCsvBatch(hqConf, hqDate, 15)

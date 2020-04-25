@@ -10,3 +10,9 @@
 .alignR {
     text-align: right;
 }
+.td-date {
+    text-align: center;
+}
+.td-center {
+    text-align: center;
+}

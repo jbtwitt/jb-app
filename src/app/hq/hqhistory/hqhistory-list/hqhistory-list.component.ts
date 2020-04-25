@@ -8,10 +8,10 @@ import { UiService } from 'src/app/services/ui.service';
 @Component({
   selector: 'app-hqhistory-list',
   templateUrl: './hqhistory-list.component.html',
-  styleUrls: ['./hqhistory-list.component.sass']
+  styleUrls: ['./hqhistory-list.component.css']
 })
 export class HqhistoryListComponent implements OnInit, OnChanges {
-  @Input() csvPath: string = "hqcsv/hq20200415/LABU.y.csv";
+  @Input() csvPath: string;
   displayedColumns: string[];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
