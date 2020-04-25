@@ -1,4 +1,5 @@
 Today: {{ today | date: 'MM/dd/yyyy' }} - ndaysHL
+
 <span *ngFor="let n of ndaysList">
   | <span (click)="getHqHl(n)">{{ n }}</span> |
 </span>
