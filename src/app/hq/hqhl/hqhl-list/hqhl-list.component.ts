@@ -30,10 +30,15 @@ export class HqhlListComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.hqhl && this.hqhl.length > 0) {
-      console.log(this.hqhl)
+      // console.log(this.hqhl)
       this.hqhl = _.orderBy(this.hqhl, ['lvPos'], ['asc']);
       this.dataSource = new MatTableDataSource(this.hqhl);
       this.dataSource.sort = this.sort;
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

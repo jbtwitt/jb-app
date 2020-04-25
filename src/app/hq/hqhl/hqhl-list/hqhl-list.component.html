@@ -1,10 +1,18 @@
-<table mat-table width="100%" matSort
+<mat-form-field>
+  <mat-label>Ticker</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. LABU">
+</mat-form-field>
+
+<div class="example-container mat-elevation-z8">
+<table mat-table matSort
   [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="ticker">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticker</th>
     <td mat-cell *matCellDef="let row">
+
     {{ row.ndaysHL }}
+
     | <a [href]="uiService.hqQUrl(row.ticker)"
         target="_blank">
         {{row.ticker}}</a>
@@ -51,7 +59,7 @@
 
   <ng-container matColumnDef="lvPos">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-    <span style="color: blue;">*** LV Pos ***</span></th>
+    <span style="color: blue;">LV Pos</span></th>
   <td style="color: blue; text-align: center;" mat-cell *matCellDef="let row">
       {{ row.lvPos }}</td>
   </ng-container>
@@ -64,7 +72,7 @@
 
   <ng-container matColumnDef="hvPos">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>HV Pos</th>
-    <td class="alignR" mat-cell *matCellDef="let row">
+    <td class="td-center" mat-cell *matCellDef="let row">
       {{ row.hvPos }}</td>
   </ng-container>
 
@@ -74,60 +82,56 @@
       {{row.hvDate | date: 'MM/dd/yyyy'}}</td>
   </ng-container>
 
-    <ng-container matColumnDef="lcPos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>LC Pos</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{ row.lcPos }}</td>
-    </ng-container>
+  <ng-container matColumnDef="lcPos">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>LC Pos</th>
+    <td class="td-center" mat-cell *matCellDef="let row">
+      {{ row.lcPos }}</td>
+  </ng-container>
 
   <ng-container matColumnDef="lcDate">
     <th mat-header-cell *matHeaderCellDef>LC Date</th>
     <td style="text-align: center;" mat-cell *matCellDef="let row">
-      {{row.lcDate | date: 'MM/dd/yyyy'}}
-    </td>
+      {{row.lcDate | date: 'MM/dd/yyyy'}}</td>
   </ng-container>
 
-    <ng-container matColumnDef="lClose">
-      <th mat-header-cell *matHeaderCellDef>LC</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{row.lClose | number:'.2-2'}}
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="lClose">
+    <th mat-header-cell *matHeaderCellDef>LC</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+      <u>{{row.lClose | number:'.2-2'}}</u></td>
+  </ng-container>
 
-    <ng-container matColumnDef="lcChange">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>LC%</th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
-        {{100 * row.lcChange | number:'.2-2'}}%
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="lcChange">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>LC%</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+    <u>{{100 * row.lcChange | number:'.2-2'}}%</u></td>
+  </ng-container>
 
-    <ng-container matColumnDef="hcPos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HC Pos</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{ row.hcPos }}</td>
-    </ng-container>
+  <ng-container matColumnDef="hcPos">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>HC Pos</th>
+    <td class="td-center" mat-cell *matCellDef="let row">
+      {{ row.hcPos }}</td>
+  </ng-container>
 
-    <ng-container matColumnDef="hcDate">
-      <th mat-header-cell *matHeaderCellDef>HC Date</th>
-      <td style="text-align: center;" mat-cell *matCellDef="let row">
-        {{row.hcDate | date: 'MM/dd/yyyy'}}
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="hcDate">
+    <th mat-header-cell *matHeaderCellDef>HC Date</th>
+    <td class="td-date" mat-cell *matCellDef="let row">
+      {{row.hcDate | date: 'MM/dd/yyyy'}}</td>
+  </ng-container>
 
-    <ng-container matColumnDef="hClose">
-      <th mat-header-cell *matHeaderCellDef>HC</th>
-      <td class="alignR" mat-cell *matCellDef="let row">
-        {{row.hClose | number:'.2-2'}}
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="hClose">
+    <th mat-header-cell *matHeaderCellDef>HC</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+    <u>{{row.hClose | number:'.2-2'}}</u></td>
+  </ng-container>
 
-    <ng-container matColumnDef="hcChange">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>HC%</th>
-      <td style="text-align: right;" mat-cell *matCellDef="let row">
-        {{100 * row.hcChange | number:'.2-2'}}%
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="hcChange">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>HC%</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+    <u>{{100 * row.hcChange | number:'.2-2'}}%</u></td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</div>

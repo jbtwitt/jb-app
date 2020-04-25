@@ -7,3 +7,13 @@ th.mat-header-cell {
 .td-date {
     text-align: center;
 }
+.td-center {
+    text-align: center;
+}
+.example-container {
+    height: 480px;
+    overflow: auto;
+}
+table {
+width: 100%;
+}
