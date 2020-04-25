@@ -15,6 +15,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
   displayedColumns: string[];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  ticker: string;
 
   constructor(
     public uiService: UiService,
@@ -26,6 +27,9 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
     this.activatedRoute.queryParams.subscribe(params => {
       this.csvPath = params['csvPath'];
       console.log(this.csvPath)
+      // parse out ticker from csvPath
+      this.ticker = this.csvPath.substring(this.csvPath.lastIndexOf('/'));
+      this.ticker = this.ticker.substring(1, this.ticker.indexOf('.'));
       this.getCsvData(this.csvPath);
     });
   }

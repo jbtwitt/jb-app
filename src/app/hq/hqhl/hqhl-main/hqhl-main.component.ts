@@ -24,8 +24,8 @@ export class HqhlMainComponent implements OnInit {
         this.hqHl = data;
         // const t = _.uniqBy(data, 'ticker');
         for (const {ndaysHL: ndays} of _.uniqBy(data, 'ndaysHL')) {
-          this.ndaysList = [...this.ndaysList, ndays]
           // ndaysList.push(ndays);
+          this.ndaysList = [...this.ndaysList, ndays]
         }
         this.getHqHl(this.ndaysList[0]);
       });  

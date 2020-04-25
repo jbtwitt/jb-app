@@ -8,9 +8,6 @@ from datetime import datetime, timedelta
 # print(s[i:])
 # sys.exit()
 
-# jbconf = json.load(open("./jbconf.json"))
-# hqconfpath = jbconf["hqrobot"]["hqconf"]
-
 hqconfpath = "../src/assets/hqrobot.json"
 hqConf = json.load(open(hqconfpath))
 
