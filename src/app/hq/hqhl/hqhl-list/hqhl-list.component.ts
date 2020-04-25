@@ -6,17 +6,17 @@ import { UiService } from 'src/app/services/ui.service';
 @Component({
   selector: 'app-hqhl-list',
   templateUrl: './hqhl-list.component.html',
-  styleUrls: ['./hqhl-list.component.sass']
+  styleUrls: ['./hqhl-list.component.css']
 })
 export class HqhlListComponent implements OnInit, OnChanges {
   @Input() hqhl: any[];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
-    "ticker", "ndaysHL",
+    "ticker", //"ndaysHL",
     "date", "close", "cChange", "vChange",
-    "lcPos", "lcDate", "lClose",
-    "hcPos", "hcDate", "hClose",
+    "lcPos", "lcDate", "lcChange", "lClose",
+    "hClose", "hcChange", "hcDate", "hcPos",
     "lvPos", "lvDate", //"lVolume",
     "hvPos", "hvDate", //"hVolume",
   ];
@@ -30,6 +30,7 @@ export class HqhlListComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.hqhl && this.hqhl.length > 0) {
+      console.log(this.hqhl)
       this.hqhl = _.orderBy(this.hqhl, ['lvPos'], ['asc']);
       this.dataSource = new MatTableDataSource(this.hqhl);
       this.dataSource.sort = this.sort;

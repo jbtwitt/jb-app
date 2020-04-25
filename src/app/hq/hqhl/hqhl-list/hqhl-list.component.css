@@ -1,0 +1,9 @@
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+th.mat-header-cell {
+    text-align: center;
+}
+.td-date {
+    text-align: center;
+}

@@ -12,7 +12,7 @@ hqconfpath = "../src/assets/hqrobot.json"
 hqConf = json.load(open(hqconfpath))
 
 hqDate = (datetime.now() + timedelta(days=-0)).strftime("%Y%m%d")
-# hqDate = "20200423"
+hqDate = "20200424"
 
 import hqrobot
 # hqrobot.run(hqConf, hqDate)

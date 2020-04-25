@@ -5,8 +5,8 @@ from hqrobot import CsvFolder, CsvFileName
 HqHlFileNameFormatter = "{}/hqhl.hqcsv"
 HqHlHeader = "s:ticker,ndaysHL,s:date,"
 HqHlHeader += "close,cChange,vChange,"
-HqHlHeader += "lcPos,s:lcDate,lClose,"
-HqHlHeader += "hcPos,s:hcDate,hClose,"
+HqHlHeader += "lcPos,s:lcDate,lClose,lcChange,"
+HqHlHeader += "hcPos,s:hcDate,hClose,hcChange,"
 HqHlHeader += "lvPos,s:lvDate,lVolume,"
 HqHlHeader += "hvPos,s:hvDate,hVolume\n"
 HqHlFormatter = "{}," * HqHlHeader.count(',') + "{}\n"
@@ -28,7 +28,9 @@ def hqhlLine(ticker, df, ndays):
             (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
             vChange,
             df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
+            (lcRow.Close - hq0Row.Close) / hq0Row.Close,
             df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
+            (hcRow.Close - hq0Row.Close) / hq0Row.Close,
             df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
             df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
         )
