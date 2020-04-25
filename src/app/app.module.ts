@@ -10,7 +10,6 @@ import { ExerciseModule } from './exercise/exercise.module';
 import { RaspberryPiModule } from './raspberry-pi/raspberry-pi.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { PortfolioModule } from './hq/portfolio/portfolio.module';
-import { HqstatModule } from './hq/hqstat/hqstat.module';
 import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
 import { HqhlModule } from './hq/hqhl/hqhl.module';
 
@@ -35,7 +34,6 @@ import { HqhlModule } from './hq/hqhl/hqhl.module';
     PortfolioModule,
     HqhistoryModule,
     HqhlModule,
-    HqstatModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
