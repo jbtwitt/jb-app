@@ -1,6 +1,12 @@
 <mat-form-field>
   <mat-label>Ticker</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. LABU">
+  <input matInput
+    [(ngModel)]="filterValue"
+    (keyup)="applyFilter($event)" placeholder="Ex. LABU">
+    <button mat-button *ngIf="filterValue"
+      matSuffix mat-icon-button aria-label="Clear" (click)="filter('')">
+      <mat-icon>close</mat-icon>
+    </button>
 </mat-form-field>
 
 <div class="example-container mat-elevation-z8">
@@ -11,15 +17,18 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticker</th>
     <td mat-cell *matCellDef="let row">
 
-    {{ row.ndaysHL }}
+    <a *ngIf="row.ticker != filterValue" href="javascript:" (click)="filter(row.ticker)">
+      <mat-icon>radio_button_unchecked</mat-icon></a>
 
-    | <a [href]="uiService.hqQUrl(row.ticker)"
+    {{ row.ndaysHL }} |
+
+    <a [href]="uiService.hqQUrl(row.ticker)"
         target="_blank">
-        {{row.ticker}}</a>
-    | <a [href]="uiService.hqCUrl(row.ticker)"
+        {{row.ticker}}</a> |
+    <a [href]="uiService.hqCUrl(row.ticker)"
         target="_blank">
-        C</a>
-    | <a [routerLink]="['/hqhistory/:csvPath']"
+        C</a> |
+    <a [routerLink]="['/hqhistory/:csvPath']"
         [queryParams]="{csvPath: uiService.csvPath(row)}"
         target="_blank">H</a>
     </td>

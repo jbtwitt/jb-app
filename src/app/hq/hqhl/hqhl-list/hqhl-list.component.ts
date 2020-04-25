@@ -20,6 +20,7 @@ export class HqhlListComponent implements OnInit, OnChanges {
     "lvPos", "lvDate", //"lVolume",
     "hvPos", "hvDate", //"hVolume",
   ];
+  filterValue: string;
 
   constructor(
     public uiService: UiService,
@@ -38,7 +39,11 @@ export class HqhlListComponent implements OnInit, OnChanges {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.filter(this.filterValue);
+  }
+  filter(value) {
+    this.dataSource.filter = value.trim().toLowerCase();
+    this.filterValue = value;
   }
 }

@@ -1,7 +1,9 @@
-Today: {{ today | date: 'MM/dd/yyyy' }} - ndaysHL
+<span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
 
-<span *ngFor="let n of ndaysList">
-  | <span (click)="getHqHl(n)">{{ n }}</span> |
+  Today: {{ today | date: 'MM/dd/yyyy' }} | ndaysHL:
+
+  <span *ngFor="let n of ndaysList">
+    <span (click)="getHqHl(n)">{{ n }}</span> | </span>
 </span>
 
 <app-hqhl-list
