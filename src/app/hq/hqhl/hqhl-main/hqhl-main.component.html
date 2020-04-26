@@ -1,10 +1,18 @@
-<span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+<mat-form-field style="width: 82px;">
+  <mat-label>date</mat-label>
+  <input matInput [matDatepicker]="picker" [value]="today" readonly>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
 
-  Today: {{ today | date: 'MM/dd/yyyy' }} | ndaysHL:
+
+<span style="font-family: Geneva, 'Lucida Sans Regular', 'Lucida Grande', sans-serif">
+
+  | ndaysHL:
 
   <span *ngFor="let n of ndaysList">
     <span (click)="getHqHl(n)">{{ n }}</span> | </span>
+
 </span>
 
-<app-hqhl-list
-    [hqhl]="selectedHqHl"></app-hqhl-list>
+
+<app-hqhl-list [hqhl]="selectedHqHl"></app-hqhl-list>
