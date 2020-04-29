@@ -2,27 +2,29 @@
     "repo": "/gitrepo/jb/jb-app/src/assets/hqcsv",
     "hqDays": 520,
     "tickers": [
-        "MSFT", "SAP", "SPCE", "BA",
+        "MSFT", "SAP", "SPCE", "BA", "TSM",
         "ATHX", "VSTM", "WATT", "NVAX", "BCRX", "AGEN", "GBTC", "FIT",
         "NVDA", "IPGP", "SNAP", "BLNK", "MEIP",
         "JNCE", "EIGR", "SNDX", "CARA", "STML", "GEVO"],
-    "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST", "SQQQ", "TQQQ",
-        "YINN", "YANG", "GUSH", "DRIP"],
+    "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST",
+        "TNA",
+        "SQQQ", "TQQQ",
+        "YINN", "GUSH", "DRIP"],
     "idx": ["^IXIC", "^GSPC", "^DJI", "^TNX"],
-    "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
-    "vix": ["SVXY", "VXX", "UVXY"],
     "covid19": [
         "AAL", "UAL", "RDFN", "Z",
         "XOM", "TRIP", "EXPE", "MAR",
-        "ZM"
+        "MRNA", "ZM"
     ],
+    "vanguard": ["VB", "VBK", "VBR", "FREL", "IYR", "IYF", "IBB", "FHLC"],
+    "vix": ["SVXY", "VXX", "UVXY"],
     "hqUrl": {
         "yf": "https://finance.yahoo.com/",
         "q": "https://finance.yahoo.com/quote/{}?p={}",
         "h": "https://finance.yahoo.com/quote/{}/history?p={}",
         "c": "https://finance.yahoo.com/chart/{}"
     },
-    "etf-bear": ["LABD", "ERY", "DUST", "VXX", "TQQQ"],
+    "etf-bear": ["LABD", "ERY", "DUST", "YANG"],
     "target": {},
     "sleep": 1
 }

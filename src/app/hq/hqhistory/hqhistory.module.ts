@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HqhistoryRoutingModule } from './hqhistory-routing.module';
 import { HqhistoryListComponent } from './hqhistory-list/hqhistory-list.component';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material';
   imports: [
     CommonModule,
     MatTableModule,
+    MatSortModule,
     HqhistoryRoutingModule,
   ]
 })

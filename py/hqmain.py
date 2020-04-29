@@ -12,10 +12,10 @@ hqconfpath = "../src/assets/hqrobot.json"
 hqConf = json.load(open(hqconfpath))
 
 hqDate = (datetime.now() + timedelta(days=-0)).strftime("%Y%m%d")
-hqDate = "20200424"
+# hqDate = "20200424"
 
 import hqrobot
-# hqrobot.run(hqConf, hqDate)
+hqrobot.run(hqConf, hqDate)
 
 import hqday0
 hqday0.run(hqConf, hqDate)
@@ -25,6 +25,3 @@ hqhl.run(hqConf, hqDate, [10, 30, 60, 120, 240])
 
 # import hqcsv
 # hqcsv.runHqCsvBatch(hqConf, hqDate, 15)
-
-# for i in [200, 130, 70, 20]:
-#     hqstat.run(hqConf, hqDate, i)

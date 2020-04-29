@@ -39,7 +39,9 @@ export class PortfolioMainComponent implements OnInit {
         opens.forEach(p => {
           const hq0 = data.filter(d => d.ticker === p.ticker)[0];
           // console.log(curInfo.Date + ',', curInfo.Date.substr(0,3))
-          [p.soldPrice, p.soldDate] = [hq0.close, hq0.date];
+          [p.soldPrice, p.soldDate, p.cChange, p.vChange] = [
+            hq0.close, hq0.date, hq0.cChange, hq0.vChange
+          ];
           p.soldIncome = p.shares * p.soldPrice;
         });
 

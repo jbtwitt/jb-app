@@ -104,7 +104,7 @@
 
   <ng-container matColumnDef="lcChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>LC%</th>
-    <td class="alignR" mat-cell *matCellDef="let row">
+    <td [class]="uiService.cssGainLoss(row.lcChange)" mat-cell *matCellDef="let row">
     <u>{{100 * row.lcChange | number:'.2-2'}}%</u></td>
   </ng-container>
 
@@ -128,7 +128,7 @@
 
   <ng-container matColumnDef="hcChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>HC%</th>
-    <td class="alignR" mat-cell *matCellDef="let row">
+    <td [class]="uiService.cssGainLoss(row.hcChange)" mat-cell *matCellDef="let row">
     <u>{{100 * row.hcChange | number:'.2-2'}}%</u></td>
   </ng-container>
 

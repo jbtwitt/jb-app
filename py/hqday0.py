@@ -12,7 +12,7 @@ def hqDay0Line(ticker, df):
     vChange = day0Row.Volume
     if vChange > 0:
         # print("|{}|".format(vChange))
-        (day0Row.Volume - day0Row.PreVolume) / day0Row.PreVolume
+        vChange = (day0Row.Volume - day0Row.PreVolume) / day0Row.PreVolume
     return HqDay0Formatter.format(
             ticker,
             day0Idx,

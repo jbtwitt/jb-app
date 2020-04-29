@@ -4,12 +4,19 @@
     [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef><b style="color: red;">{{ticker}}</b></th>
+    <th mat-header-cell *matHeaderCellDef><b>
+      <a [href]="uiService.hqQUrl(ticker)"
+        target="_blank">
+        {{ticker}}</a> |
+      <a [href]="uiService.hqCUrl(ticker)"
+        target="_blank">
+        C</a>
+    </b></th>
     <td mat-cell *matCellDef="let i = index">{{i}}</td>
     </ng-container>
 
     <ng-container matColumnDef="Date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+    <th mat-header-cell *matHeaderCellDef> Date </th>
     <td mat-cell *matCellDef="let row"> {{row.Date}} </td>
     </ng-container>
 
@@ -29,9 +36,9 @@
     </ng-container>
 
     <ng-container matColumnDef="Close">
-    <th mat-header-cell *matHeaderCellDef> Close </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Close </th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
-        mat-cell *matCellDef="let row"> {{row.Close}} </td>
+        mat-cell *matCellDef="let row"> ${{row.Close}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Adj_Close">
@@ -40,7 +47,7 @@
     </ng-container>
 
     <ng-container matColumnDef="Volume">
-    <th mat-header-cell *matHeaderCellDef> Volume </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Volume </th>
     <td class="alignR" mat-cell *matCellDef="let row"> {{row.Volume}} </td>
     </ng-container>
 
@@ -59,7 +66,7 @@
     </ng-container>
 
     <ng-container matColumnDef="cChange">
-    <th mat-header-cell *matHeaderCellDef>C %</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
         mat-cell *matCellDef="let row">
         {{ 100 * row.cChange | number: '.2-2'}}%
@@ -67,7 +74,7 @@
     </ng-container>
 
     <ng-container matColumnDef="vChange">
-    <th mat-header-cell *matHeaderCellDef>Vol %</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Vol %</th>
     <td [class]="uiService.cssGainLoss(row.vChange)"
         mat-cell *matCellDef="let row">
         {{ 100 * row.vChange | number: '.2-2'}}%</td>

@@ -99,6 +99,20 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="cChange">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
+    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
+      {{100 * row.cChange | number:'.2-2'}}%
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vChange">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
+    <td [class]="uiService.cssGainLoss(row.vChange)" mat-cell *matCellDef="let row">
+      {{100 * row.vChange | number:'.2-2'}}%
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

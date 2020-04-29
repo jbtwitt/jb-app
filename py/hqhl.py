@@ -28,9 +28,9 @@ def hqhlLine(ticker, df, ndays):
             (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
             vChange,
             df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
-            (lcRow.Close - hq0Row.Close) / hq0Row.Close,
+            (hq0Row.Close - lcRow.Close) / lcRow.Close,
             df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
-            (hcRow.Close - hq0Row.Close) / hq0Row.Close,
+            (hq0Row.Close - hcRow.Close) / hcRow.Close,
             df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
             df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
         )
