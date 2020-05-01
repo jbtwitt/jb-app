@@ -12,6 +12,7 @@ import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { PortfolioModule } from './hq/portfolio/portfolio.module';
 import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
 import { HqhlModule } from './hq/hqhl/hqhl.module';
+import { LedgerModule } from './hq/ledger/ledger.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HqhlModule } from './hq/hqhl/hqhl.module';
     PortfolioModule,
     HqhistoryModule,
     HqhlModule,
+    LedgerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

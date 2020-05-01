@@ -23,17 +23,17 @@ def hqhlLine(ticker, df, ndays):
     lcRow, hcRow = (df.loc[lcIdx], df.loc[hcIdx])
     lvRow, hvRow = (df.loc[lvIdx], df.loc[hvIdx])
     return HqHlFormatter.format(
-            ticker, ndays, hq0Idx,
-            hq0Row.Close,
-            (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
-            vChange,
-            df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
-            (hq0Row.Close - lcRow.Close) / lcRow.Close,
-            df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
-            (hq0Row.Close - hcRow.Close) / hcRow.Close,
-            df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
-            df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
-        )
+        ticker, ndays, hq0Idx,
+        hq0Row.Close,
+        (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
+        vChange,
+        df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
+        (hq0Row.Close - lcRow.Close) / lcRow.Close,
+        df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
+        (hq0Row.Close - hcRow.Close) / hcRow.Close,
+        df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
+        df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
+    )
 
 def csvHqHl(ticker, csvFolder, ndaysList=[20]):
     result = ""

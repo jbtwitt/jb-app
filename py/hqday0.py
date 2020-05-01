@@ -11,19 +11,18 @@ def hqDay0Line(ticker, df):
     day0Row = df.loc[day0Idx]
     vChange = day0Row.Volume
     if vChange > 0:
-        # print("|{}|".format(vChange))
         vChange = (day0Row.Volume - day0Row.PreVolume) / day0Row.PreVolume
     return HqDay0Formatter.format(
-            ticker,
-            day0Idx,
-            day0Row.Open,
-            day0Row.High,
-            day0Row.Low,
-            day0Row.Close,
-            day0Row.Volume,
-            (day0Row.Close - day0Row.PreClose) / day0Row.PreClose,
-            vChange
-        )
+        ticker,
+        day0Idx,
+        day0Row.Open,
+        day0Row.High,
+        day0Row.Low,
+        day0Row.Close,
+        day0Row.Volume,
+        (day0Row.Close - day0Row.PreClose) / day0Row.PreClose,
+        vChange
+    )
 
 def csvHqDay0(ticker, csvFolder):
     csvFile = CsvFileName.format(csvFolder, ticker)

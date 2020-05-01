@@ -45,11 +45,9 @@ export class PortfolioMainComponent implements OnInit {
           p.soldIncome = p.shares * p.soldPrice;
         });
 
-        this.portfolioTest = opens;
+        this.portfolioTest = opens.filter(p => p.broker === 'Test *');
   
-        this.portfolioOpen = this.portfolioTest.filter(
-          p => p.broker !== 'Test *'
-        );
+        this.portfolioOpen = opens.filter(p => p.broker !== 'Test *');
       });
     });
   }
