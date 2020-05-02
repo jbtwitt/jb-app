@@ -16,6 +16,12 @@ export class UiService {
     });
   }
 
+  getGainLoss(row) {
+    return (row.soldDate
+      ? (row.soldPrice - row.buyPrice)
+      : (row.close - row.buyPrice));
+  }
+
   csvPath(hq) {
     const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     const hqDate = hq[dateCol].replace(/-/g, '');

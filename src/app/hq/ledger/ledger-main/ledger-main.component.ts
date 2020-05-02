@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-ledger-main',
@@ -11,14 +12,11 @@ export class LedgerMainComponent implements OnInit {
   transactions: any[] = [];
 
   constructor(
+    private uiService: UiService,
     private dataService: DataService,
   ) { }
 
   async ngOnInit() {
-    // await this.dataService.getAssetCsvData('account.csv').toPromise()
-    //   .then(data => {
-    //     this.accounts = data
-    //   });
     this.dataService.getAssetCsvData('account.csv').subscribe(data => {
         this.accounts = data
     });
@@ -39,8 +37,18 @@ export class LedgerMainComponent implements OnInit {
           transactions.push({ ...t, ...hq });
         });
         this.transactions = [...this.transactions, transactions];
+
+        // cash/market value
+        account.cash = account.investment;
+        account.marketValue = account.investment;
+        transactions.forEach(row => {
+          account.marketValue += row.shares * this.uiService.getGainLoss(row);
+          account.cash += row.shares * (
+            (row.soldDate) ? this.uiService.getGainLoss(row) : -row.buyPrice
+          );
+        });
       })
-      console.log(this.transactions)
+      // console.log(this.transactions)
     });
   }
 

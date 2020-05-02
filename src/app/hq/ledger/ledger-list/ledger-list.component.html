@@ -1,6 +1,15 @@
 <mat-card>
-  {{account.balance}}
+  Cash: {{ account.cash | currency:'USD':'symbol':'.2-2' }}
+  <span style="float: right"
+    [class]="uiService.cssGainLoss(account.marketValue - account.investment)">
+    Market Value: {{ account.marketValue | currency:'USD':'symbol':'.2-2' }} (
+    {{
+      100 * (account.marketValue - account.investment) / account.investment
+      | number:'.2-2'
+    }}% ) 
+  </span>
 </mat-card>
+
 <table mat-table matSort width="100%"
   [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -19,7 +28,7 @@
   </ng-container>
 
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+    <th mat-header-cell *matHeaderCellDef>Date</th>
     <td class="td-date" mat-cell *matCellDef="let row">
       {{row.date | date: 'MM/dd/yyyy'}}
     </td>
@@ -29,7 +38,7 @@
     <th mat-header-cell *matHeaderCellDef> Price </th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
       mat-cell *matCellDef="let row">
-      {{row.close | currency:'USD':symbol:'.2-2'}}
+      {{row.close | currency:'USD':'symbol':'.2-2'}}
     </td>
   </ng-container>
 
@@ -46,9 +55,9 @@
 
   <ng-container matColumnDef="buyPrice">
     <th mat-header-cell *matHeaderCellDef> Buy Price </th>
-    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
+    <td [class]="uiService.cssGainLoss(uiService.getGainLoss(row))"
       mat-cell *matCellDef="let row">
-      {{row.buyPrice | currency:'USD':symbol:'.2-2'}}
+      {{row.buyPrice | currency:'USD':'symbol':'.2-2'}}
     </td>
   </ng-container>
 
@@ -56,7 +65,7 @@
     <th mat-header-cell *matHeaderCellDef> Sold Price </th>
     <td class="alignR"
       mat-cell *matCellDef="let row">
-      {{row.soldPrice | currency:'USD':symbol:'.2-2'}}
+      {{row.soldPrice | currency:'USD':'symbol':'.2-2'}}
     </td>
   </ng-container>
 
@@ -75,30 +84,30 @@
   </ng-container>
 
   <ng-container matColumnDef="buyCost">
-    <th mat-header-cell *matHeaderCellDef>Cost </th>
+    <th mat-header-cell *matHeaderCellDef>Cost</th>
     <td class="alignR" mat-cell *matCellDef="let row">
-      <span *ngIf="row.soldPrice !== ''">
-      {{ row.buyCost | currency:'USD':symbol:'.2-2'}}
-      </span>
+
+      {{ row.shares * row.buyPrice | currency:'USD':'symbol':'.2-2'}}
+
     </td>
   </ng-container>
 
   <ng-container matColumnDef="gainLoss">
     <th mat-header-cell *matHeaderCellDef>Gain/Loss</th>
-    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
+    <td [class]="uiService.cssGainLoss(uiService.getGainLoss(row))"
       mat-cell *matCellDef="let row">
 
-      {{ row.shares * getGainLoss(row) | currency:'USD':symbol:'.2-2'}}
+      {{ row.shares * uiService.getGainLoss(row) | currency:'USD':'symbol':'.2-2'}}
 
     </td>
   </ng-container>
 
   <ng-container matColumnDef="gainLossP">
     <th mat-header-cell *matHeaderCellDef>Gain/Loss %</th>
-    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
+    <td [class]="uiService.cssGainLoss(uiService.getGainLoss(row))"
       mat-cell *matCellDef="let row">
 
-      {{100 * getGainLoss(row) / row.buyPrice | number:'.2-2'}}%
+      {{100 * uiService.getGainLoss(row) / row.buyPrice | number:'.2-2'}}%
 
     </td>
   </ng-container>

@@ -44,7 +44,7 @@
     <th mat-header-cell *matHeaderCellDef> Buy Price </th>
     <td [class]="uiService.cssGainLoss(row.soldPrice - row.buyPrice)"
       mat-cell *matCellDef="let row">
-      {{row.buyPrice | currency:'USD':symbol:'.2-2'}}
+      {{row.buyPrice | currency:'USD':'symbol':'.2-2'}}
     </td>
   </ng-container>
 
@@ -52,7 +52,7 @@
     <th mat-header-cell *matHeaderCellDef> Sold Price </th>
     <td class="alignR"
       mat-cell *matCellDef="let row">
-      {{row.soldPrice | currency:'USD':symbol:'.2-2'}}
+      {{row.soldPrice | currency:'USD':'symbol':'.2-2'}}
     </td>
   </ng-container>
 
@@ -74,7 +74,7 @@
     <th mat-header-cell *matHeaderCellDef>Cost </th>
     <td class="alignR" mat-cell *matCellDef="let row">
       <span *ngIf="row.soldPrice !== ''">
-      {{ row.buyCost | currency:'USD':symbol:'.2-2'}}
+      {{ row.buyCost | currency:'USD':'symbol':'.2-2'}}
       </span>
     </td>
   </ng-container>
@@ -84,7 +84,7 @@
     <td [class]="uiService.cssGainLoss(row.soldPrice - row.buyPrice)"
       mat-cell *matCellDef="let row">
       <span *ngIf="row.soldPrice !== ''">
-      {{row.shares * (row.soldPrice - row.buyPrice) | currency:'USD':symbol:'.2-2'}}
+      {{row.shares * (row.soldPrice - row.buyPrice) | currency:'USD':'symbol':'.2-2'}}
       </span>
     </td>
   </ng-container>

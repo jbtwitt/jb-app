@@ -6,13 +6,13 @@
     <table>
         <tr *ngFor="let i of percentList">
             <td style="text-align: right;">
-                {{ hqPrice + hqPrice * i | currency:'USD':symbol: '.2-2' }}
+                {{ hqPrice + hqPrice * i | currency:'USD':'symbol': '.2-2' }}
             </td>
             <td style="color: blue; text-align: right;">
                 {{ 100 * i | number: .0 }}%
             </td>
             <td style="color: red; text-align: right;">
-                {{ hqPrice - hqPrice * i | currency:'USD':symbol: '.2-2' }}
+                {{ hqPrice - hqPrice * i | currency:'USD':'symbol': '.2-2' }}
             </td>
         </tr>
     </table>
@@ -30,13 +30,13 @@
         </tr>
         <tr>
             <td *ngFor="let i of percentList" style="text-align: right;">
-                &nbsp;{{ hqPrice + hqPrice * i | currency:'USD':symbol: '.2-2' }}
+                &nbsp;{{ hqPrice + hqPrice * i | currency:'USD':'symbol': '.2-2' }}
             </td>
         </tr>
         <tr>
             <td *ngFor="let i of percentList" style="color: red; text-align: right;">
                 <span *ngIf="i > 0">
-                &nbsp;{{ hqPrice - hqPrice * i | currency:'USD':symbol: '.2-2' }}
+                &nbsp;{{ hqPrice - hqPrice * i | currency:'USD':'symbol': '.2-2' }}
                 </span>
             </td>
         </tr>

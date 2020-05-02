@@ -1,6 +1,6 @@
 <mat-tab-group>
   <mat-tab *ngFor="let row of accounts; index as i"
-    label="{{row.broker}}({{row.balance}})">
+    label="{{row.broker}} ({{row.investment | number: '.2-2'}})">
     <app-ledger-list
       [account]="row"
       [transactions]="transactions[i]"></app-ledger-list>
