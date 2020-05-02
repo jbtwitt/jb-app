@@ -1,2 +1,8 @@
-
-<app-ledger-list></app-ledger-list>
+<mat-tab-group>
+  <mat-tab *ngFor="let row of accounts; index as i"
+    label="{{row.broker}}({{row.balance}})">
+    <app-ledger-list
+      [account]="row"
+      [transactions]="transactions[i]"></app-ledger-list>
+  </mat-tab>  
+</mat-tab-group>
