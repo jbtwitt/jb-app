@@ -15,6 +15,9 @@ import { GroupPortfolioListComponent } from './group-portfolio-list/group-portfo
     MatSortModule,
     MatTabsModule,
     PortfolioRoutingModule
+  ],
+  exports: [
+    GroupPortfolioListComponent,
   ]
 })
 export class PortfolioModule { }

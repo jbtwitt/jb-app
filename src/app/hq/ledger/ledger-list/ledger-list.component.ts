@@ -13,11 +13,13 @@ export class LedgerListComponent implements OnInit, OnChanges {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<any[]>;
   displayedColumns = [
-    "ticker", "shares",
+    "ticker",
+    "date", "close", "cChange", "vChange",
+    "shares",
     "buyPrice", "buyDate",
-    // "soldPrice", "cChange", "vChange",
-    // "soldDate", "buyCost",
-    // 'gainLoss', 'gainLossP',
+    "soldPrice",
+    "soldDate", "buyCost",
+    'gainLoss', 'gainLossP',
   ];
 
   constructor(
@@ -30,5 +32,10 @@ export class LedgerListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.dataSource = new MatTableDataSource(this.transactions);
     this.dataSource.sort = this.sort;
+  }
+  getGainLoss(row) {
+    return (row.soldDate
+      ? (row.soldPrice - row.buyPrice)
+      : (row.close - row.buyPrice));
   }
 }

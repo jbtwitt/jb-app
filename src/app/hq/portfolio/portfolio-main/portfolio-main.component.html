@@ -4,28 +4,24 @@
         <app-group-portfolio-list
             groupBy="ticker"
             [portfolio]="portfolioOpen"></app-group-portfolio-list>
-
     </mat-tab>
 
     <mat-tab label="Test">
         <app-group-portfolio-list
             groupBy="ticker"
             [portfolio]="portfolioTest"></app-group-portfolio-list>
-
     </mat-tab>
 
     <mat-tab label="Close - Group By Ticker">
         <app-group-portfolio-list
             groupBy="ticker"
             [portfolio]="portfolioClose"></app-group-portfolio-list>
-
     </mat-tab>
 
     <mat-tab label="Close - Group By Broker">
         <app-group-portfolio-list
         groupBy="broker"
         [portfolio]="portfolioClose"></app-group-portfolio-list>
-
     </mat-tab>
 
 </mat-tab-group>

@@ -4,5 +4,11 @@
     <app-ledger-list
       [account]="row"
       [transactions]="transactions[i]"></app-ledger-list>
-  </mat-tab>  
+
+    <div *ngIf="false && transactions[i] && transactions[i].length > 0">
+    <app-group-portfolio-list
+      groupBy="ticker"
+      [portfolio]="transactions[i]"></app-group-portfolio-list>
+    </div>
+  </mat-tab>
 </mat-tab-group>

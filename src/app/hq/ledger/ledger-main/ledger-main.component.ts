@@ -15,14 +15,17 @@ export class LedgerMainComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    // await this.dataService.getAssetCsvData('account.csv').toPromise()
+    //   .then(data => {
+    //     this.accounts = data
+    //   });
+    this.dataService.getAssetCsvData('account.csv').subscribe(data => {
+        this.accounts = data
+    });
     let hqday0 = [];
     await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
       .then(data => {
         hqday0 = data;
-      });
-    await this.dataService.getAssetCsvData('account.csv').toPromise()
-      .then(data => {
-        this.accounts = data
       });
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(data => {
       this.accounts.forEach(account => {
@@ -38,7 +41,7 @@ export class LedgerMainComponent implements OnInit {
         this.transactions = [...this.transactions, transactions];
       })
       console.log(this.transactions)
-    })
+    });
   }
 
 }

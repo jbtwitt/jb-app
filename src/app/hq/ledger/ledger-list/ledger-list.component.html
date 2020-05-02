@@ -18,6 +18,21 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+    <td class="td-date" mat-cell *matCellDef="let row">
+      {{row.date | date: 'MM/dd/yyyy'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="close">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td [class]="uiService.cssGainLoss(row.cChange)"
+      mat-cell *matCellDef="let row">
+      {{row.close | currency:'USD':symbol:'.2-2'}}
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="shares">
     <th mat-header-cell *matHeaderCellDef> Shares </th>
     <td class="alignR" mat-cell *matCellDef="let row">
@@ -31,7 +46,7 @@
 
   <ng-container matColumnDef="buyPrice">
     <th mat-header-cell *matHeaderCellDef> Buy Price </th>
-    <td [class]="uiService.cssGainLoss(row.soldPrice - row.buyPrice)"
+    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
       mat-cell *matCellDef="let row">
       {{row.buyPrice | currency:'USD':symbol:'.2-2'}}
     </td>
@@ -70,21 +85,21 @@
 
   <ng-container matColumnDef="gainLoss">
     <th mat-header-cell *matHeaderCellDef>Gain/Loss</th>
-    <td [class]="uiService.cssGainLoss(row.soldPrice - row.buyPrice)"
+    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
       mat-cell *matCellDef="let row">
-      <span *ngIf="row.soldPrice !== ''">
-      {{row.shares * (row.soldPrice - row.buyPrice) | currency:'USD':symbol:'.2-2'}}
-      </span>
+
+      {{ row.shares * getGainLoss(row) | currency:'USD':symbol:'.2-2'}}
+
     </td>
   </ng-container>
 
   <ng-container matColumnDef="gainLossP">
     <th mat-header-cell *matHeaderCellDef>Gain/Loss %</th>
-    <td [class]="uiService.cssGainLoss(+row.soldPrice - row.buyPrice)"
+    <td [class]="uiService.cssGainLoss(getGainLoss(row))"
       mat-cell *matCellDef="let row">
-      <span *ngIf="row.soldPrice !== ''">
-      {{100 * (row.soldPrice - row.buyPrice) / row.buyPrice | number:'.2-2'}}%
-      </span>
+
+      {{100 * getGainLoss(row) / row.buyPrice | number:'.2-2'}}%
+
     </td>
   </ng-container>
 
