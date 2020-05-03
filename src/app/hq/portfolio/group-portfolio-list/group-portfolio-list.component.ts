@@ -19,9 +19,8 @@ export class GroupPortfolioListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.portfolio && this.portfolio.length > 0) {
       this.groupPortfolio = this.createGroupBy(this.portfolio, this.groupBy);
-      this.selectedGroup =
-        this.groupPortfolio
-          .filter(g => g.count > 1)[0][this.groupBy];
+      const groups = this.groupPortfolio.filter(g => g.count > 1);
+      this.selectedGroup = (groups.length) ? groups[0][this.groupBy] : null;
     }
   }
 

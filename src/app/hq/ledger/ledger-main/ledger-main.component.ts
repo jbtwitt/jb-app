@@ -31,10 +31,10 @@ export class LedgerMainComponent implements OnInit {
           t.broker === account.broker
           && t.buyDate >= account.date
         );
-        const transactions = [];
+        let transactions = [];
         rows.forEach(t => {
           const hq = hqday0.filter(q => q.ticker === t.ticker)[0];
-          transactions.push({ ...t, ...hq });
+          transactions = [...transactions, { ...t, ...hq }];
         });
         this.transactions = [...this.transactions, transactions];
 

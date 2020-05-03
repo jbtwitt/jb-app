@@ -37,10 +37,9 @@ export class PortfolioMainComponent implements OnInit {
         // use destructuring assignment
         // to fill in close price in the place of sold date
         opens.forEach(p => {
-          const hq0 = data.filter(d => d.ticker === p.ticker)[0];
-          // console.log(curInfo.Date + ',', curInfo.Date.substr(0,3))
+          const hq = data.filter(d => d.ticker === p.ticker)[0];
           [p.soldPrice, p.soldDate, p.cChange, p.vChange] = [
-            hq0.close, hq0.date, hq0.cChange, hq0.vChange
+            hq.close, hq.date, hq.cChange, hq.vChange
           ];
           p.soldIncome = p.shares * p.soldPrice;
         });
