@@ -13,6 +13,7 @@ import { PortfolioModule } from './hq/portfolio/portfolio.module';
 import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
 import { HqhlModule } from './hq/hqhl/hqhl.module';
 import { LedgerModule } from './hq/ledger/ledger.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { LedgerModule } from './hq/ledger/ledger.module';
     HqhlModule,
     LedgerModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

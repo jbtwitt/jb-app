@@ -37,7 +37,7 @@ export class HqhlMainComponent implements OnInit {
     // console.log(this.selectedHqHl)
   }
 
-  getMy() {
+  etIraShortTerm() {
     // cretiria:
     // define abnormal volume change
     this.selectedHqHl = this.hqHl.filter(
