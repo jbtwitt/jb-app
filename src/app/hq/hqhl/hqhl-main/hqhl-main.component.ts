@@ -28,7 +28,6 @@ export class HqhlMainComponent implements OnInit {
           this.ndaysList = [...this.ndaysList, ndays]
         }
         this.getHqHl(this.ndaysList[0]);
-
       });  
   }
 
@@ -39,10 +38,11 @@ export class HqhlMainComponent implements OnInit {
 
   etIraShortTerm() {
     // cretiria:
-    // define abnormal volume change
     this.selectedHqHl = this.hqHl.filter(
-      hl => !'^TNX,FIT'.includes(hl.ticker)
-        && hl.lvPos === 0   // lowest volume date
+      hl => 
+        hl.lvPos === 0    // lowest volume date
+        && hl.lcPos <= 1  // lowest price
+        && !'^TNX,FIT'.includes(hl.ticker)
     );
   }
 }

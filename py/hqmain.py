@@ -14,6 +14,12 @@ hqConf = json.load(open(hqconfpath))
 hqDate = (datetime.now() + timedelta(days=-0)).strftime("%Y%m%d")
 # hqDate = "20200424"
 
+HqDateJson = '{' + '"hqdate": "{}"'.format(hqDate) + '}'
+import hqutil
+hqutil.writeTextFile("../src/assets/hqcsv/hqdate.json", HqDateJson)
+# import sys
+# sys.exit()
+
 import hqrobot
 hqrobot.run(hqConf, hqDate)
 

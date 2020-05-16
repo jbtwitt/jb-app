@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class UiService {
+  hqDate: string;
   hqConf: any;
 
   constructor(
@@ -13,6 +14,10 @@ export class UiService {
     private dataService: DataService,
   ) {
     console.log('-----construct ui service')
+    this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
+      this.hqDate = data.hqdate;
+      console.log(this.hqDate)
+    });
     this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
       this.hqConf = data;
     });
@@ -36,8 +41,8 @@ export class UiService {
   csvPath(hq) {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     // const hqDate = hq[dateCol].replace(/-/g, '');
-    const hqDate = this.datepipe.transform(new Date(), 'yyyyMMdd');
-    return `hqcsv/hq${hqDate}/${hq.ticker}.y.csv`;
+    // const hqDate = this.datepipe.transform(new Date(), 'yyyyMMdd');
+    return `hqcsv/hq${this.hqDate}/${hq.ticker}.y.csv`;
   }
   // css class
   cssGainLoss(delta: number) {

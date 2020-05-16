@@ -10,8 +10,8 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAssetJsonData(uri: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(`/assets/${uri}`);
+  getAssetJsonData(uri: string): Observable<any> {
+    return this.httpClient.get<any>(`/assets/${uri}`);
   }
 
   // convert csv line string array to object
