@@ -12,21 +12,22 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class HqhistoryListComponent implements OnInit, OnChanges {
   @Input() csvPath: string;
-  displayedColumns: string[];
-  // [
-  //   "position",
-  //   "Date",
-  //   "Open",
-  //   "High",
-  //   "Low",
-  //   "Close",
-  //   "Adj_Close",
-  //   "Volume",
-  //   "hcDelta",
-  //   "hlDelta",
-  //   "cChange",
-  //   "vChange",
-  // ];
+  displayedColumns: string[] =
+  [
+    "position",
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj_Close",
+    "Volume",
+    "hlDelta",
+    "hcDelta",
+    "clDelta",
+    "cChange",
+    "vChange",
+  ];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   ticker: string;
@@ -62,6 +63,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
             const prev = data[pos - 1];
             row.hcDelta = (row.High - row.Close) / row.Low;
             row.hlDelta = (row.High - row.Low) / row.Low;
+            row.clDelta = (row.Close - row.Low) / row.Low;
             row.cChange = (row.Close - prev.Close) / prev.Close;
             row.vChange = (row.Volume - prev.Volume) / prev.Volume;
           }
@@ -72,7 +74,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
         // console.log(data)
         const cols = Object.keys(data[0]);
         // use spread syntax instead of using array push
-        this.displayedColumns = ['position', ...cols];
+        // this.displayedColumns = ['position', ...cols];
         // console.log(this.displayedColumns)
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;

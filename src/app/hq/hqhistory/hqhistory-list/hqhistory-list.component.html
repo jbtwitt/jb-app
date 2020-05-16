@@ -65,6 +65,13 @@
     </td>
     </ng-container>
 
+    <ng-container matColumnDef="clDelta">
+    <th mat-header-cell *matHeaderCellDef>CL %</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+        {{ 100 * row.clDelta | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
     <ng-container matColumnDef="cChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
     <td [class]="uiService.cssGainLoss(row.cChange)"

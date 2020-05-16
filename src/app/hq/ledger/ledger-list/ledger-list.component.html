@@ -79,7 +79,7 @@
   <ng-container matColumnDef="soldDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Sold </th>
     <td class="td-date" mat-cell *matCellDef="let row">
-      {{row.soldDate | date: 'MM/dd/yyyy'}}
+      <b>{{row.soldDate | date: 'MM/dd/yyyy'}}</b>
     </td>
   </ng-container>
 

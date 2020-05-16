@@ -1,15 +1,15 @@
 <mat-tab-group>
 
-    <mat-tab label="Open">
-        <app-group-portfolio-list
-            groupBy="ticker"
-            [portfolio]="portfolioOpen"></app-group-portfolio-list>
-    </mat-tab>
-
     <mat-tab label="Test">
         <app-group-portfolio-list
             groupBy="ticker"
             [portfolio]="portfolioTest"></app-group-portfolio-list>
+    </mat-tab>
+
+    <mat-tab label="Open">
+        <app-group-portfolio-list
+            groupBy="ticker"
+            [portfolio]="portfolioOpen"></app-group-portfolio-list>
     </mat-tab>
 
     <mat-tab label="Close - Group By Ticker">

@@ -5,7 +5,7 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 export class UiService {
-  hqConf: any = {}
+  hqConf: any;
 
   constructor(
     private dataService: DataService,
@@ -14,6 +14,14 @@ export class UiService {
     this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
       this.hqConf = data;
     });
+  }
+
+  async init() {
+    await this.dataService.getAssetJsonData('hqrobot.json')
+      .toPromise()
+      .then(data => {
+        this.hqConf = data;
+      });
   }
 
   getGainLoss(row) {
@@ -34,10 +42,14 @@ export class UiService {
 
   // hq Url
   hqQUrl(ticker: string): string {
-    return this.hqConf.hqUrl.q.replace(/{}/g, ticker);
+    if (this.hqConf) {
+      return this.hqConf!.hqUrl.q.replace(/{}/g, ticker);
+    }
   }
   hqCUrl(ticker: string): string {
-    return this.hqConf.hqUrl.c.replace("{}", ticker);
+    if (this.hqConf) {
+      return this.hqConf.hqUrl.c.replace("{}", ticker);
+    }
   }
   hqHUrl(ticker: string): string {
     return this.hqConf.hqUrl.h.replace(/{}/g, ticker);
