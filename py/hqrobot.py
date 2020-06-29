@@ -8,6 +8,7 @@ from HqYhoo import HqYhoo, DateFormat
 CsvFolder = "{}/hq{}"
 CsvFileName = "{}/{}.y.csv"
 
+FailTryAgain = []
 """
 robot download hq data and store in csv format
 
@@ -16,8 +17,9 @@ robot download hq data and store in csv format
 :param tickerList: key name of ticker list
 :returns:
 """
-def hqrobotMain(hqConf, day, tickerList="tickers"):
-    tickers = hqConf[tickerList]
+# def hqrobotMain(hqConf, day, tickerList="tickers"):
+#     tickers = hqConf[tickerList]
+def hqrobotMain(hqConf, day, tickers):
     hqDays = 7 * hqConf["hqDays"] / 5
     # repo = hqConf["repo"] + '/hq' + datetime.now().strftime("%Y%m%d")
     repo = CsvFolder.format(hqConf["repo"], day)
@@ -35,9 +37,10 @@ def hqrobotMain(hqConf, day, tickerList="tickers"):
                 f.write(csv)
             print("{} ...".format(ticker))
 
-        except:
-            print("{} failed".format(ticker))
-            break
+        except Exception as e: # work on python 3.x
+            FailTryAgain.append(ticker)
+            print("{} failed: {}".format(ticker, str(e)))
+            # break
         sleep(hqConf["sleep"])
 
     # hqMetaFileCreate(hqConf, day)
@@ -59,7 +62,11 @@ def hqrobotMain(hqConf, day, tickerList="tickers"):
 def run(hqConf, day):
     print(day, 'hq date folder')
     for group in ['etf', 'idx', 'tickers', 'covid19']:
-        hqrobotMain(hqConf, day, tickerList=group)
+        tickers = hqConf[group]
+        hqrobotMain(hqConf, day, tickers)
+    # try again for the failed
+    print("Failed: ", FailTryAgain)
+    hqrobotMain(hqConf, day, FailTryAgain)
 
 if __name__ == '__main__':
     jbconf = json.load(open("./jbconf.json"))
