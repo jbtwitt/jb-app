@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HqhistoryRoutingModule } from './hqhistory-routing.module';
 import { HqhistoryListComponent } from './hqhistory-list/hqhistory-list.component';
-import { MatTableModule, MatSortModule } from '@angular/material';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
