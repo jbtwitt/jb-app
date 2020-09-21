@@ -36,6 +36,7 @@ export class LedgerMainComponent implements OnInit {
           const hq = hqday0.filter(q => q.ticker === t.ticker)[0];
           transactions = [...transactions, { ...t, ...hq }];
         });
+        // console.log(transactions);
         this.transactions = [...this.transactions, transactions];
 
         // cash/market value

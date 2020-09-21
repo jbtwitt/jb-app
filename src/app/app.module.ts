@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTabsModule } from '@angular/material';
+import { MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTabsModule, MatToolbarModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
+    MatToolbarModule,
 
     ExerciseModule,
     RaspberryPiModule,

@@ -4,8 +4,10 @@
     "tickers": [
         "MSFT", "SAP", "SPCE", "BA", "TSM",
         "ATHX", "VSTM", "WATT", "NVAX", "BCRX", "AGEN", "GBTC", "FIT",
-        "NVDA", "IPGP", "SNAP", "BLNK", "MEIP", "OSMT",
-        "JNCE", "EIGR", "SNDX", "CARA", "STML", "GEVO"],
+        "NVDA", "SNAP", "BLNK", "MEIP", "OSMT", "FOLD", "INSM",
+        "JNCE", "SNDX", "CARA", "GEVO", "EIGR", "IPGP",
+        "NNOX"
+    ],
     "etf": ["LABU", "LABD", "ERX", "ERY", "NUGT", "DUST",
         "TNA",
         "SQQQ", "TQQQ",
@@ -26,5 +28,5 @@
     },
     "etf-bear": ["LABD", "ERY", "DUST", "YANG"],
     "target": {},
-    "sleep": 1
+    "sleep": 2
 }

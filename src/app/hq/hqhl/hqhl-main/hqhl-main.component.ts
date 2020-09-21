@@ -40,9 +40,21 @@ export class HqhlMainComponent implements OnInit {
     // cretiria:
     this.selectedHqHl = this.hqHl.filter(
       hl => 
-        hl.lvPos === 0    // lowest volume date
-        && hl.lcPos <= 1  // lowest price
-        && !'^TNX,FIT'.includes(hl.ticker)
+        !'^TNX,FIT'.includes(hl.ticker)
+        && (
+          (
+            hl.vChange >= 2         // volume jump
+            && hl.ndaysHL === 10    // need only one
+          )
+          || (
+            hl.hvPos === 0   // highest volume
+            // && hl.ndaysHL > 10
+          )
+          || (
+            hl.lvPos === 0    // lowest volume date
+            && hl.lcPos <= 1  // lowest price
+          )
+        )
     );
   }
 }

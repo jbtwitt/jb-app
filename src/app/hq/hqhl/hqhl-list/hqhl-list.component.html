@@ -55,7 +55,7 @@
 
   <ng-container matColumnDef="vChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
-    <td [class]="uiService.cssGainLoss(row.vChange)" mat-cell *matCellDef="let row">
+    <td [class]="uiService.cssGainLoss(row.vChange - 1)" mat-cell *matCellDef="let row">
       {{100 * row.vChange | number:'.2-2'}}%
     </td>
   </ng-container>

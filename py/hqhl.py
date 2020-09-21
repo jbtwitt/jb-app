@@ -17,7 +17,8 @@ def hqhlLine(ticker, df, ndays):
     hq0Row = df.loc[hq0Idx]
     vChange = hq0Row.Volume
     if vChange > 0:
-        vChange = (hq0Row.Volume - hq0Row.PreVolume) / hq0Row.PreVolume
+        vChange = hq0Row.Volume / hq0Row.PreVolume
+        # vChange = (hq0Row.Volume - hq0Row.PreVolume) / hq0Row.PreVolume
     lcIdx, hcIdx = (df.Close.idxmin(), df.Close.idxmax())
     lvIdx, hvIdx = (df.Volume.idxmin(), df.Volume.idxmax())
     lcRow, hcRow = (df.loc[lcIdx], df.loc[hcIdx])
