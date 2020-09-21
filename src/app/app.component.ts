@@ -1,6 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { UiService } from './services/ui.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +9,42 @@ import { UiService } from './services/ui.service';
 export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  // title = 'JbApp';
+  fillerNav = [
+    {
+      title: "Home Cam",
+      route: "/monitor",
+      icon: "videocam",
+    },
+    {
+      title: "My Exercise",
+      route: "at-collection",
+      icon: "fitness_center",
+    },
+    {
+      title: "My Bookmarks",
+      route: "bookmarks",
+      icon: "bookmarks",
+    },
+    {
+      title: "My Portfolio",
+      route: "portfolio",
+      icon: "score",
+    },
+    {
+      title: "My HQ High Low",
+      route: "hqhl",
+      icon: "bar_chart",
+    },
+    {
+      title: "My Ledger",
+      route: "ledger",
+      icon: "list",
+    },
+  ];
+  
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private uiService: UiService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

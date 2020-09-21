@@ -1,50 +1,40 @@
-<!-- <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
+<div
+  class="example-container"
+  [class.example-is-mobile]="mobileQuery.matches">
+
   <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <button
+      mat-icon-button
+      (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
     <h1 class="example-app-name">JB App</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+  <mat-sidenav-container
+    class="example-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav #snav
+      opened="true"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
+
       <mat-nav-list>
-        <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
+        <a mat-list-item
+          [routerLink]="nav.route"
+          [matTooltip]="nav.title"
+          *ngFor="let nav of fillerNav">
+          <mat-icon>{{nav.icon}}</mat-icon>
+        </a>
       </mat-nav-list>
+
     </mat-sidenav>
 
     <mat-sidenav-content>
-      CONTENT
-      <p *ngFor="let content of fillerContent">{{content}}</p>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
+
   </mat-sidenav-container>
-</div> -->
-
-<!-- <div *ngIf="!shouldRun">Please open on Stackblitz to see result</div> -->
-
-
-<mat-card>
-<button mat-raised-button routerLink="/monitor" color="primary">Monitor</button>
-<button mat-raised-button routerLink="/at-collection" color="primary">Exercise</button>
-<button mat-raised-button routerLink="/bookmarks" color="primary">Bookmarks</button>
-<button mat-raised-button routerLink="/hqhl" color="primary">hq HL</button>
-<button mat-raised-button routerLink="/portfolio" color="primary">Portfolio</button>
-<button mat-raised-button routerLink="/ledger" color="primary">Ledger</button>
-</mat-card>
-
-<!-- <div style="text-align:left">
-<button mat-raised-button [matMenuTriggerFor]="exerciseMenu">Exercise<mat-icon>keyboard_arrow_down</mat-icon></button>
-<mat-menu #exerciseMenu="matMenu" yPosition="below">
-  <button mat-menu-item routerLink="/bat">Basic Alternate Tempo</button>
-  <button mat-menu-item routerLink="/at-collection">Alternate Tempo Collection</button>
-  <button mat-menu-item routerLink="/bat-counter">BAT Counter</button>
-</mat-menu>
-</div> -->
-
-
-<!-- <nav>
-  <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
-  <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-</nav> -->
-
-<router-outlet></router-outlet>
+</div>
