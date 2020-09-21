@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({

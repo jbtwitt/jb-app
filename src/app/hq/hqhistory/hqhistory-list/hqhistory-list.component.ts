@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
-import _ from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -71,7 +70,8 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
         });
 
         // reverse order
-        _.reverse(data)
+        // _.reverse(data)
+        data.reverse();
         // console.log(data)
         const cols = Object.keys(data[0]);
         // use spread syntax instead of using array push

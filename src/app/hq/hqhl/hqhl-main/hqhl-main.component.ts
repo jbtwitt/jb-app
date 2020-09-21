@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import _ from 'lodash';
 
 @Component({
   selector: 'app-hqhl-main',
@@ -10,7 +9,7 @@ import _ from 'lodash';
 export class HqhlMainComponent implements OnInit {
   hqHl: any[];
   selectedHqHl: any[];
-  ndaysList: any[] = [];
+  ndaysList: any[] = [10, 30, 60, 120, 240];
   today: Date = new Date();
 
   constructor(
@@ -22,11 +21,6 @@ export class HqhlMainComponent implements OnInit {
       .getAssetCsvData(`hqcsv/hqhl.hqcsv`)
       .subscribe(data => {
         this.hqHl = data;
-        // const t = _.uniqBy(data, 'ticker');
-        for (const {ndaysHL: ndays} of _.uniqBy(data, 'ndaysHL')) {
-          // ndaysList.push(ndays);
-          this.ndaysList = [...this.ndaysList, ndays]
-        }
         this.getHqHl(this.ndaysList[0]);
       });  
   }

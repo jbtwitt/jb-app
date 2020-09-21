@@ -63,4 +63,11 @@ export class UiService {
   hqHUrl(ticker: string): string {
     return this.hqConf.hqUrl.h.replace(/{}/g, ticker);
   }
+
+  compare = (key: string, desc: number) => {
+    return (a, b) => (a[key] > b[key] ? desc : b[key] > a[key] ? -desc : 0);
+  };
+  orderBy(list: any[], key: string, desc: boolean = false) {
+    return list.concat().sort(this.compare(key, desc ? -1 : 1));
+  }
 }
