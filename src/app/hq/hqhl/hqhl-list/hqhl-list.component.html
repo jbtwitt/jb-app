@@ -9,9 +9,7 @@
     </button>
 </mat-form-field>
 
-<div class="example-container mat-elevation-z8">
-<table mat-table matSort
-  [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table matSort [dataSource]="dataSource">
 
   <ng-container matColumnDef="ticker">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticker</th>
@@ -30,7 +28,7 @@
         C</a> |
     <a [routerLink]="['/hqhistory/:csvPath']"
         [queryParams]="{csvPath: uiService.csvPath(row)}"
-        target="_blank">H</a>
+        >H</a>
     </td>
   </ng-container>
 
@@ -136,4 +134,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-</div>
