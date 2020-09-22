@@ -1,18 +1,11 @@
-<div
-  class="example-container"
-  [class.example-is-mobile]="mobileQuery.matches">
+<div>
 
-  <mat-toolbar color="primary" class="example-toolbar">
-    <button
-      mat-icon-button
-      (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1 class="example-app-name">JB App</h1>
+  <mat-toolbar color="primary">
+    <mat-icon (click)="snav.toggle()">menu</mat-icon>
+    <h1 style="padding-left: 1em;">JB App</h1>
   </mat-toolbar>
 
   <mat-sidenav-container
-    class="example-sidenav-container"
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
     <mat-sidenav #snav
@@ -37,4 +30,5 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
+
 </div>
