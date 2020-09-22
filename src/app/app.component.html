@@ -1,6 +1,6 @@
-<div>
+<div style="display: block; position:absolute; height: 100%; width: 100%;">
 
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" style="height: 7%; min-height: 36px;">
     <mat-icon (click)="snav.toggle()">menu</mat-icon>
     <h1 style="padding-left: 1em;">JB App</h1>
   </mat-toolbar>
@@ -9,7 +9,7 @@
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
     <mat-sidenav #snav
-      opened="true"
+      opened="false"
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
