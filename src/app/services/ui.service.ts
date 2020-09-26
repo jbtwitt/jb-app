@@ -14,16 +14,23 @@ export class UiService {
     private dataService: DataService,
   ) {
     console.log('-----construct ui service')
-    this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
-      this.hqDate = data.hqdate;
-      console.log(this.hqDate)
-    });
-    this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
-      this.hqConf = data;
-    });
+    this.init();
+    // this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
+    //   this.hqDate = data.hqdate;
+    //   console.log(this.hqDate);
+    // });
+    // this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
+    //   this.hqConf = data;
+    // });
   }
 
   async init() {
+    await this.dataService.getAssetJsonData('hqcsv/hqdate.json')
+      .toPromise()
+      .then(data => {
+      this.hqDate = data.hqdate;
+      console.log(this.hqDate);
+    });
     await this.dataService.getAssetJsonData('hqrobot.json')
       .toPromise()
       .then(data => {
@@ -38,6 +45,12 @@ export class UiService {
     );
   }
 
+  get hqday0Path() {
+    return `hqcsv/hq${this.hqDate}/hqday0.hqcsv`;
+  }
+  get hqhlPath() {
+    return `hqcsv/hq${this.hqDate}/hqhl.hqcsv`;
+  }
   csvPath(hq) {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     // const hqDate = hq[dateCol].replace(/-/g, '');

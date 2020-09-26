@@ -21,7 +21,8 @@ export class LedgerMainComponent implements OnInit {
         this.accounts = data
     });
     let hqday0 = [];
-    await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
+    // await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
+    await this.dataService.getAssetCsvData(this.uiService.hqday0Path).toPromise()
       .then(data => {
         hqday0 = data;
       });

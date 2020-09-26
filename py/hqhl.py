@@ -2,7 +2,7 @@ import hqutil
 import pandas as pd
 from hqrobot import CsvFolder, CsvFileName
 
-HqHlFileNameFormatter = "{}/hqhl.hqcsv"
+HqHlFileNameFormatter = "{}/hq{}/hqhl.hqcsv"
 HqHlHeader = "s:ticker,ndaysHL,s:date,"
 HqHlHeader += "close,cChange,vChange,"
 HqHlHeader += "lcPos,s:lcDate,lClose,lcChange,"
@@ -55,7 +55,7 @@ def run(hqConf, hqDate, ndaysList=[20]):
         for ticker in hqConf[group]:
             result += csvHqHl(ticker, csvFolder, ndaysList)
             # break
-    hqHlFileName = HqHlFileNameFormatter.format(hqConf['repo'])
+    hqHlFileName = HqHlFileNameFormatter.format(hqConf['repo'], hqDate)
     hqutil.writeTextFile(hqHlFileName, HqHlHeader + result)
 
 import json

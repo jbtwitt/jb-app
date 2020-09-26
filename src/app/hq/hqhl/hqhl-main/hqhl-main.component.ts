@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-hqhl-main',
@@ -13,16 +14,19 @@ export class HqhlMainComponent implements OnInit {
   today: Date = new Date();
 
   constructor(
+    private uiService: UiService,
     private dataService: DataService,
   ) { }
 
   ngOnInit() {
-    this.dataService
-      .getAssetCsvData(`hqcsv/hqhl.hqcsv`)
-      .subscribe(data => {
-        this.hqHl = data;
-        this.getHqHl(this.ndaysList[0]);
-      });  
+    this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
+      this.dataService
+        .getAssetCsvData(this.uiService.hqhlPath)
+        .subscribe(data => {
+          this.hqHl = data;
+          this.getHqHl(this.ndaysList[0]);
+        });  
+    });
   }
 
   getHqHl(ndays: number) {

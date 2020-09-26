@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-portfolio-main',
@@ -13,6 +14,7 @@ export class PortfolioMainComponent implements OnInit {
   portfolioTest: any[];
 
   constructor(
+    private uiService: UiService,
     private dataService: DataService,
   ) { }
 
@@ -27,7 +29,8 @@ export class PortfolioMainComponent implements OnInit {
 
       this.portfolioClose = csv.filter(p => p.soldDate !== '');
 
-      this.dataService.getAssetCsvData("hqcsv/hqday0.hqcsv").subscribe(data => {
+      // this.dataService.getAssetCsvData("hqcsv/hqday0.hqcsv").subscribe(data => {
+      this.dataService.getAssetCsvData(this.uiService.hqday0Path).subscribe(data => {
 
         const opens = csv.filter(
           p => p.soldDate === ''
