@@ -11,13 +11,19 @@ export class BookmarkMainComponent implements OnInit {
   bookmarksCollection: any[];
   notes: any[];
   educations: any[];
+  hqCategory = ['etf', 'idx', 'tickers', 'covid19'];
+  hqConf: any;
 
   constructor(
     public uiService: UiService,
     private dataService: DataService,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.uiService.init().then(() => {
+      this.hqConf = this.uiService.getHqConf();
+      console.log('init done');
+    });
     this.dataService.getAssetJsonData('notes.json').subscribe(data => {
       this.notes = data;
     })

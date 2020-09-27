@@ -13,8 +13,8 @@ export class UiService {
     private datepipe: DatePipe,
     private dataService: DataService,
   ) {
-    console.log('-----construct ui service')
-    this.init();
+    // console.log('-----construct ui service')
+    // this.init();
     // this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
     //   this.hqDate = data.hqdate;
     //   console.log(this.hqDate);
@@ -38,6 +38,9 @@ export class UiService {
       });
   }
 
+  getHqConf() {
+    return this.hqConf;
+  }
   getGainLoss(row) {
     return (row.soldDate
       ? (row.soldPrice - row.buyPrice)

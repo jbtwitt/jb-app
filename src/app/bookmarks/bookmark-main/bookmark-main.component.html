@@ -35,12 +35,12 @@
     </div>
 
     <div style="float: left;">
-        <table width="100%">
+        <table width="100%" *ngIf="hqConf">
         <tr>
 
-        <td valign="top" *ngFor="let cat of ['etf', 'idx', 'tickers', 'covid19']">
+        <td valign="top" *ngFor="let cat of hqCategory">
         <mat-nav-list>
-            <mat-list-item *ngFor="let ticker of uiService.hqConf[cat]">
+            <mat-list-item *ngFor="let ticker of hqConf[cat]">
             <mat-icon matListIcon>insert_chart_outlined</mat-icon>
             <a style="width: 96px;" [href]="uiService.hqQUrl(ticker)" target="_blank">{{ ticker }}</a>
             <a style="width: 16px;" [href]="uiService.hqCUrl(ticker)" target="_blank">C</a>

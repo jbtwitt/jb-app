@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,8 @@ import { HqhistoryModule } from './hq/hqhistory/hqhistory.module';
 import { HqhlModule } from './hq/hqhl/hqhl.module';
 import { LedgerModule } from './hq/ledger/ledger.module';
 import { DatePipe } from '@angular/common';
+import { UiService } from './services/ui.service';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,14 @@ import { DatePipe } from '@angular/common';
   ],
   providers: [
     DatePipe,
+    // DataService,
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (u: UiService) => async () => await u.init(),
+    //   multi: true,
+    //   // useClass: UiService,
+    //   deps: [DataService, DatePipe]
+    // },
   ],
   bootstrap: [AppComponent]
 })

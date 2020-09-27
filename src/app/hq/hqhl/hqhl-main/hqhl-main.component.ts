@@ -19,15 +19,21 @@ export class HqhlMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
-      this.dataService
-        .getAssetCsvData(this.uiService.hqhlPath)
-        .subscribe(data => {
-          this.hqHl = data;
-          this.getHqHl(this.ndaysList[0]);
-        });  
-    });
-  }
+    // this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
+    //   this.dataService
+    //     .getAssetCsvData(this.uiService.hqhlPath)
+    //     .subscribe(data => {
+    //       this.hqHl = data;
+    //       this.getHqHl(this.ndaysList[0]);
+    //     });  
+    // });
+    this.dataService
+      .getAssetCsvData(this.uiService.hqhlPath)
+      .subscribe(data => {
+        this.hqHl = data;
+        this.getHqHl(this.ndaysList[0]);
+      });  
+}
 
   getHqHl(ndays: number) {
     this.selectedHqHl = this.hqHl.filter(q => q.ndaysHL === ndays);
