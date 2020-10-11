@@ -36,7 +36,7 @@
     </ng-container>
 
     <ng-container matColumnDef="Close">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Close </th>
+    <th mat-header-cell *matHeaderCellDef style="color: blue;" mat-sort-header>Close</th>
     <td [class]="uiService.cssGainLoss(row.cChange)"
         mat-cell *matCellDef="let row"> ${{row.Close}} </td>
     </ng-container>
