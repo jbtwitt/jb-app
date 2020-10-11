@@ -1,7 +1,8 @@
 <div *ngIf="piImgs.length > 0" style="width: 100%;">
-    <span *ngFor="let piImg of piImgs">
+    <span *ngFor="let piImg of piImgs; let i = index">
         <img style="width: 50%"
             [src]="piImg.url"
+            [class]="piImg.rotate ? 'rotate' : ''"
             (click)="piImgOnClick(piImg)"
             alt="Pi {{piImg.url}}">
     </span>
@@ -11,6 +12,7 @@
     <span *ngFor="let piImg of piImgs">
         <img *ngIf="piImg.show"
             [src]="piImg.url"
+            [class]="piImg.rotate ? 'rotate' : ''"
             (click)="piImgOnClick(piImg)">
     </span>
 </div>

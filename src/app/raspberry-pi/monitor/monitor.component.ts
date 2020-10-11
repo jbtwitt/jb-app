@@ -4,10 +4,10 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-monitor',
   templateUrl: './monitor.component.html',
-  styleUrls: ['./monitor.component.sass']
+  styleUrls: ['./monitor.component.css']
 })
 export class MonitorComponent implements OnInit, OnDestroy {
-  piUrls: any[]
+  pis: any[]
   piImgs: any[] = []
 
   timestamp: Date = new Date;
@@ -21,11 +21,12 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dataService.getAssetJsonData('pi-addr.json').subscribe(data => {
-      this.piUrls = data;
-      this.piUrls.forEach(url => {
-        this.piImgs.push({url: url, show: 0})
-      })
-    })
+      this.pis = data;
+      this.pis.forEach(pi => {
+        this.piImgs.push({ ...pi, show: 0 });
+      });
+      console.log(this.piImgs);
+    });
     this.intervalId = setInterval(() => {
       let minutes = 0
       this.timestamp = new Date();
@@ -41,7 +42,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
         this.timestamp.setMinutes(this.timestamp.getMinutes() - minutes)
       }
       for (let i = 0; i < this.piImgs.length; i++) {
-        this.piImgs[i].url = this.piUrls[i] + urlParameter
+        this.piImgs[i].url = this.pis[i].url + urlParameter
       }
       // console.log(this.piImgs)
     }, this.seconds * 1000);
