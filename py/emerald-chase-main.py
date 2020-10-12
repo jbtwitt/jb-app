@@ -6,6 +6,8 @@ def httpGetImg(imgUrl):
     response = urlopen(imgUrl)
     # print(response.info())
     data = response.read()
+    if len(data) == 0:
+      raise ValueError('0 length image')
     nparr = np.frombuffer(data, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return img

@@ -9,10 +9,10 @@ import numpy as np
 
 
 class Yolo:
-  def __init__(self, modelConf):
+  def __init__(self, modelConf, confidence=.5, threshold=.3):
     self.modelConf = modelConf
-    self.confidence = 0.5
-    self.threshold = 0.3
+    self.confidence = confidence
+    self.threshold = threshold
     self.loadModel()
 
     self.LABELS = open(self.modelConf["cocoNames"]).read().strip().split("\n")
