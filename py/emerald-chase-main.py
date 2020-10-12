@@ -1,25 +1,30 @@
-import json
 import cv2
-
 import numpy as np
 from urllib.request import urlopen
 def httpGetImg(imgUrl):
-  response = urlopen(imgUrl)
-  # print(response.info())
-  data = response.read()
-  nparr = np.frombuffer(data, np.uint8)
-  img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-  return img
+  try:
+    response = urlopen(imgUrl)
+    # print(response.info())
+    data = response.read()
+    nparr = np.frombuffer(data, np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    return img
+  except Exception as e:
+    raise e
 
+import json
 def loadImgs():
   imgs = []
   pis = json.load(open("../src/assets/pi-addr.json"))
   for pi in pis:
     print(pi)
-    img = httpGetImg(pi['url'])
-    if pi['rotate']:
-      img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-    imgs.append(img)
+    try:
+      img = httpGetImg(pi['url'])
+      if pi['rotate']:
+        img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+      imgs.append(img)
+    except Exception as e:
+      print(e)
   return imgs
 
 from Yolo import Yolo
