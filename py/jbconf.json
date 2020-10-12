@@ -1,0 +1,35 @@
+{
+    "title": "JB Py: Meta & Conf",
+    "portfolio": {
+        "csvPath": "c:/jbdata/portfolio/portfolio.csv"
+    },
+    "hqrobot": {
+        "hqconf": "c:/jbdata/hqrobot/hqrobot.json"
+    },
+    "opencvMotionDetect": {
+        "input": {
+            "camCachePath": "z:"
+        },
+        "output": {
+            "contourPath": "c:/jbdata/opencvMotionDetect"
+        }
+    },
+    "models": {
+        "yolov3": {
+            "cocoNames": "/jbdata/darknet_models/coco.names",
+            "cfg": "/jbdata/darknet_models/yolov3.cfg",
+            "weights": "/jbdata/darknet_models/yolov3.weights"
+        },
+        "yolov3-tiny": {
+            "cfg": "/jbdata/darknet_models/yolov3-tiny.cfg",
+            "weights": "/jbdata/darknet_models/yolov3-tiny.weights"
+        },
+        "yolov3-spp": {
+            "cfg": "/jbdata/darknet_models/yolov3-spp.cfg",
+            "weights": "/jbdata/darknet_models/yolov3-spp.weights"
+        }
+    },
+    "pipyCamMonitor": {
+
+    }
+}
