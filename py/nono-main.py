@@ -64,9 +64,36 @@ def testRun(jbConf, u, p):
   modelPath = jbConf["models"]["yolov3"]
   runModel(modelPath, imgs)
 
+def testTrace(jbConf, u, p, channel=1):
+  imgs = []
+  url = jbConf["nono"]['url']
+  urlSnapshot = UrlSnapshot(url, u, p)
+  for i in range(2):
+    timestamp = int(time.time() * 1000)
+    imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
+    try:
+      img = urlSnapshot.httpGetImg(imgUrl)
+      print(img.shape)
+      # cv2.imshow('Nono', img)
+      # cv2.waitKey(0)
+      imgs.append(img)
+      time.sleep(.5)
+    except Exception as e:
+      print(e)
+  modelPath = jbConf["models"]["yolov3"]
+  runModel(modelPath, imgs)
+
+def testTimestamp(timestampInMilliSeconds):
+  # timestamp in milli seconds
+  # jsTimestamp = int(time.time() * 1000)
+  return datetime.datetime.fromtimestamp(timestampInMilliSeconds / 1000)
+
 import sys
 import json
 if __name__ == '__main__':
+  # print(testTimestamp(time.time() * 1000))
+  # sys.exit()
   if len(sys.argv) > 2:
     jbConf = json.load(open("jbconf.json"))
-    testRun(jbConf, sys.argv[1], sys.argv[2])
+    # testRun(jbConf, sys.argv[1], sys.argv[2])
+    testTrace(jbConf, sys.argv[1], sys.argv[2], channel=3)
