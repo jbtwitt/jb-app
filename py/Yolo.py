@@ -144,23 +144,30 @@ class DiffYolo:
     self.trainedImageSize = trainedImageSize
     self.imgInfo = None
     self.count = 0
+
+  @property
+  def prevImgInfo(self):
+    return self.imgInfo
+
   def diffFoundObjs(self, objs):
     prevFoundObjs = self.imgInfo['foundObjs']
-      # TODO: compare this objs with self.objs
-      # (prevFoundObjs is None and objs is not None) or (
-      #   prevFoundObjs is not None and objs is None
-      # ) or (
-      #   not (prevFoundObjs is None and objs is None)
+    # compare
+    if (prevFoundObjs is None and objs is None):
+      return False
+    if ((prevFoundObjs is None and objs is not None) or
+        (prevFoundObjs is not None and objs is None)):
+      return True
     if len(objs) == len(prevFoundObjs):
       for i in range(len(objs)):
         if objs[i]['classId'] != prevFoundObjs[i]['classId']:
           return True
+        #? what about same class but diff position
     else:
       return True
     return False
+
   def run(self, yoloNet, imgInfo):
-    img = imgInfo['img']
-    objs = yoloNet.findDetectedObjects(img, TrainedImageSize=self.trainedImageSize)
+    objs = yoloNet.findDetectedObjects(imgInfo['img'], TrainedImageSize=self.trainedImageSize)
     imgInfo['foundObjs'] = objs
     diff = self.count > 0 and self.diffFoundObjs(objs)
     self.imgInfo = imgInfo
