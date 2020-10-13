@@ -83,7 +83,7 @@ class Yolo:
 
     # apply non-maxima suppression to suppress weak, overlapping bounding boxes
     objs = cv2.dnn.NMSBoxes(boxes, confidences, self.confidence, self.threshold)
-    if len(objs) > 0:
+    if objs is not None and len(objs) > 0:
       objsDetected = []
       # loop over the indexes we are keeping
       for i in objs.flatten():
@@ -113,8 +113,8 @@ class Yolo:
         text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, obj["confidence"])
         cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
         cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-      cv2.imshow(title, image)
-      cv2.waitKey(0)
+    cv2.imshow(title, image)
+    cv2.waitKey(0)
 
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
@@ -138,3 +138,31 @@ if __name__ == '__main__':
     print(objs)
     if objs is not None:
       yoloNet.drawDetectedObjects(path, image, objs)
+
+class DiffYolo:
+  def __init__(self, trainedImageSize=(320, 320)):
+    self.trainedImageSize = trainedImageSize
+    self.imgInfo = None
+    self.count = 0
+  def diffFoundObjs(self, objs):
+    prevFoundObjs = self.imgInfo['foundObjs']
+      # TODO: compare this objs with self.objs
+      # (prevFoundObjs is None and objs is not None) or (
+      #   prevFoundObjs is not None and objs is None
+      # ) or (
+      #   not (prevFoundObjs is None and objs is None)
+    if len(objs) == len(prevFoundObjs):
+      for i in range(len(objs)):
+        if objs[i]['classId'] != prevFoundObjs[i]['classId']:
+          return True
+    else:
+      return True
+    return False
+  def run(self, yoloNet, imgInfo):
+    img = imgInfo['img']
+    objs = yoloNet.findDetectedObjects(img, TrainedImageSize=self.trainedImageSize)
+    imgInfo['foundObjs'] = objs
+    diff = self.count > 0 and self.diffFoundObjs(objs)
+    self.imgInfo = imgInfo
+    self.count = self.count + 1
+    return diff

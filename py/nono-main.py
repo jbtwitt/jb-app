@@ -73,20 +73,47 @@ def testTrace(jbConf, u, p, channel=1):
     imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
     try:
       img = urlSnapshot.httpGetImg(imgUrl)
-      print(img.shape)
-      # cv2.imshow('Nono', img)
-      # cv2.waitKey(0)
       imgs.append(img)
-      time.sleep(.5)
+      print(img.shape)
+      time.sleep(.1)
     except Exception as e:
       print(e)
   modelPath = jbConf["models"]["yolov3"]
   runModel(modelPath, imgs)
 
+
 def testTimestamp(timestampInMilliSeconds):
   # timestamp in milli seconds
   # jsTimestamp = int(time.time() * 1000)
   return datetime.datetime.fromtimestamp(timestampInMilliSeconds / 1000)
+
+def compare(x, y):
+  shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
+  print(len(shared_items))
+
+from Yolo import DiffYolo
+def testMovement(jbConf, u, p, channel=1):
+  modelPath = jbConf["models"]["yolov3"]
+  yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
+  detect = DiffYolo()
+  url = jbConf["nono"]['url']
+  urlSnapshot = UrlSnapshot(url, u, p)
+  for i in range(3):
+    timestamp = int(time.time() * 1000)
+    imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
+    try:
+      imgInfo = {
+        'timestamp': timestamp,
+        'img': urlSnapshot.httpGetImg(imgUrl)
+      }
+      ret = detect.run(yoloNet, imgInfo)
+      foundObjs = imgInfo['foundObjs']
+      print(i, 'imgInfo foundObjs -> ', foundObjs)
+      if ret and foundObjs is not None:
+        yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
+      time.sleep(.1)
+    except Exception as e:
+      print('ex', e)
 
 import sys
 import json
@@ -96,4 +123,5 @@ if __name__ == '__main__':
   if len(sys.argv) > 2:
     jbConf = json.load(open("jbconf.json"))
     # testRun(jbConf, sys.argv[1], sys.argv[2])
-    testTrace(jbConf, sys.argv[1], sys.argv[2], channel=3)
+    # testTrace(jbConf, sys.argv[1], sys.argv[2], channel=2)
+    testMovement(jbConf, sys.argv[1], sys.argv[2], channel=1)
