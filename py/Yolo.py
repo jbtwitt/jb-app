@@ -139,32 +139,38 @@ if __name__ == '__main__':
     if objs is not None:
       yoloNet.drawDetectedObjects(path, image, objs)
 
+DIFFDECODES = [
+  'no early objs but found objs - some objs show up',     #0
+  'some early objs but not found objs - something left',  #1
+  'some early objs but not the same objs found',  #2
+  'some early objs but less objs left',   #3
+  'some early objs but more objs show',   #4
+  'others'
+]
 class DiffYolo:
   def __init__(self, trainedImageSize=(320, 320)):
     self.trainedImageSize = trainedImageSize
     self.imgInfo = None
     self.count = 0
 
-  @property
-  def prevImgInfo(self):
-    return self.imgInfo
-
   def diffFoundObjs(self, objs):
     prevFoundObjs = self.imgInfo['foundObjs']
     # compare
-    if (prevFoundObjs is None and objs is None):
-      return False
-    if ((prevFoundObjs is None and objs is not None) or
-        (prevFoundObjs is not None and objs is None)):
-      return True
-    if len(objs) == len(prevFoundObjs):
-      for i in range(len(objs)):
-        if objs[i]['classId'] != prevFoundObjs[i]['classId']:
-          return True
-        #? what about same class but diff position
-    else:
-      return True
-    return False
+    if prevFoundObjs is not None or objs is not None:
+      if prevFoundObjs is None and objs is not None:
+        return 0
+      elif prevFoundObjs is not None and objs is None:
+        return 1
+      elif len(objs) == len(prevFoundObjs):
+        for i in range(len(objs)):
+          if objs[i]['classId'] != prevFoundObjs[i]['classId']:
+            return 2
+          #? what about same class but diff position
+      elif len(objs) < len(prevFoundObjs):
+        return 3
+      elif len(objs) > len(prevFoundObjs):
+        return 4
+    return -1
 
   def run(self, yoloNet, imgInfo):
     objs = yoloNet.findDetectedObjects(imgInfo['img'], TrainedImageSize=self.trainedImageSize)
@@ -173,3 +179,7 @@ class DiffYolo:
     self.imgInfo = imgInfo
     self.count = self.count + 1
     return diff
+
+  @property
+  def prevImgInfo(self):
+    return self.imgInfo

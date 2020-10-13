@@ -91,7 +91,7 @@ def compare(x, y):
   shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
   print(len(shared_items))
 
-from Yolo import DiffYolo
+from Yolo import DiffYolo, DIFFDECODES
 def testMovement(jbConf, u, p, channel=1):
   modelPath = jbConf["models"]["yolov3"]
   yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
@@ -109,7 +109,8 @@ def testMovement(jbConf, u, p, channel=1):
       ret = detect.run(yoloNet, imgInfo)
       foundObjs = imgInfo['foundObjs']
       print(i, 'imgInfo foundObjs -> ', foundObjs)
-      if ret and foundObjs is not None:
+      if ret and ret >= 0 and foundObjs is not None:
+        print('*****', DIFFDECODES[ret])
         yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
       time.sleep(.1)
     except Exception as e:

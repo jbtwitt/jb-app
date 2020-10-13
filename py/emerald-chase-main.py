@@ -39,7 +39,7 @@ def run(modelPath, imgs):
       yoloNet.drawDetectedObjects("title", img, objs)
 
 import time
-from Yolo import DiffYolo
+from Yolo import DiffYolo, DIFFDECODES
 def runMovement(modelPath, pi):
   print(pi)
   yoloNet = Yolo(modelPath)
@@ -56,7 +56,8 @@ def runMovement(modelPath, pi):
       ret = detect.run(yoloNet, imgInfo)
       foundObjs = imgInfo['foundObjs']
       print(i, 'imgInfo foundObjs -> ', foundObjs)
-      if ret and foundObjs is not None:
+      if ret and ret >= 0 and foundObjs is not None:
+        print('*****', DIFFDECODES[ret])
         yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
       time.sleep(.5)
     except Exception as e:
