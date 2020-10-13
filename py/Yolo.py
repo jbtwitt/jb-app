@@ -66,7 +66,6 @@ class Yolo:
         scores = detection[5:]
         classID = np.argmax(scores)
         confidence = scores[classID]
-
         if confidence > self.confidence:
           # scale the bounding box coordinates back relative to the
           # size of the image, keeping in mind that YOLO actually
@@ -84,7 +83,6 @@ class Yolo:
 
     # apply non-maxima suppression to suppress weak, overlapping bounding boxes
     objs = cv2.dnn.NMSBoxes(boxes, confidences, self.confidence, self.threshold)
-
     if len(objs) > 0:
       objsDetected = []
       # loop over the indexes we are keeping
@@ -93,24 +91,30 @@ class Yolo:
         (x, y) = (boxes[i][0], boxes[i][1])
         (w, h) = (boxes[i][2], boxes[i][3])
         obj = {
-            "classId": int(classIDs[i]), # use int as int64 can't json serialized
-            "label": self.LABELS[classIDs[i]],
-            "box": [x, y, w, h],
-            "confidence": confidences[i]
+          "classId": int(classIDs[i]), # use int as int64 can't json serialized
+          "box": [x, y, w, h],
+          "confidence": confidences[i]
         }
         objsDetected.append(obj)
       return objsDetected
 
+  def classLabel(self, classId):
+    return self.LABELS[classId]
+
+  def classColor(self, classId):
+    return self.COLORS[classId]
+
   def drawDetectedObjects(self, title, image, objs):
     if len(objs) > 0:
       for obj in objs:
+        classId = obj['classId']
         x, y, w, h = obj["box"]
-        color = [int(c) for c in self.COLORS[obj["classId"]]]
+        color = [int(c) for c in self.classColor(classId)] # self.COLORS[classId]]
+        text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, obj["confidence"])
         cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
-        text = "{}: {:.4f}".format(obj["label"], obj["confidence"])
         cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-    cv2.imshow(title, image)
-    cv2.waitKey(0)
+      cv2.imshow(title, image)
+      cv2.waitKey(0)
 
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
