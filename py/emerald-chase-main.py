@@ -7,7 +7,7 @@ def httpGetImg(imgUrl):
     # print(response.info())
     data = response.read()
     if len(data) == 0:
-      raise ValueError('0 length image')
+      raise ValueError('httpGetImg: 0 length image')
     nparr = np.frombuffer(data, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return img
@@ -38,30 +38,36 @@ def run(modelPath, imgs):
     if objs is not None:
       yoloNet.drawDetectedObjects("title", img, objs)
 
+def getImgInfo(pi):
+  try:
+    img = httpGetImg(pi['url'])
+    if pi['rotate']:
+      img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+    return {
+      'timestamp': time.time(),
+      'img': img
+    }
+  except Exception as e:
+    raise e
+
 import time
 from Yolo import DiffYolo, DIFFDECODES
-def runMovement(modelPath, pi):
+def runMovement(modelPath, pi, loop=3):
   print(pi)
   yoloNet = Yolo(modelPath)
   detect = DiffYolo(trainedImageSize=(608, 608))
-  for i in range(3):
+  for i in range(loop):
     try:
-      img = httpGetImg(pi['url'])
-      if pi['rotate']:
-        img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-      imgInfo = {
-        'timestamp': time.time(),
-        'img': img
-      }
+      imgInfo = getImgInfo(pi)
       ret = detect.run(yoloNet, imgInfo)
       foundObjs = imgInfo['foundObjs']
       print(i, 'imgInfo foundObjs -> ', foundObjs)
-      if ret and ret >= 0 and foundObjs is not None:
+      if ret is not None:
         print('*****', DIFFDECODES[ret])
         yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
       time.sleep(.5)
     except Exception as e:
-      print('ex', e)
+      print('runMovement', e)
 
 import sys
 if __name__ == '__main__':
@@ -70,5 +76,5 @@ if __name__ == '__main__':
   # print(jbConf)
   # run(modelPath, loadImgs())
   pis = json.load(open("../src/assets/pi-addr.json"))
-  runMovement(modelPath, pis[1])
-  runMovement(modelPath, pis[0])
+  runMovement(modelPath, pis[1], loop=10)
+  # runMovement(modelPath, pis[0])

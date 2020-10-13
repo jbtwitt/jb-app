@@ -91,25 +91,31 @@ def compare(x, y):
   shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
   print(len(shared_items))
 
+def getImgInfo(urlSnapshot, url, channel):
+  timestamp = int(time.time() * 1000)
+  imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
+  try:
+    return {
+      'timestamp': timestamp,
+      'img': urlSnapshot.httpGetImg(imgUrl)
+    }
+  except Exception as e:
+    raise e
+
 from Yolo import DiffYolo, DIFFDECODES
-def testMovement(jbConf, u, p, channel=1):
+def runMovement(jbConf, u, p, channel=1, loop=3):
   modelPath = jbConf["models"]["yolov3"]
   yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
   detect = DiffYolo()
   url = jbConf["nono"]['url']
   urlSnapshot = UrlSnapshot(url, u, p)
-  for i in range(3):
-    timestamp = int(time.time() * 1000)
-    imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
+  for i in range(loop):
     try:
-      imgInfo = {
-        'timestamp': timestamp,
-        'img': urlSnapshot.httpGetImg(imgUrl)
-      }
+      imgInfo = getImgInfo(urlSnapshot, url, channel)
       ret = detect.run(yoloNet, imgInfo)
       foundObjs = imgInfo['foundObjs']
       print(i, 'imgInfo foundObjs -> ', foundObjs)
-      if ret and ret >= 0 and foundObjs is not None:
+      if ret is not None:
         print('*****', DIFFDECODES[ret])
         yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
       time.sleep(.1)
@@ -125,4 +131,5 @@ if __name__ == '__main__':
     jbConf = json.load(open("jbconf.json"))
     # testRun(jbConf, sys.argv[1], sys.argv[2])
     # testTrace(jbConf, sys.argv[1], sys.argv[2], channel=2)
-    testMovement(jbConf, sys.argv[1], sys.argv[2], channel=1)
+    runMovement(jbConf, sys.argv[1], sys.argv[2], channel=1)
+    runMovement(jbConf, sys.argv[1], sys.argv[2], channel=2, loop=10)

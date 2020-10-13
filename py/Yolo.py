@@ -105,7 +105,7 @@ class Yolo:
     return self.COLORS[classId]
 
   def drawDetectedObjects(self, title, image, objs):
-    if len(objs) > 0:
+    if objs is not None:
       for obj in objs:
         classId = obj['classId']
         x, y, w, h = obj["box"]
@@ -170,12 +170,14 @@ class DiffYolo:
         return 3
       elif len(objs) > len(prevFoundObjs):
         return 4
-    return -1
+    # return -1
 
   def run(self, yoloNet, imgInfo):
+    diff = None
     objs = yoloNet.findDetectedObjects(imgInfo['img'], TrainedImageSize=self.trainedImageSize)
     imgInfo['foundObjs'] = objs
-    diff = self.count > 0 and self.diffFoundObjs(objs)
+    if self.count > 0:
+      diff = self.diffFoundObjs(objs)
     self.imgInfo = imgInfo
     self.count = self.count + 1
     return diff
