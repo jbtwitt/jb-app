@@ -46,12 +46,35 @@ def runMovement(modelPath, pi, loop=3):
     except Exception as e:
       print('runMovement', e)
 
+from emerald_chase_util import PiCamCacheRepo
+def runSearch(modelPath, piIp, day, pattern, rotate=False, classId=0):
+  count = 0
+  yoloNet = Yolo(modelPath)
+  piRepo = PiCamCacheRepo(piIp, day=0, pattern=pattern)
+  while(True):
+    imgInfo = piRepo.getImgInfo(rotate=True)
+    if (imgInfo is None):
+      break
+    objs = yoloNet.findDetectedObjects(imgInfo['img'])
+    if objs is not None:
+      print(imgInfo['timestamp'], 'imgInfo foundObjs -> ', objs)
+      for obj in objs:
+        if obj['classId'] == classId:
+          yoloNet.drawDetectedObjects(imgInfo['timestamp'], imgInfo['img'], objs)
+          # cv2.imshow(imgInfo['timestamp'], imgInfo['img'])
+          # cv2.waitKey(0)
+    count = count + 1
+  print('Total', count, 'searched')
+
 import sys
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
   modelPath = jbConf["models"]["yolov3"]
   # print(jbConf)
   # run(modelPath, loadImgs())
+  runSearch(modelPath, '192.168.0.110', day=0, pattern='1800*.jpg', rotate=False, classId=0)
+  # runSearch(modelPath, '192.168.0.115', day=0, pattern='1600*.jpg', rotate=True, classId=0)
+  sys.exit()
   pis = json.load(open("../src/assets/pi-addr.json"))
   runMovement(modelPath, pis[1], loop=10)
   # runMovement(modelPath, pis[0])
