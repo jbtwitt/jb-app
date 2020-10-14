@@ -69,7 +69,6 @@ def tsToDateTime(timestampInMilliSeconds):
 import os
 def getImgInfosFromRepo(channel):
   repo = CONT_REPO_PATH.format(channel)
-  # files = [f for f in os.listdir(repo) if os.path.isdir(repo + f)]
   files = [repo + f for f in os.listdir(repo)]
   imgInfos = []
   for f in files:
@@ -86,9 +85,14 @@ def getImgInfosFromRepo(channel):
 
 def cleanRepo(channel):
   repo = CONT_REPO_PATH.format(channel)
+  files = [repo + f for f in os.listdir(repo) if os.path.isfile(repo + f)]
+  for f in files:
+    os.remove(f)
 
 if __name__ == "__main__":
-  imgInfos = getImgInfosFromRepo(channel=1)
-  for imgInfo in imgInfos:
-    cv2.imshow(str(imgInfo['timestamp']), imgInfo['img'])
-    cv2.waitKey(0)
+  pass
+  # cleanRepo(channel=1)
+  # imgInfos = getImgInfosFromRepo(channel=1)
+  # for imgInfo in imgInfos:
+  #   cv2.imshow(str(imgInfo['timestamp']), imgInfo['img'])
+  #   cv2.waitKey(0)
