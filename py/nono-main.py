@@ -5,20 +5,36 @@ from nono_util import UrlSnapshot, getImgInfo, getImgInfosFromRepo
 from nono_util import saveImgInfo, getSaveImgInfo
 
 class NonoApp:
-  def __init__(self, u, p):
-    self.u = u
-    self.p = p
+  def __init__(self, u, p, confidence=.3, threshold=.2):
     jbConf = json.load(open("jbconf.json"))
     modelPath = jbConf["models"]["yolov3"]
     self.url = jbConf["nono"]['url']
-    self.yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
+    self.yoloNet = Yolo(modelPath, confidence=confidence, threshold=threshold)
+    self.urlSnapshot = UrlSnapshot(u, p)
+    self.allChannels = [1, 3, 0, 2]
+    self.channelNames = ['living-room', 'room', 'driveway in', 'driveway out']
+
+  def getCamImgs(self):
+    imgInfos = []
+    for ch in self.allChannels:
+      try:
+        imgInfos.append(getImgInfo(self.urlSnapshot, self.url, ch))
+      except Exception as e:
+        print('getCamImgs', e)
+    return imgInfos
+
+  def runTakeaLook(self):
+    for imgInfo in self.getCamImgs():
+      objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
+      print(objs)
+      if objs is not None:
+        self.yoloNet.drawDetectedObjects('CamImg', imgInfo['img'], objs)
 
   def runCamMovement(self, channel=1, loop=3):
     detect = DiffYolo()
-    urlSnapshot = UrlSnapshot(self.u, self.p)
     for i in range(loop):
       try:
-        imgInfo = getImgInfo(urlSnapshot, self.url, channel)
+        imgInfo = getImgInfo(self.urlSnapshot, self.url, channel)
         ret = detect.run(self.yoloNet, imgInfo)
         foundObjs = imgInfo['foundObjs']
         print(i, 'imgInfo foundObjs -> ', foundObjs)
@@ -30,13 +46,12 @@ class NonoApp:
         print('ex', e)
 
   def runAllCamMovements(self):
-    for ch in [1, 3, 0, 2]:
-      print('channel', ch)
+    for ch in self.allChannels:
+      print('channel', ch, self.channelNames[ch])
       self.runCamMovement(channel=ch, loop=3)
 
   def runCacheCam(self, channel=1, loop=5, sleepSeconds=.5):
-    urlSnapshot = UrlSnapshot(self.u, self.p)
-    getSaveImgInfo(urlSnapshot, self.url, channel=channel)
+    getSaveImgInfo(self.urlSnapshot, self.url, channel=channel)
 
   def runMovementFromRepo(self, channel=1):
     detect = DiffYolo()
