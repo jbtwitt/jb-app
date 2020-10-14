@@ -3,9 +3,8 @@ import json
 import numpy as np
 
 from emerald_chase_util import httpGetImg, getImgInfo
-def loadImgs():
+def loadImgs(pis):
   imgs = []
-  pis = json.load(open("../src/assets/pi-addr.json"))
   for pi in pis:
     print(pi)
     try:
@@ -18,8 +17,7 @@ def loadImgs():
   return imgs
 
 from Yolo import Yolo
-def run(modelPath, imgs):
-  yoloNet = Yolo(modelPath)
+def run(yoloNet, imgs):
   for img in imgs:
     objs = yoloNet.findDetectedObjects(img)
     print(objs)
@@ -29,9 +27,7 @@ def run(modelPath, imgs):
 
 import time
 from Yolo import DiffYolo, DIFFDECODES
-def runMovement(modelPath, pi, loop=3):
-  print(pi)
-  yoloNet = Yolo(modelPath)
+def runMovement(yoloNet, pi, loop=3):
   detect = DiffYolo(trainedImageSize=(608, 608))
   for i in range(loop):
     try:
@@ -47,9 +43,8 @@ def runMovement(modelPath, pi, loop=3):
       print('runMovement', e)
 
 from emerald_chase_util import PiCamCacheRepo
-def runSearch(modelPath, piIp, day, pattern, rotate=False, classId=0):
+def runSearch(yoloNet, piIp, day, pattern, rotate=False, classId=0):
   count = 0
-  yoloNet = Yolo(modelPath)
   piRepo = PiCamCacheRepo(piIp, day=0, pattern=pattern)
   while(True):
     imgInfo = piRepo.getImgInfo(rotate=True)
@@ -61,8 +56,6 @@ def runSearch(modelPath, piIp, day, pattern, rotate=False, classId=0):
       for obj in objs:
         if obj['classId'] == classId:
           yoloNet.drawDetectedObjects(imgInfo['timestamp'], imgInfo['img'], objs)
-          # cv2.imshow(imgInfo['timestamp'], imgInfo['img'])
-          # cv2.waitKey(0)
     count = count + 1
   print('Total', count, 'searched')
 
@@ -70,11 +63,11 @@ import sys
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
   modelPath = jbConf["models"]["yolov3"]
-  # print(jbConf)
-  # run(modelPath, loadImgs())
-  runSearch(modelPath, '192.168.0.110', day=0, pattern='1800*.jpg', rotate=False, classId=0)
-  # runSearch(modelPath, '192.168.0.115', day=0, pattern='1600*.jpg', rotate=True, classId=0)
-  sys.exit()
+  yoloNet = Yolo(modelPath)
   pis = json.load(open("../src/assets/pi-addr.json"))
-  runMovement(modelPath, pis[1], loop=10)
-  # runMovement(modelPath, pis[0])
+  # run(yoloNet, loadImgs(pis))
+  # runSearch(yoloNet, '192.168.0.110', day=1, pattern='1800*.jpg', rotate=False, classId=0)
+  # sys.exit()
+  for pi in pis:
+    print(pi)
+    runMovement(yoloNet, pi, loop=3)

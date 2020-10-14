@@ -116,20 +116,17 @@ class Yolo:
     cv2.imshow(title, image)
     cv2.waitKey(0)
 
+import sys
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
-  # yoloNet = Yolo(jbConf["models"]["yolov3-spp"])
   yoloNet = Yolo(jbConf["models"]["yolov3"])
+  for i in [0, 2, 9, 12, 56, 59]:
+    print('classId', i, yoloNet.classLabel(i))
+  sys.exit()
   # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'
-  # jpgFiles = os.listdir(dir)
   dir = "/tmp"
   jpgFiles = ["160001.jpg", 'testtrum.jpg', '10157976613_f1c8c34b07_z.jpg']
   jpgFiles = ["pi110.jpg", "pi115.jpg"]
-  # jpgFiles = ["nono-ch1.jpg", "nono-ch2.jpg", "nono-ch3.jpg", "nono-ch4.jpg"]
-  # dir = "/tmp/testimgs"
-  # dir = "/tmp/resizeImgs"
-  # jpgFiles = ["170933.jpg", "170935.jpg", "170938.jpg"]
-  # jpgFiles = ['nono_1.jpg', 'nono_4.jpg']
   # jpgFiles = os.listdir(dir)
   for jpg in jpgFiles:
     path = os.path.sep.join([dir, jpg])

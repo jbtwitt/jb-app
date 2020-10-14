@@ -1,21 +1,10 @@
 import time
 
-from Yolo import Yolo
-from nono_util import UrlSnapshot, getImgInfo
-def runModel(modelPath, imgs):
-  yoloNet = Yolo(modelPath, .3, .2)
-  for img in imgs:
-    objs = yoloNet.findDetectedObjects(img, (320, 320))
-    # objs = yoloNet.findDetectedObjects(img, TrainedImageSize=(416, 416))
-    print(objs)
-    if objs is not None:
-      yoloNet.drawDetectedObjects("title", img, objs)
+from Yolo import Yolo, DiffYolo, DIFFDECODES
+from nono_util import UrlSnapshot, getImgInfo, getImgInfosFromRepo
 
-from Yolo import DiffYolo, DIFFDECODES
-def runMovement(jbConf, u, p, channel=1, loop=3):
+def runMovement(yoloNet, u, p, channel=1, loop=3):
   print('channel', channel)
-  modelPath = jbConf["models"]["yolov3"]
-  yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
   detect = DiffYolo()
   url = jbConf["nono"]['url']
   urlSnapshot = UrlSnapshot(u, p)
@@ -32,11 +21,8 @@ def runMovement(jbConf, u, p, channel=1, loop=3):
     except Exception as e:
       print('ex', e)
 
-from nono_util import getImgInfosFromRepo
-def runMovementFromRepo(jbConf, channel=1):
+def runMovementFromRepo(yoloNet, channel=1):
   print('channel', channel)
-  modelPath = jbConf["models"]["yolov3"]
-  yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
   detect = DiffYolo()
   imgInfos = getImgInfosFromRepo(channel)
   for imgInfo in imgInfos:
@@ -52,18 +38,19 @@ def runMovementFromRepo(jbConf, channel=1):
       print('ex', e)
 
 from nono_util import saveImgInfo, getSaveImgInfo
-def store(jbConf, u, p, channel=1, loop=5, sleepSeconds=.5):
-  url = jbConf["nono"]['url']
+def runCamCache(url, u, p, channel=1, loop=5, sleepSeconds=.5):
   urlSnapshot = UrlSnapshot(u, p)
-  getSaveImgInfo(urlSnapshot, url)
+  getSaveImgInfo(urlSnapshot, url, channel=channel)
 
 import sys
 import json
 if __name__ == '__main__':
   if len(sys.argv) > 2:
     jbConf = json.load(open("jbconf.json"))
-    # store(jbConf, sys.argv[1], sys.argv[2])
-    # runMovementFromRepo(jbConf, 1)
+    modelPath = jbConf["models"]["yolov3"]
+    yoloNet = Yolo(modelPath, confidence=.3, threshold=.2)
+    runCamCache(jbConf["nono"]['url'], sys.argv[1], sys.argv[2], channel=1)
+    # runMovementFromRepo(yoloNet, 1)
     # sys.exit()
     for ch in [1, 3, 0, 2]:
-      runMovement(jbConf, sys.argv[1], sys.argv[2], channel=ch, loop=3)
+      runMovement(yoloNet, sys.argv[1], sys.argv[2], channel=ch, loop=3)
