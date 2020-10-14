@@ -1,20 +1,8 @@
 import cv2
-import numpy as np
-from urllib.request import urlopen
-def httpGetImg(imgUrl):
-  try:
-    response = urlopen(imgUrl)
-    # print(response.info())
-    data = response.read()
-    if len(data) == 0:
-      raise ValueError('httpGetImg: 0 length image')
-    nparr = np.frombuffer(data, np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    return img
-  except Exception as e:
-    raise e
-
 import json
+import numpy as np
+
+from emerald_chase_util import httpGetImg, getImgInfo
 def loadImgs():
   imgs = []
   pis = json.load(open("../src/assets/pi-addr.json"))
@@ -38,17 +26,6 @@ def run(modelPath, imgs):
     if objs is not None:
       yoloNet.drawDetectedObjects("title", img, objs)
 
-def getImgInfo(pi):
-  try:
-    img = httpGetImg(pi['url'])
-    if pi['rotate']:
-      img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-    return {
-      'timestamp': time.time(),
-      'img': img
-    }
-  except Exception as e:
-    raise e
 
 import time
 from Yolo import DiffYolo, DIFFDECODES
@@ -63,7 +40,7 @@ def runMovement(modelPath, pi, loop=3):
       foundObjs = imgInfo['foundObjs']
       print(i, 'imgInfo foundObjs -> ', foundObjs)
       if ret is not None:
-        print('*****', DIFFDECODES[ret])
+        print('*****', ret, DIFFDECODES[ret])
         yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
       time.sleep(.5)
     except Exception as e:
