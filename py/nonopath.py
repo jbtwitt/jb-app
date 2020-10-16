@@ -1,6 +1,7 @@
 import os
 import time
 from datetime import datetime
+import imgfile
 
 NONO_CHANNEL_IMGPATH = "/jbdata/yolo_repo/nono/{}/ch{}/"
 NONO_IMG_FILE = "{}{}.jpg"  # img path & timestamp
@@ -18,12 +19,8 @@ def camChannelPath(channel):
     os.makedirs(imgPath)
   return imgPath, timestamp
 
-import imgfile
 def saveNonoImg(path, timestamp, imgdata):
-  # jpgFile = open(NONO_IMG_FILE.format(path, timestamp), "wb")
-  # jpgFile.write(img)
-  # jpgFile.close()
-  imgfile.saveImg(NONO_IMG_FILE.format(path, timestamp), imgdata)
+  imgfile.saveImgData(NONO_IMG_FILE.format(path, timestamp), imgdata)
 
 def readNonoImg(imgPath, timestamp):
   return imgfile.readImg(NONO_IMG_FILE.format(imgPath, timestamp))

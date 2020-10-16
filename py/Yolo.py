@@ -120,7 +120,7 @@ import sys
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
   yoloNet = Yolo(jbConf["models"]["yolov3"])
-  for i in [0, 2, 4, 5, 6, 7, 8, 9, 12, 28, 56, 58, 59, 62]:
+  for i in [0, 1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 28, 56, 58, 59, 62]:
     print('classId', i, yoloNet.classLabel(i))
   sys.exit()
   # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'

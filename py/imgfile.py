@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def saveImg(filename, imgdata):
+def saveImgData(filename, imgdata):
   f = open(filename, "wb")
   f.write(imgdata)
   f.close()
