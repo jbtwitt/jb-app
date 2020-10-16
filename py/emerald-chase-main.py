@@ -52,7 +52,7 @@ class HomePiApp:
       print(self.pis[i])
       self.runCamMovement(i, loop=3)
 
-  def runSearchCamCache(self, timePattern="14125*.jpg", piId=0, day=1, classIds=[0,2]):
+  def runSearchCamCache(self, timePattern="14125*.jpg", piId=0, day=1, classIds=[0,2,5,7]):
     count = 0
     pi = self.pis[piId]
     piRepo = PiCamCacheRepo(pi)

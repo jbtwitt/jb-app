@@ -44,7 +44,6 @@ import glob
 class PiCamCacheRepo:
   def __init__(self, pi):
     self.pi = pi
-    self.jpgSrcRepo = None
 
   def getCamCacheDate(self, day):
     return datetime.datetime.fromtimestamp(
