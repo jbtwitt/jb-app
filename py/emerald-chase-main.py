@@ -48,24 +48,26 @@ class HomePiApp:
         print('runMovement', e)
 
   def runAllCamMovements(self):
-    for i in [0, 1]:
+    for i in range(len(self.pis)):
       print(self.pis[i])
       self.runCamMovement(i, loop=3)
 
-  def runSearchCamCache(self, timePattern="1600*.jpg", piId=1, day=0, classIds=[0,2]):
+  def runSearchCamCache(self, timePattern="14125*.jpg", piId=0, day=1, classIds=[0,2]):
     count = 0
     pi = self.pis[piId]
-    piRepo = PiCamCacheRepo(pi['ip'], day=day, pattern=timePattern)
+    piRepo = PiCamCacheRepo(pi)
+    imgSrc = piRepo.getImgSrc(day, timePattern)
     while(True):
-      imgInfo = piRepo.getImgInfo(rotate=pi['rotate'])
+      imgInfo = piRepo.getImgInfoFromImgSrc(imgSrc)
       if (imgInfo is None):
         break
       objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
       if objs is not None:
-        print(imgInfo['timestamp'], 'imgInfo foundObjs -> ', objs)
+        print(count, imgInfo['timestamp'], 'imgInfo foundObjs -> ', objs)
         for obj in objs:
           if obj['classId'] in classIds:
             self.yoloNet.drawDetectedObjects(imgInfo['timestamp'], imgInfo['img'], objs)
+            time.sleep(1)
             break
       count = count + 1
     print('Total', count, 'searched')

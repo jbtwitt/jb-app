@@ -4,21 +4,26 @@ from Yolo import Yolo, DiffYolo, DIFFDECODES
 from nono_util import UrlSnapshot, getImgInfo, getImgInfosFromRepo
 from nono_util import saveImgInfo, getSaveImgInfo
 
+ALL_CHANNELS = [
+  (1, 'room'),
+  (0, 'store'),
+  (3, 'driveway out'),
+  (2, 'driveway in')
+]
+
 class NonoApp:
   def __init__(self, u, p, confidence=.3, threshold=.2):
     jbConf = json.load(open("jbconf.json"))
     modelPath = jbConf["models"]["yolov3"]
     self.url = jbConf["nono"]['url']
-    self.yoloNet = Yolo(modelPath, confidence=confidence, threshold=threshold)
     self.urlSnapshot = UrlSnapshot(u, p)
-    self.allChannels = [1, 3, 0, 2]
-    self.channelNames = ['living-room', 'room', 'driveway in', 'driveway out']
+    self.yoloNet = Yolo(modelPath, confidence=confidence, threshold=threshold)
 
   def getCamImgs(self):
     imgInfos = []
-    for ch in self.allChannels:
+    for ch in ALL_CHANNELS:
       try:
-        imgInfos.append(getImgInfo(self.urlSnapshot, self.url, ch))
+        imgInfos.append(getImgInfo(self.urlSnapshot, self.url, ch[0]))
       except Exception as e:
         print('getCamImgs', e)
     return imgInfos
@@ -46,9 +51,9 @@ class NonoApp:
         print('ex', e)
 
   def runAllCamMovements(self):
-    for ch in self.allChannels:
-      print('channel', ch, self.channelNames[ch])
-      self.runCamMovement(channel=ch, loop=3)
+    for ch in ALL_CHANNELS:
+      print('channel', ch)
+      self.runCamMovement(channel=ch[0], loop=3)
 
   def runCacheCam(self, channel=1, loop=5, sleepSeconds=.5):
     getSaveImgInfo(self.urlSnapshot, self.url, channel=channel)
