@@ -5,8 +5,8 @@ IDX_CLASSIDS = 2
 CHANNEL_WATCHES = [
   ['store', 0, [0, 56]],  # person, chair
   ['room', 1, [0]],
-  ['driveway1', 2, [0, 2, 1, 3]],
-  ['driveway2', 3, [0, 2, 1, 3]]  # person, car, bicycle, motorbike
+  ['driveway1', 2, [0, 2, 7, 1, 3]],
+  ['driveway2', 3, [0, 2, 7, 1, 3]]  # person, car, truck, bicycle, motorbike
 ]
 # print(CHANNEL_WATCHES[1][IDX_CLASSIDS])
 

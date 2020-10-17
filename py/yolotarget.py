@@ -6,9 +6,6 @@ def matchClassIds(objs, targetClassIds):
   if objs is None:
     return []
   return [classId for classId, _, _ in objs for id in targetClassIds if classId == id]
-  # for classId, _, _ in objs:
-  #   if classId in targetClassIds:
-  #     matches.append(classId)
 
 def findTarget(yoloNet, imgdata, classIds):
   try:
