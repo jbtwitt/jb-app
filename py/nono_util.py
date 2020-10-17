@@ -1,10 +1,11 @@
-CONT_REPO_PATH = "/jbdata/yolo_repo/nono/ch{}/"
-CONT_FILE_PATH = CONT_REPO_PATH + "{}.jpg"
-
+import os
+import time, datetime
 import numpy as np
 from urllib.request import urlopen, Request, URLError
 import base64
 import cv2
+import imgfile
+from nonopath import NONO_URL
 
 class UrlSnapshot:
   def __init__(self, u, p):
@@ -24,14 +25,15 @@ class UrlSnapshot:
       print('httpGetImg() error!')
       raise e
 
-import time, datetime
+
 def getRawImgInfo(urlSnapshot, url, channel):
   timestamp = int(time.time() * 1000)
-  imgUrl = "{}/cgi-bin/web_jpg.cgi?ch={}&{}".format(url, channel, timestamp)
+  imgUrl = NONO_URL.format(url, channel, timestamp)
   try:
+    img = urlSnapshot.httpGetImg(imgUrl)
     return {
       'timestamp': timestamp,
-      'img': urlSnapshot.httpGetImg(imgUrl)
+      'img': img
     }
   except Exception as e:
     raise e
@@ -45,54 +47,5 @@ def getImgInfo(urlSnapshot, url, channel):
   except Exception as e:
     raise e
 
-def saveImgInfo(channel, imgInfo):
-  path = CONT_FILE_PATH.format(channel, imgInfo['timestamp'])
-  jpgFile = open(path, "wb")
-  jpgFile.write(imgInfo['img'])
-  jpgFile.close()
-
-from time import sleep
-def getSaveImgInfo(urlSnapshot, url, channel=1, loop=5, sleepSeconds=.5):
-  for i in range(loop):
-    try:
-      imgInfo = getRawImgInfo(urlSnapshot, url, channel)
-      saveImgInfo(channel, imgInfo)
-      sleep(sleepSeconds)
-    except Exception as e:
-      print('getSaveImgInfo', e)
-
-def tsToDateTime(timestampInMilliSeconds):
-  # timestamp in milli seconds
-  # jsTimestamp = int(time.time() * 1000)
-  return datetime.datetime.fromtimestamp(timestampInMilliSeconds / 1000)
-
-import os
-def getImgInfosFromRepo(channel):
-  repo = CONT_REPO_PATH.format(channel)
-  files = [repo + f for f in os.listdir(repo)]
-  imgInfos = []
-  for f in files:
-    ts, _ = os.path.splitext(os.path.basename(f))
-    # print(tsToDateTime(int(ts)))
-    file = open(f, "rb")
-    nparr = np.frombuffer(file.read(), np.uint8)
-    file.close()
-    imgInfos.append({
-      'timestamp': ts,
-      'img': cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    })
-  return imgInfos
-
-def cleanRepo(channel):
-  repo = CONT_REPO_PATH.format(channel)
-  files = [repo + f for f in os.listdir(repo) if os.path.isfile(repo + f)]
-  for f in files:
-    os.remove(f)
-
 if __name__ == "__main__":
   pass
-  # cleanRepo(channel=1)
-  # imgInfos = getImgInfosFromRepo(channel=1)
-  # for imgInfo in imgInfos:
-  #   cv2.imshow(str(imgInfo['timestamp']), imgInfo['img'])
-  #   cv2.waitKey(0)

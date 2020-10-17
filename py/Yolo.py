@@ -90,12 +90,17 @@ class Yolo:
         # extract the bounding box coordinates
         (x, y) = (boxes[i][0], boxes[i][1])
         (w, h) = (boxes[i][2], boxes[i][3])
-        obj = {
-          "classId": int(classIDs[i]), # use int as int64 can't json serialized
-          "box": [x, y, w, h],
-          "confidence": confidences[i]
-        }
-        objsDetected.append(obj)
+        objsDetected.append((
+          int(classIDs[i]), # use int as int64 can't json serialized
+          [x, y, w, h],
+          confidences[i]
+        ))
+        # obj = {
+        #   "classId": int(classIDs[i]), # use int as int64 can't json serialized
+        #   "box": [x, y, w, h],
+        #   "confidence": confidences[i]
+        # }
+        # objsDetected.append(obj)
       return objsDetected
 
   def classLabel(self, classId):
@@ -106,11 +111,10 @@ class Yolo:
 
   def drawDetectedObjects(self, title, image, objs):
     if objs is not None:
-      for obj in objs:
-        classId = obj['classId']
-        x, y, w, h = obj["box"]
+      for classId, box, confidence in objs:
+        x, y, w, h = box
         color = [int(c) for c in self.classColor(classId)]
-        text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, obj["confidence"])
+        text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, confidence)
         cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
         cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
     cv2.imshow(title, image)
@@ -120,7 +124,7 @@ import sys
 if __name__ == '__main__':
   jbConf = json.load(open("jbconf.json"))
   yoloNet = Yolo(jbConf["models"]["yolov3"])
-  for i in [0, 1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 28, 56, 58, 59, 62]:
+  for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 28, 26, 56, 58, 59, 62, 75]:
     print('classId', i, yoloNet.classLabel(i))
   sys.exit()
   # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'
@@ -160,7 +164,10 @@ class DiffYolo:
         return 1
       elif len(objs) == len(prevFoundObjs):
         for i in range(len(objs)):
-          if objs[i]['classId'] != prevFoundObjs[i]['classId']:
+          classId, _, _ = objs[i]
+          prevClassId, _, _ = prevFoundObjs[i]
+          if classId != prevClassId:
+          # if objs[i]['classId'] != prevFoundObjs[i]['classId']:
             return 2
           #? what about same class but diff position
       elif len(objs) < len(prevFoundObjs):

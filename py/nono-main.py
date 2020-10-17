@@ -1,8 +1,7 @@
 import time
 import json
 from Yolo import Yolo, DiffYolo, DIFFDECODES
-from nono_util import UrlSnapshot, getImgInfo, getImgInfosFromRepo
-from nono_util import saveImgInfo, getSaveImgInfo
+from nono_util import UrlSnapshot, getImgInfo
 
 ALL_CHANNELS = [
   (1, 'room'),
@@ -55,23 +54,20 @@ class NonoApp:
       print('channel', ch)
       self.runCamMovement(channel=ch[0], loop=3)
 
-  def runCacheCam(self, channel=1, loop=5, sleepSeconds=.5):
-    getSaveImgInfo(self.urlSnapshot, self.url, channel=channel)
-
-  def runMovementFromRepo(self, channel=1):
-    detect = DiffYolo()
-    imgInfos = getImgInfosFromRepo(channel)
-    for imgInfo in imgInfos:
-      try:
-        ret = detect.run(self.yoloNet, imgInfo)
-        foundObjs = imgInfo['foundObjs']
-        print('imgInfo foundObjs -> ', foundObjs)
-        if ret is not None:
-          print('*****', ret, DIFFDECODES[ret])
-          self.yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
-        # time.sleep(.1)
-      except Exception as e:
-        print('runMovementFromRepo', e)
+  # def runMovementFromRepo(self, channel=1):
+  #   detect = DiffYolo()
+  #   imgInfos = getImgInfosFromRepo(channel)
+  #   for imgInfo in imgInfos:
+  #     try:
+  #       ret = detect.run(self.yoloNet, imgInfo)
+  #       foundObjs = imgInfo['foundObjs']
+  #       print('imgInfo foundObjs -> ', foundObjs)
+  #       if ret is not None:
+  #         print('*****', ret, DIFFDECODES[ret])
+  #         self.yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
+  #       # time.sleep(.1)
+  #     except Exception as e:
+  #       print('runMovementFromRepo', e)
 
   def app_main(self, methodName='runCamMovement'):
     method = getattr(self, methodName)
