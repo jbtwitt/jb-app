@@ -13,6 +13,7 @@ def readImgData(filename):
   return imgdata
 
 def readImg(filename):
-  imgdata = readImgData(filename)
-  nparr = np.frombuffer(imgdata, np.uint8)
-  return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+  return cv2.imread(filename)
+  # imgdata = readImgData(filename)
+  # nparr = np.frombuffer(imgdata, np.uint8)
+  # return cv2.imdecode(nparr, cv2.IMREAD_COLOR)

@@ -95,12 +95,6 @@ class Yolo:
           [x, y, w, h],
           confidences[i]
         ))
-        # obj = {
-        #   "classId": int(classIDs[i]), # use int as int64 can't json serialized
-        #   "box": [x, y, w, h],
-        #   "confidence": confidences[i]
-        # }
-        # objsDetected.append(obj)
       return objsDetected
 
   def classLabel(self, classId):
