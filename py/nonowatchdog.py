@@ -30,6 +30,6 @@ class NonoWatchDog:
         self.yoloNet, self.urlSnapshot, self.url, channel
       )
       if objs is not None and len(matches) > 0:
-        result.append((channel, imgPath, timestamp, matches))
+        result.append((channel, imgPath, timestamp, objs, matches))
       sleep(step)
     return result
