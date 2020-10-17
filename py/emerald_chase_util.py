@@ -6,6 +6,7 @@ import datetime
 import numpy as np
 from urllib.request import urlopen
 import cv2
+import imgfile
 
 def httpGetImg(imgUrl):
   try:
@@ -33,12 +34,6 @@ def getImgInfo(pi):
   except Exception as e:
     raise e
 
-# def saveImgInfo(piId, imgInfo):
-#   path = CONT_PATH.format(piId, imgInfo['timestamp'])
-#   jpgFile = open(path, "wb")
-#   jpgFile.write(imgInfo['img'])
-#   jpgFile.close()
-
 import os
 import glob
 class PiCamCacheRepo:
@@ -58,10 +53,7 @@ class PiCamCacheRepo:
     try:
       f = imgSrc.pop()
       ts, _ = os.path.splitext(os.path.basename(f))
-      file = open(f, "rb")
-      nparr = np.frombuffer(file.read(), np.uint8)
-      file.close()
-      img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+      img = imgfile.readImg(f)
       if self.pi['rotate']:
         img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
       return {

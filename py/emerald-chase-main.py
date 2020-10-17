@@ -64,8 +64,8 @@ class HomePiApp:
       objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
       if objs is not None:
         print(count, imgInfo['timestamp'], 'imgInfo foundObjs -> ', objs)
-        for obj in objs:
-          if obj['classId'] in classIds:
+        for classId, _, _ in objs:
+          if classId in classIds:
             self.yoloNet.drawDetectedObjects(imgInfo['timestamp'], imgInfo['img'], objs)
             time.sleep(1)
             break
