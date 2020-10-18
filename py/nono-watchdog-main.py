@@ -12,45 +12,46 @@ jbConf = json.load(open("jbconf.json"))
 url = jbConf["nono"]['url']
 yoloNet = Yolo(jbConf["models"]["yolov3"], confidence=.2, threshold=.2)
 
-def watch_main_(urlSnapshot, channels=[0, 1, 2, 3]):
-  for id in channels:
-    name, channel, watchlist = CHANNEL_WATCHES[id]
-    print('ch', channel, name, [yoloNet.classLabel(id) for id in watchlist])
-    imgPath, timestamp, objs, matches = findNonoTarget(yoloNet, urlSnapshot, url, channel)
-    if objs is not None and len(matches) > 0:
-      img = nonopath.readNonoImg(imgPath, timestamp)
-      yoloNet.drawDetectedObjects(imgPath, img, objs)
-
 def watch_results(filename):
-  results = pyobjectfile.loadPyObject(filename)
+  startTime, endTime, results = pyobjectfile.loadPyObject(filename)
+  print(startTime)
+  print(endTime)
   if len(results) > 0:
     for result in results:
       channel, imgPath, timestamp, objs, matches = result
-      print([yoloNet.classLabel(id) for id in matches])
+      print("channel", channel, [yoloNet.classLabel(id) for id in matches])
       img = nonopath.readNonoImg(imgPath, timestamp)
       yoloNet.drawDetectedObjects(imgPath, img, objs)
 
-def watch_main(watchdog, channels=[0, 1, 2, 3]):
-  results = []
-  for channel in channels:
-    # result = watchdog.schedule_watch_today(hour=11, min=55)
-    results = results + watchdog.watch_period(channel)
+def watch_main(watchdog, period=15):
+  startTime = datetime.now()
+  results = watchdog.watch_period(period=period)
+  endTime = datetime.now()
   filename = '/tmp/d.pydata'
-  pyobjectfile.writePyObject(filename, results)
-  watch_results(filename)
+  pyobjectfile.writePyObject(filename, (startTime, endTime, results))
+  # watch_results(filename)
+
+def schedule_watch_main(watchdog, hour, minute, period=15):
+  startTime, results = watchdog.schedule_watch_today(hour, minute, period)
+  endTime = datetime.now()
+  filename = '/tmp/d.pydata'
+  pyobjectfile.writePyObject(filename, (startTime, endTime, results))
 
 import sys
 if __name__ == '__main__':
   # filename = '/tmp/d.pydata'
+  # watch_results(filename)
   # results = pyobjectfile.loadPyObject(filename)
   # print(results)
   # sys.exit()
   if len(sys.argv) > 2:
     urlSnapshot = UrlSnapshot(sys.argv[1], sys.argv[2])
+    watchdog = NonoWatchDog(yoloNet, urlSnapshot, url)
     if len(sys.argv) == 3:
-      watchdog = NonoWatchDog(yoloNet, urlSnapshot, url)
       # result = watchdog.schedule_watch_today(hour=11, min=55)
       # sys.exit()
       watch_main(watchdog)
-    elif len(sys.argv) > 3:
-      watch_main(urlSnapshot, channels=[int(val) for val in sys.argv[3:]])
+    elif len(sys.argv) > 4:
+      schedule_watch_main(watchdog, int(sys.argv[3]), int(sys.argv[4]))
+    elif len(sys.argv) > 5:
+      schedule_watch_main(watchdog, int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
