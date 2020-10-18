@@ -16,8 +16,7 @@ class NonoWatchDog:
     if seconds > 0:
       print("watch after", seconds, 'seconds')
       sleep(seconds)
-      startTime = datetime.now()
-      return startTime, self.watch_period(period)
+      return self.watch_period(period)
     return None, None
 
   def schedule_watch_today(self, hour, minute, period=5, step=1):
@@ -36,4 +35,4 @@ class NonoWatchDog:
         if objs is not None and len(matches) > 0:
           results.append((channel, imgPath, timestamp, objs, matches))
       sleep(step)
-    return results
+    return start, results, datetime.now()

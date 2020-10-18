@@ -6,12 +6,12 @@ from Yolo import Yolo
 from nono_util import UrlSnapshot
 from nonotarget import findNonoTarget, CHANNEL_WATCHES
 from nonowatchdog import NonoWatchDog
-import pyobjectfile
 
 jbConf = json.load(open("jbconf.json"))
 url = jbConf["nono"]['url']
 yoloNet = Yolo(jbConf["models"]["yolov3"], confidence=.2, threshold=.2)
 
+import pyobjectfile
 def watch_results(filename):
   startTime, endTime, results = pyobjectfile.loadPyObject(filename)
   print(startTime)
@@ -24,18 +24,24 @@ def watch_results(filename):
       yoloNet.drawDetectedObjects(imgPath, img, objs)
 
 def watch_main(watchdog, period=15):
-  startTime = datetime.now()
-  results = watchdog.watch_period(period=period)
-  endTime = datetime.now()
-  filename = '/tmp/d.pydata'
-  pyobjectfile.writePyObject(filename, (startTime, endTime, results))
-  # watch_results(filename)
+  startTime, results, endTime = watchdog.watch_period(period=period)
+  if len(results) > 0:
+    filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
+    watch_results(filename)
 
-def schedule_watch_main(watchdog, hour, minute, period=15):
-  startTime, results = watchdog.schedule_watch_today(hour, minute, period)
-  endTime = datetime.now()
-  filename = '/tmp/d.pydata'
-  pyobjectfile.writePyObject(filename, (startTime, endTime, results))
+# def schedule_watch_main(watchdog, hour, minute, period=15):
+def schedule_watch_main(watchdog, scheduledMeta):
+  hour, minute, period, step = (None, None, 15, 1)
+  if len(scheduledMeta) == 2:
+    hour, minute = scheduledMeta
+  if len(scheduledMeta) == 3:
+    hour, minute, period = scheduledMeta
+  if len(scheduledMeta) == 4:
+    hour, minute, period, step = scheduledMeta
+  startTime, results, endTime = watchdog.schedule_watch_today(hour, minute, period, step)
+  if len(results) > 0:
+    filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
+    watch_results(filename)
 
 import sys
 if __name__ == '__main__':
@@ -52,6 +58,4 @@ if __name__ == '__main__':
       # sys.exit()
       watch_main(watchdog)
     elif len(sys.argv) > 4:
-      schedule_watch_main(watchdog, int(sys.argv[3]), int(sys.argv[4]))
-    elif len(sys.argv) > 5:
-      schedule_watch_main(watchdog, int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
+      schedule_watch_main(watchdog, [int(arg) for arg in sys.argv[3:]])
