@@ -1,6 +1,19 @@
 from time import time, sleep
 from datetime import datetime, timedelta
 import nonotarget
+import nonopath
+
+import pyobjectfile
+def show_wdogfile(yoloNet, wdogFile):
+  startTime, endTime, results = pyobjectfile.loadPyObject(wdogFile)
+  print(startTime)
+  print(endTime)
+  if len(results) > 0:
+    for result in results:
+      channel, imgPath, timestamp, objs, matches = result
+      print("channel", channel, [yoloNet.classLabel(id) for id in matches])
+      img = nonopath.readNonoImg(imgPath, timestamp)
+      yoloNet.drawDetectedObjects(imgPath, img, objs)
 
 class NonoWatchDog:
   def __init__(self, yoloNet, urlSnapshot, url, channels=[0,1,2,3]):
@@ -9,7 +22,7 @@ class NonoWatchDog:
     self.url = url
     self.channels = channels
 
-  def schedule_watch(self, scheduledDatetime, period=5, step=1):
+  def schedule_future_watch(self, scheduledDatetime, period=5, step=1):
     print('now', datetime.now())
     print('scheduled', scheduledDatetime)
     seconds = int((scheduledDatetime - datetime.now()).total_seconds())
@@ -17,12 +30,12 @@ class NonoWatchDog:
       print("watch after", seconds, 'seconds')
       sleep(seconds)
       return self.watch_period(period)
-    return None, None
+    return None, None, None
 
   def schedule_watch_today(self, hour, minute, period=5, step=1):
     cur = datetime.now()
     scheduled = datetime(cur.year, cur.month, cur.day, hour, minute)
-    return self.schedule_watch(scheduled, period, step)
+    return self.schedule_future_watch(scheduled, period, step)
 
   def watch_period(self, period=5, step=1):
     results = []

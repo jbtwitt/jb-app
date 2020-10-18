@@ -33,7 +33,6 @@ Watchdog
 """
 def watchdogFileName():
   dt = datetime.now().timetuple()
-  # print(dt)
   return "%d%02d%02d%02d%02d%02d.wdog" % (
     dt.tm_year, dt.tm_mon, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec
   )
