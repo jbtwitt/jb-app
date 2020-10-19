@@ -1,5 +1,6 @@
 import os
 import time
+import glob
 from datetime import datetime
 import imgfile
 import pyobjectfile
@@ -25,8 +26,11 @@ def camChannelPath(channel):
 def saveNonoImg(path, timestamp, imgdata):
   imgfile.saveImgData(NONO_IMG_FILE.format(path, timestamp), imgdata)
 
+def getNonoImgFilename(imgPath, timestamp):
+  return NONO_IMG_FILE.format(imgPath, timestamp)
+
 def readNonoImg(imgPath, timestamp):
-  return imgfile.readImg(NONO_IMG_FILE.format(imgPath, timestamp))
+  return imgfile.readImg(getNonoImgFilename)
 
 """
 Watchdog
@@ -41,6 +45,9 @@ def saveNonoWatchdog(pyobject):
   filename = NONO_WATCHDOG_PATH + watchdogFileName()
   pyobjectfile.writePyObject(filename, pyobject)
   return filename
+
+def getWdogFilenames(datePattern='20201018'):
+  return glob.glob(NONO_WATCHDOG_PATH + datePattern + '*.wdog')
 
 if __name__ == '__main__':
   imgPath, timestamp = camChannelPath(channel=1)
