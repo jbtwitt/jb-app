@@ -39,8 +39,8 @@ def watchdog_main(watchdog, args):
         step = int(value)
     schedule_watch_main(watchdog, hour, minute, period, step)
 
-import sys
 if __name__ == '__main__':
+  import sys
   if len(sys.argv) > 2:
     urlSnapshot = UrlSnapshot(sys.argv[1], sys.argv[2])
     watchdog = nonowatchdog.NonoWatchDog(yoloNet, urlSnapshot, url)

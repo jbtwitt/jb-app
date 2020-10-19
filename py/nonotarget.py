@@ -1,4 +1,5 @@
 import nonopath
+from yoloutil import labelName
 from yolotarget import findTarget
 
 IDX_CLASSIDS = 2
@@ -17,6 +18,6 @@ def findNonoTarget(yoloNet, urlSnapshot, url, channel):
   objs, matches = findTarget(yoloNet, data, CHANNEL_WATCHES[channel][IDX_CLASSIDS])
   if objs is not None:
     nonopath.saveNonoImg(imgPath, timestamp, data)
-    print(imgPath, timestamp, objs, [yoloNet.classLabel(id) for id in matches])
+    print(imgPath, timestamp, objs, [labelName(id) for id in matches])
     return imgPath, timestamp, objs, matches
   return None, None, None, None

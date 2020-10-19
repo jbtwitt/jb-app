@@ -30,7 +30,7 @@ def getNonoImgFilename(imgPath, timestamp):
   return NONO_IMG_FILE.format(imgPath, timestamp)
 
 def readNonoImg(imgPath, timestamp):
-  return imgfile.readImg(getNonoImgFilename)
+  return imgfile.readImg(getNonoImgFilename(imgPath, timestamp))
 
 """
 Watchdog

@@ -23,3 +23,7 @@ def drawObjs(title, img, objs):
 def drawImgFile(imgPath, objs):
   img = cv2.imread(imgPath)
   drawObjs(imgPath, img, objs)
+
+if __name__ == '__main__':
+  for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 28, 26, 56, 58, 59, 62, 75]:
+    print('classId', i, labelName(i))

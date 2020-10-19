@@ -1,12 +1,9 @@
 '''
 opencv-python 4.1.2
 '''
-import os
 import cv2
-import time
-import json
 import numpy as np
-
+# import time
 
 class Yolo:
   def __init__(self, modelConf, confidence=.5, threshold=.3):
@@ -14,14 +11,6 @@ class Yolo:
     self.confidence = confidence
     self.threshold = threshold
     self.loadModel()
-
-    self.LABELS = open(self.modelConf["cocoNames"]).read().strip().split("\n")
-    np.random.seed(42)
-    self.COLORS = np.random.randint(0, 255, size=(len(self.LABELS), 3), dtype="uint8")
-
-  @property
-  def objectLabels(self):
-    return self.LABELS
 
   '''
   Load Yolo Model
@@ -97,30 +86,23 @@ class Yolo:
         ))
       return objsDetected
 
-  def classLabel(self, classId):
-    return self.LABELS[classId]
+  # def drawDetectedObjects(self, title, image, objs):
+  #   if objs is not None:
+  #     for classId, box, confidence in objs:
+  #       x, y, w, h = box
+  #       color = [int(c) for c in self.classColor(classId)]
+  #       text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, confidence)
+  #       cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
+  #       cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+  #   cv2.imshow(title, image)
+  #   cv2.waitKey(0)
 
-  def classColor(self, classId):
-    return self.COLORS[classId]
-
-  def drawDetectedObjects(self, title, image, objs):
-    if objs is not None:
-      for classId, box, confidence in objs:
-        x, y, w, h = box
-        color = [int(c) for c in self.classColor(classId)]
-        text = "{}({}): {:.4f}".format(self.classLabel(classId), classId, confidence)
-        cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
-        cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-    cv2.imshow(title, image)
-    cv2.waitKey(0)
-
-import sys
 if __name__ == '__main__':
+  import os
+  import json
+  import yoloutil
   jbConf = json.load(open("jbconf.json"))
   yoloNet = Yolo(jbConf["models"]["yolov3"])
-  for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 28, 26, 56, 58, 59, 62, 75]:
-    print('classId', i, yoloNet.classLabel(i))
-  sys.exit()
   # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'
   dir = "/tmp"
   jpgFiles = ["160001.jpg", 'testtrum.jpg', '10157976613_f1c8c34b07_z.jpg']
@@ -132,7 +114,7 @@ if __name__ == '__main__':
     objs = yoloNet.findDetectedObjects(image)
     print(objs)
     if objs is not None:
-      yoloNet.drawDetectedObjects(path, image, objs)
+      yoloutil.drawObjs(path, image, objs)
 
 DIFFDECODES = [
   'no early objs but found objs - some objs show up',     #0

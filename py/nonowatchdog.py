@@ -2,6 +2,7 @@ from time import time, sleep
 from datetime import datetime, timedelta
 import nonotarget
 import nonopath
+import yoloutil
 
 import pyobjectfile
 def show_wdogfile(yoloNet, wdogFile):
@@ -11,9 +12,9 @@ def show_wdogfile(yoloNet, wdogFile):
   if len(results) > 0:
     for result in results:
       channel, imgPath, timestamp, objs, matches = result
-      print("channel", channel, [yoloNet.classLabel(id) for id in matches])
+      print("channel", channel, [yoloutil.labelName(id) for id in matches])
       img = nonopath.readNonoImg(imgPath, timestamp)
-      yoloNet.drawDetectedObjects(imgPath, img, objs)
+      yoloutil.drawObjs(imgPath, img, objs)
 
 class NonoWatchDog:
   def __init__(self, yoloNet, urlSnapshot, url, channels=[0,1,2,3]):

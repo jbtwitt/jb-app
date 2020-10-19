@@ -2,6 +2,7 @@ import time
 import json
 from Yolo import Yolo, DiffYolo, DIFFDECODES
 from nono_util import UrlSnapshot, getImgInfo
+import yoloutil
 
 ALL_CHANNELS = [
   (1, 'room'),
@@ -32,7 +33,7 @@ class NonoApp:
       objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
       print(objs)
       if objs is not None:
-        self.yoloNet.drawDetectedObjects('CamImg', imgInfo['img'], objs)
+        yoloutil.drawObjs('CamImg', imgInfo['img'], objs)
 
   def runCamMovement(self, channel=1, loop=3):
     detect = DiffYolo()
@@ -44,7 +45,7 @@ class NonoApp:
         print(i, 'imgInfo foundObjs -> ', foundObjs)
         if ret is not None:
           print('*****', ret, DIFFDECODES[ret])
-          self.yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
+          yoloutil.drawObjs('Diff', imgInfo['img'], imgInfo['foundObjs'])
         time.sleep(.1)
       except Exception as e:
         print('ex', e)
@@ -53,21 +54,6 @@ class NonoApp:
     for ch in ALL_CHANNELS:
       print('channel', ch)
       self.runCamMovement(channel=ch[0], loop=3)
-
-  # def runMovementFromRepo(self, channel=1):
-  #   detect = DiffYolo()
-  #   imgInfos = getImgInfosFromRepo(channel)
-  #   for imgInfo in imgInfos:
-  #     try:
-  #       ret = detect.run(self.yoloNet, imgInfo)
-  #       foundObjs = imgInfo['foundObjs']
-  #       print('imgInfo foundObjs -> ', foundObjs)
-  #       if ret is not None:
-  #         print('*****', ret, DIFFDECODES[ret])
-  #         self.yoloNet.drawDetectedObjects('Diff', imgInfo['img'], imgInfo['foundObjs'])
-  #       # time.sleep(.1)
-  #     except Exception as e:
-  #       print('runMovementFromRepo', e)
 
   def app_main(self, methodName='runCamMovement'):
     method = getattr(self, methodName)
@@ -82,7 +68,6 @@ if __name__ == '__main__':
     nonoApp = NonoApp(sys.argv[1], sys.argv[2])
     # app_main(nonoApp.runAllCamMovements)
     # app_main(nonoApp.runCacheCam)
-    # app_main(nonoApp.runMovementFromRepo)
     if len(sys.argv) > 3:
       nonoApp.app_main(sys.argv[3])
     else:
