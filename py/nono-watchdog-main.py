@@ -16,8 +16,8 @@ def watch_main(watchdog, period=15):
     filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
     print(filename)
 
-def schedule_watch_main(watchdog, hour, minute, period, step):
-  startTime, results, endTime = watchdog.schedule_watch_today(hour, minute, period, step)
+def schedule_watch_main(watchdog, scheduled, period, step):
+  startTime, results, endTime = watchdog.schedule_future_watch(scheduled, period, step)
   if results is not None and len(results) > 0:
     filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
     print(filename)
@@ -26,18 +26,27 @@ def watchdog_main(watchdog, args):
   if len(args) == 0:
     watch_main(watchdog)
   else:
+    today = datetime.now()
+    year, month, day = (today.year, today.month, today.day)
     hour, minute, period, step = (0, 0, 15, 1)
     for arg in args:
-      t, value = arg[0], arg[1:]
+      t, value = arg[0], int(arg[1:])
       if t == 'h':
-        hour = int(value)
+        hour = value
       elif t == 'm':
-        minute = int(value)
+        minute = value
       elif t == 'p':
-        period = int(value)
+        period = value
       elif t == 's':
-        step = int(value)
-    schedule_watch_main(watchdog, hour, minute, period, step)
+        step = value
+      elif t == 'd':
+        day = value
+      elif t == 'M':
+        month = value
+      elif t == 'y':
+        year = value
+    scheduled = datetime(year, month, day, hour, minute)
+    schedule_watch_main(watchdog, scheduled, period, step)
 
 if __name__ == '__main__':
   import sys
