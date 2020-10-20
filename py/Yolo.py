@@ -3,7 +3,6 @@ opencv-python 4.1.2
 '''
 import cv2
 import numpy as np
-# import time
 
 class Yolo:
   def __init__(self, modelConf, confidence=.5, threshold=.3):
@@ -16,7 +15,10 @@ class Yolo:
   Load Yolo Model
   '''
   def loadModel(self):
-    self.net = cv2.dnn.readNetFromDarknet(self.modelConf["cfg"], self.modelConf["weights"])
+    self.net = cv2.dnn.readNetFromDarknet(
+      self.modelConf["cfg"],
+      self.modelConf["weights"]
+    )
     # determine only the *output* layer names that we need from YOLO
     ln = self.net.getLayerNames()
     self.ln = [ln[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
@@ -41,7 +43,7 @@ class Yolo:
 
     # print("[INFO] YOLO took {:.6f} seconds".format(end - start))
 
-    # detion output values
+    # detection output values
     boxes = []
     confidences = []
     classIDs = []
@@ -72,19 +74,14 @@ class Yolo:
 
     # apply non-maxima suppression to suppress weak, overlapping bounding boxes
     objs = cv2.dnn.NMSBoxes(boxes, confidences, self.confidence, self.threshold)
+
     if objs is not None and len(objs) > 0:
-      objsDetected = []
-      # loop over the indexes we are keeping
-      for i in objs.flatten():
-        # extract the bounding box coordinates
-        (x, y) = (boxes[i][0], boxes[i][1])
-        (w, h) = (boxes[i][2], boxes[i][3])
-        objsDetected.append((
+      return [(
           int(classIDs[i]), # use int as int64 can't json serialized
-          [x, y, w, h],
+          boxes[i],   # the bounding box coordinates [x, y, w, h],
           confidences[i]
-        ))
-      return objsDetected
+        ) for i in objs.flatten()
+      ]
 
   # def drawDetectedObjects(self, title, image, objs):
   #   if objs is not None:
