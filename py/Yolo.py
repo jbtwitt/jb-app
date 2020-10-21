@@ -100,11 +100,11 @@ if __name__ == '__main__':
   import yoloutil
   jbConf = json.load(open("jbconf.json"))
   yoloNet = Yolo(jbConf["models"]["yolov3"])
-  # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'
   dir = "/tmp"
+  # dir = '/Users/jb/ffmpeg-20191215-ed9279a-win64-static/cam/testimgs/'
+  # jpgFiles = os.listdir(dir)
   jpgFiles = ["160001.jpg", 'testtrum.jpg', '10157976613_f1c8c34b07_z.jpg']
   jpgFiles = ["pi110.jpg", "pi115.jpg"]
-  # jpgFiles = os.listdir(dir)
   for jpg in jpgFiles:
     path = os.path.sep.join([dir, jpg])
     image = cv2.imread(path)

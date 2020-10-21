@@ -11,10 +11,10 @@ def show_wdogfile(yoloNet, wdogFile):
   print(endTime)
   if len(results) > 0:
     for result in results:
-      channel, imgPath, timestamp, objs, matches = result
-      print("channel", channel, [yoloutil.labelName(id) for id in matches])
+      channel, imgPath, timestamp, matches = result
+      print("channel", channel, [yoloutil.labelName(id) for id, _, _ in matches])
       img = nonopath.readNonoImg(imgPath, timestamp)
-      yoloutil.drawObjs(imgPath, img, objs)
+      yoloutil.drawObjs(imgPath, img, matches)
 
 class NonoWatchDog:
   def __init__(self, yoloNet, urlSnapshot, url, channels=[0,1,2,3]):
@@ -43,10 +43,10 @@ class NonoWatchDog:
     start = datetime.now()
     while(start > (datetime.now() - timedelta(seconds=period))):
       for channel in self.channels:
-        imgPath, timestamp, objs, matches = nonotarget.findNonoTarget(
+        imgPath, timestamp, matches = nonotarget.findNonoTarget(
           self.yoloNet, self.urlSnapshot, self.url, channel
         )
-        if objs is not None and len(matches) > 0:
-          results.append((channel, imgPath, timestamp, objs, matches))
+        if matches is not None and len(matches) > 0:
+          results.append((channel, imgPath, timestamp, matches))
       sleep(step)
     return start, results, datetime.now()

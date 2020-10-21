@@ -15,9 +15,9 @@ def findNonoTarget(yoloNet, urlSnapshot, url, channel):
   imgPath, timestamp = nonopath.camChannelPath(channel)
   camUrl = nonopath.NONO_URL.format(url, channel, timestamp * 1000)
   data = urlSnapshot.httpGetImg(camUrl)
-  objs, matches = findTarget(yoloNet, data, CHANNEL_WATCHES[channel][IDX_CLASSIDS])
-  if objs is not None:
+  matches = findTarget(yoloNet, data, CHANNEL_WATCHES[channel][IDX_CLASSIDS])
+  if len(matches):
     nonopath.saveNonoImg(imgPath, timestamp, data)
-    print(imgPath, timestamp, objs, [labelName(id) for id in matches])
-    return imgPath, timestamp, objs, matches
-  return None, None, None, None
+    print(imgPath, timestamp, [labelName(id) for id, _, _ in matches])
+    return imgPath, timestamp, matches
+  return None, None, None
