@@ -14,8 +14,9 @@ def drawObjs(title, img, objs):
     for classId, box, confidence in objs:
       x, y, w, h = box
       color = [int(c) for c in COLORS[classId]]
-      text = "{}({}): {:.4f}".format(labelName(classId), classId, confidence)
-      cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
+      # text = "{}({}): {:.4f}".format(labelName(classId), classId, confidence)
+      text = "{} {} {} {} {}".format(classId, x, y, w, h)
+      cv2.rectangle(img, (x, y), (x + w, y + h), color, 1)
       cv2.putText(img, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
   cv2.imshow(title, img)
   cv2.waitKey(0)
