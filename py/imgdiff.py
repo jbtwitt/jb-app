@@ -6,12 +6,12 @@ def boxDiffs(box1, box2):
   area2 = w2 * h2
   return abs(area1 - area2) / min(area1, area2), abs(x1 - x2) + abs(y1 - y2)
 
-def evalObjDiffs(objDiffs, boxEval=.1, posEval=10):
+def evalObjDiffs(objDiffs, boxThreshold=.1, posThreshold=10):
   # objDiff: classId, box and box position diffs
   for idDiff, (boxDiff, posDIff) in objDiffs:
-    if idDiff or boxDiff > boxEval:
+    if idDiff or boxDiff > boxThreshold:
       return True
-    elif posDIff > posEval:
+    elif posDIff > posThreshold:
       return True
   return False
 
@@ -23,12 +23,12 @@ class ObjsDiff:
   def prevObjs(self):
     return self.objs
 
+  # 1 number of objs diff
+  # 2 classId, box and box position diffs
   def metaDiff(self, objs):
-    # 1 number of objs diff
-    # 2 classId, box and box position diffs
-    nDiff, objDiffs = (False, [])
+    nDiff, objDiffs = (0, [])
     if self.objs is not None:
-      nDiff = len(objs) != len(self.objs)
+      nDiff = len(objs) - len(self.objs)
       objDiffs = [
         (id1 != id2, boxDiffs(box1, box2))
         for id1, box1, _ in objs for id2, box2, _ in self.objs

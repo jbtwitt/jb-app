@@ -10,6 +10,7 @@ CHANNEL_WATCHES = [
   ['driveway2', 3, [0, 2, 7, 1, 3]]  # person, car, truck, bicycle, motorbike
 ]
 # print(CHANNEL_WATCHES[1][IDX_CLASSIDS])
+IMAGE_SIZE = [640, 360]
 
 def findNonoTarget(yoloNet, urlSnapshot, url, channel):
   imgPath, timestamp = nonopath.camChannelPath(channel)

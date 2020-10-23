@@ -10,17 +10,22 @@ jbConf = json.load(open("jbconf.json"))
 url = jbConf["nono"]['url']
 yoloNet = Yolo(jbConf["models"]["yolov3"], confidence=.2, threshold=.2)
 
+def printWatchOutput(startTime, endTime, filename, results):
+  print(startTime)
+  print(filename, len(results))
+  print(endTime)
+
 def watch_main(watchdog, period=15):
   startTime, results, endTime = watchdog.watch_period(period=period)
   if len(results) > 0:
     filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
-    print(filename)
+    printWatchOutput(startTime, endTime, filename, results)
 
 def schedule_watch_main(watchdog, scheduled, period, step):
   startTime, results, endTime = watchdog.schedule_future_watch(scheduled, period, step)
   if results is not None and len(results) > 0:
     filename = nonopath.saveNonoWatchdog((startTime, endTime, results))
-    print(filename)
+    printWatchOutput(startTime, endTime, filename, results)
 
 def watchdog_main(watchdog, args):
   if len(args) == 0:
@@ -52,7 +57,7 @@ if __name__ == '__main__':
   import sys
   if len(sys.argv) > 2:
     urlSnapshot = UrlSnapshot(sys.argv[1], sys.argv[2])
-    watchdog = nonowatchdog.NonoWatchDog(yoloNet, urlSnapshot, url)
+    watchdog = nonowatchdog.NonoWatchDog(yoloNet, urlSnapshot, url, [0, 1, 2])
     watchdog_main(watchdog, sys.argv[3:])
   elif len(sys.argv) > 1:
     nonowatchdog.show_wdogfile(yoloNet, sys.argv[1])
