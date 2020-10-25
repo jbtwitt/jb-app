@@ -3,7 +3,7 @@ from time import time, sleep
 from datetime import datetime, timedelta
 import nonopath
 from Yolo import Yolo
-from nono_util import UrlSnapshot
+from nonoutil import UrlSnapshot
 import nonowatchdog
 
 jbConf = json.load(open("jbconf.json"))

@@ -1,7 +1,7 @@
 import time
 import json
 from Yolo import Yolo, DiffYolo, DIFFDECODES
-from nono_util import UrlSnapshot, getImgInfo
+from nonoutil import UrlSnapshot, getImgInfo
 import yoloutil
 
 ALL_CHANNELS = [
