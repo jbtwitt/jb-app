@@ -21,8 +21,10 @@ def drawObjs(title, img, objs):
   cv2.imshow(title, img)
   cv2.waitKey(0)
 
-def drawImgFile(imgPath, objs):
+def drawImgFile(imgPath, objs, rotate=False):
   img = cv2.imread(imgPath)
+  if rotate:
+    img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
   drawObjs(imgPath, img, objs)
 
 if __name__ == '__main__':
