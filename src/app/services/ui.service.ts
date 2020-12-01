@@ -10,7 +10,7 @@ export class UiService {
   hqConf: any;
 
   constructor(
-    private datepipe: DatePipe,
+    private datePipe: DatePipe,
     private dataService: DataService,
   ) {
     // console.log('-----construct ui service')
@@ -85,5 +85,8 @@ export class UiService {
   };
   orderBy(list: any[], key: string, desc: boolean = false) {
     return list.concat().sort(this.compare(key, desc ? -1 : 1));
+  }
+  dateCompare(d1, d2) {
+    return this.datePipe.transform(d1, 'yyyyMMdd') >= this.datePipe.transform(d2, 'yyyyMMdd');
   }
 }

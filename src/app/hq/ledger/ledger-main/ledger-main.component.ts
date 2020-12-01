@@ -18,7 +18,8 @@ export class LedgerMainComponent implements OnInit {
 
   async ngOnInit() {
     this.dataService.getAssetCsvData('account.csv').subscribe(data => {
-        this.accounts = data
+      this.accounts = data
+      console.log(this.accounts);
     });
     let hqday0 = [];
     // await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
@@ -27,11 +28,13 @@ export class LedgerMainComponent implements OnInit {
         hqday0 = data;
       });
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(data => {
+      console.log(data);
       this.accounts.forEach(account => {
         const rows = data.filter(t =>
-          t.broker === account.broker
-          && t.buyDate >= account.date
+          t.broker === account.broker &&
+          this.uiService.dateCompare(t.buyDate, account.date)
         );
+        console.log(rows);
         let transactions = [];
         rows.forEach(t => {
           const hq = hqday0.filter(q => q.ticker === t.ticker)[0];
