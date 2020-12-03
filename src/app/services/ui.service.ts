@@ -1,41 +1,20 @@
 import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
 import { DatePipe } from '@angular/common';
+import { ConfigService } from '../app-config/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiService {
-  hqDate: string;
+  hqDate: any;
   hqConf: any;
 
   constructor(
+    private configService: ConfigService,
     private datePipe: DatePipe,
-    private dataService: DataService,
   ) {
-    // console.log('-----construct ui service')
-    // this.init();
-    // this.dataService.getAssetJsonData('hqcsv/hqdate.json').subscribe(data => {
-    //   this.hqDate = data.hqdate;
-    //   console.log(this.hqDate);
-    // });
-    // this.dataService.getAssetJsonData('hqrobot.json').subscribe(data => {
-    //   this.hqConf = data;
-    // });
-  }
-
-  async init() {
-    await this.dataService.getAssetJsonData('hqcsv/hqdate.json')
-      .toPromise()
-      .then(data => {
-      this.hqDate = data.hqdate;
-      console.log(this.hqDate);
-    });
-    await this.dataService.getAssetJsonData('hqrobot.json')
-      .toPromise()
-      .then(data => {
-        this.hqConf = data;
-      });
+    this.hqDate = this.configService.hqDate;
+    this.hqConf = this.configService.hqConf;
   }
 
   getHqConf() {

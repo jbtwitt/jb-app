@@ -24,6 +24,7 @@ import { LedgerModule } from './hq/ledger/ledger.module';
 import { DatePipe } from '@angular/common';
 import { UiService } from './services/ui.service';
 import { DataService } from './services/data.service';
+import { AppConfigModule } from './app-config/app-config.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { DataService } from './services/data.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AppConfigModule,
+
     BrowserAnimationsModule,
     MatCardModule,
     MatMenuModule,

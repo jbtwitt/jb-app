@@ -15,3 +15,20 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+
+<!-- <mat-expansion-panel *ngFor="let row of accounts; index as i">
+  <mat-expansion-panel-header>
+    <mat-panel-title><h3>
+    {{row.broker}}
+    (
+      {{row.date | date: 'MM/dd/yyyy'}} |
+      {{row.investment | currency:'USD':'symbol':'.2-2'}}
+    )
+    </h3></mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <app-ledger-list
+    [account]="row"
+    [transactions]="transactions[i]"></app-ledger-list>
+
+</mat-expansion-panel> -->

@@ -20,10 +20,6 @@ export class BookmarkMainComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.uiService.init().then(() => {
-      this.hqConf = this.uiService.getHqConf();
-      console.log('init done');
-    });
     this.dataService.getAssetJsonData('notes.json').subscribe(data => {
       this.notes = data;
     })

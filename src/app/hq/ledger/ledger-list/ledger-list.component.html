@@ -54,7 +54,7 @@
   </ng-container>
 
   <ng-container matColumnDef="buyPrice">
-    <th mat-header-cell *matHeaderCellDef> Buy Price </th>
+    <th mat-header-cell *matHeaderCellDef><b>Buy Price</b></th>
     <td [class]="uiService.cssGainLoss(uiService.getGainLoss(row))"
       mat-cell *matCellDef="let row">
       {{row.buyPrice | currency:'USD':'symbol':'.2-2'}}

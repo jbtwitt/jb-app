@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { ConfigService } from 'src/app/app-config/config.service';
 
 @Component({
   selector: 'app-monitor',
@@ -17,15 +17,12 @@ export class MonitorComponent implements OnInit, OnDestroy {
   hoursAgo: string = ""
   minutesAgo: string = ""
 
-  constructor(private dataService: DataService) { }
+  constructor(private configService: ConfigService) { }
 
   ngOnInit() {
-    this.dataService.getAssetJsonData('pi-addr.json').subscribe(data => {
-      this.pis = data;
-      this.pis.forEach(pi => {
-        this.piImgs.push({ ...pi, show: 0 });
-      });
-      console.log(this.piImgs);
+    this.pis = this.configService.pis;
+    this.pis.forEach(pi => {
+      this.piImgs.push({ ...pi, show: 0 });
     });
     this.intervalId = setInterval(() => {
       let minutes = 0
