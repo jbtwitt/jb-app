@@ -9,11 +9,10 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./portfolio-main.component.sass']
 })
 export class PortfolioMainComponent implements OnInit {
-  portfolio: any[];
-  portfolioOpen: any[];
-  portfolioClose: any[];
-  portfolioTest: any[];
-  yearSummary: any;
+  portfolio: any;
+  portfolioOpen: any;
+  portfolioClose: any;
+  portfolioTest: any;
 
   constructor(
     private uiService: UiService,
@@ -23,9 +22,6 @@ export class PortfolioMainComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(csv => {
       this.portfolio = csv;
-
-      // const group = this.uiService.groupBy(this.portfolio.slice(0,2), "broker", "ticker");
-      this.yearSummary = this.groupByYearBroker(this.portfolio);
 
       csv.forEach(item => {
         item.buyCost = item.shares * item.buyPrice;
@@ -56,27 +52,5 @@ export class PortfolioMainComponent implements OnInit {
         this.portfolioOpen = opens.filter(p => p.broker !== 'Test *');
       });
     });
-  }
-  groupByYearBroker(arr) {
-    return arr.reduce((ret, row) => {
-      if (row.soldDate) {
-        const groupKey = row.soldDate.substr(row.soldDate.lastIndexOf('/') + 1) + row.broker;
-        (ret[groupKey] = ret[groupKey] || []).push(row);
-      }
-      return ret;
-    }, {});
-  };
-  get uniqYears() {
-    if (this.yearSummary) {
-      const years = Object.keys(this.yearSummary).reduce((ret, r) => {
-        // console.log(r);
-        const y = r.substr(0, 4);
-        if (!ret[y]) {
-          (ret[y] = ret[y] || []).push(y);
-        }
-        return ret;
-      }, {});
-      return  Object.keys(years).sort().reverse();
-    }
   }
 }

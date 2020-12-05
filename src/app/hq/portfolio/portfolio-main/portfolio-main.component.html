@@ -1,5 +1,10 @@
 <mat-tab-group>
 
+  <mat-tab label="Year Summary">
+    <app-summary-by-year
+      [portfolio]="portfolio"></app-summary-by-year>
+  </mat-tab>
+
     <mat-tab label="Test">
         <app-group-portfolio-list
             groupBy="ticker"
@@ -22,18 +27,5 @@
       <app-group-portfolio-list
         groupBy="broker"
         [portfolio]="portfolioClose"></app-group-portfolio-list>
-    </mat-tab>
-
-    <mat-tab label="Year Summary">
-
-      <mat-form-field>
-      <mat-label>Year</mat-label>
-      <mat-select placeholder="Year">
-        <mat-option
-          *ngFor="let y of uniqYears"
-          [value]="y">{{ y }}</mat-option>
-      </mat-select>
-      </mat-form-field>
-
     </mat-tab>
 </mat-tab-group>

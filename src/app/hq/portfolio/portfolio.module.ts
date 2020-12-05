@@ -9,11 +9,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GroupPortfolioListComponent } from './group-portfolio-list/group-portfolio-list.component';
 import { MatSelectModule } from '@angular/material/select';
+import { SummaryByYearComponent } from './summary-by-year/summary-by-year.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [PortfolioMainComponent, PortfolioListComponent, GroupPortfolioListComponent],
+  declarations: [PortfolioMainComponent, PortfolioListComponent, GroupPortfolioListComponent, SummaryByYearComponent],
   imports: [
     CommonModule,
+    FormsModule,
     MatTableModule,
     MatSortModule,
     MatTabsModule,
