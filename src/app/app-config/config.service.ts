@@ -6,9 +6,10 @@ import { DataService } from '../services/data.service';
 })
 export class ConfigService {
 
-  private pis_: any = null;
-  private hqDate_: any = null;
-  private hqConf_: any = null;
+  private pis_: any;
+  private hqDate_: any;
+  private hqConf_: any;
+  private accounts_: any;
 
   constructor(private dataService: DataService) { }
 
@@ -21,6 +22,9 @@ export class ConfigService {
   get hqConf() {
     return this.hqConf_;
   }
+  get accounts() {
+    return this.accounts_;
+  }
   get loaded() {
     return this.pis && this.hqDate && this.hqConf;
   }
@@ -29,6 +33,12 @@ export class ConfigService {
 
     return new Promise((resolve, reject) => {
 
+      this.dataService.getAssetCsvData('account.csv')
+        // .toPromise()
+        .subscribe(data => {
+          this.accounts_ = data;
+          // resolve(this.loaded)
+        });
       this.dataService.getAssetJsonData('pi-addr.json')
         .toPromise()
         .then(data => {

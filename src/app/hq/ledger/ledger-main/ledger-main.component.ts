@@ -9,19 +9,21 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./ledger-main.component.sass']
 })
 export class LedgerMainComponent implements OnInit {
-  accounts: any[];
-  transactions: any[] = [];
+  accounts: any;
+  transactions: any = [];
 
   constructor(
+    private configService: ConfigService,
     private uiService: UiService,
     private dataService: DataService,
   ) { }
 
   async ngOnInit() {
-    this.dataService.getAssetCsvData('account.csv').subscribe(data => {
-      this.accounts = data
-      console.log(this.accounts);
-    });
+    this.accounts = this.configService.accounts;
+    // this.dataService.getAssetCsvData('account.csv').subscribe(data => {
+    //   this.accounts = data
+    //   console.log(this.accounts);
+    // });
     let hqday0 = [];
     // await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
     await this.dataService.getAssetCsvData(this.uiService.hqday0Path).toPromise()
