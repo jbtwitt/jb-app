@@ -6,20 +6,12 @@ import { ConfigService } from '../app-config/config.service';
   providedIn: 'root'
 })
 export class UiService {
-  hqDate: any;
-  hqConf: any;
 
   constructor(
     private configService: ConfigService,
     private datePipe: DatePipe,
-  ) {
-    this.hqDate = this.configService.hqDate;
-    this.hqConf = this.configService.hqConf;
-  }
+  ) {}
 
-  getHqConf() {
-    return this.hqConf;
-  }
   getGainLoss(row) {
     return (row.soldDate
       ? (row.soldPrice - row.buyPrice)
@@ -28,16 +20,16 @@ export class UiService {
   }
 
   get hqday0Path() {
-    return `hqcsv/hq${this.hqDate}/hqday0.hqcsv`;
+    return `hqcsv/hq${this.configService.hqDate}/hqday0.hqcsv`;
   }
   get hqhlPath() {
-    return `hqcsv/hq${this.hqDate}/hqhl.hqcsv`;
+    return `hqcsv/hq${this.configService.hqDate}/hqhl.hqcsv`;
   }
   csvPath(hq) {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     // const hqDate = hq[dateCol].replace(/-/g, '');
     // const hqDate = this.datepipe.transform(new Date(), 'yyyyMMdd');
-    return `hqcsv/hq${this.hqDate}/${hq.ticker}.y.csv`;
+    return `hqcsv/hq${this.configService.hqDate}/${hq.ticker}.y.csv`;
   }
   // css class
   cssGainLoss(delta: number) {
@@ -46,17 +38,13 @@ export class UiService {
 
   // hq Url
   hqQUrl(ticker: string): string {
-    if (this.hqConf) {
-      return this.hqConf!.hqUrl.q.replace(/{}/g, ticker);
-    }
+    return this.configService.hqConf.hqUrl.q.replace(/{}/g, ticker);
   }
   hqCUrl(ticker: string): string {
-    if (this.hqConf) {
-      return this.hqConf.hqUrl.c.replace("{}", ticker);
-    }
+    return this.configService.hqConf.hqUrl.c.replace("{}", ticker);
   }
   hqHUrl(ticker: string): string {
-    return this.hqConf.hqUrl.h.replace(/{}/g, ticker);
+    return this.configService.hqConf.hqUrl.h.replace(/{}/g, ticker);
   }
 
   compare = (key: string, desc: number) => {
@@ -68,4 +56,14 @@ export class UiService {
   dateCompare(d1, d2) {
     return this.datePipe.transform(d1, 'yyyyMMdd') >= this.datePipe.transform(d2, 'yyyyMMdd');
   }
+  groupBy(arr, key1, key2) {
+    return arr.reduce((ret, row) => {
+      console.log(ret);
+      // console.log(x);
+      // console.log(x[key]);
+      // console.log(rv[x[key]]);
+      (ret[row[key1], row[key2]] = ret[row[key1], row[key2]] || []).push(row);
+      return ret;
+    }, {});
+  };
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from 'src/app/app-config/config.service';
 import { DataService } from 'src/app/services/data.service';
 import { UiService } from 'src/app/services/ui.service';
 
@@ -12,9 +13,10 @@ export class BookmarkMainComponent implements OnInit {
   notes: any[];
   educations: any[];
   hqCategory = ['etf', 'idx', 'tickers', 'covid19'];
-  hqConf: any;
+  hqConf: any = this.configService.hqConf;
 
   constructor(
+    private configService: ConfigService,
     public uiService: UiService,
     private dataService: DataService,
   ) { }

@@ -8,6 +8,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GroupPortfolioListComponent } from './group-portfolio-list/group-portfolio-list.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [PortfolioMainComponent, PortfolioListComponent, GroupPortfolioListComponent],
@@ -16,6 +17,7 @@ import { GroupPortfolioListComponent } from './group-portfolio-list/group-portfo
     MatTableModule,
     MatSortModule,
     MatTabsModule,
+    MatSelectModule,
     PortfolioRoutingModule
   ],
   exports: [

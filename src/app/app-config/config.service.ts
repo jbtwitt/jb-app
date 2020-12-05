@@ -24,9 +24,11 @@ export class ConfigService {
   get loaded() {
     return this.pis && this.hqDate && this.hqConf;
   }
+
   public load(): Promise<any> {
 
     return new Promise((resolve, reject) => {
+
       this.dataService.getAssetJsonData('pi-addr.json')
         .toPromise()
         .then(data => {
