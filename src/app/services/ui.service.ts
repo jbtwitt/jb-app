@@ -20,16 +20,16 @@ export class UiService {
   }
 
   get hqday0Path() {
-    return `hqcsv/hq${this.configService.hqDate}/hqday0.hqcsv`;
+    return `hqcsv/hq${this.configService.conf.hqDate}/hqday0.hqcsv`;
   }
   get hqhlPath() {
-    return `hqcsv/hq${this.configService.hqDate}/hqhl.hqcsv`;
+    return `hqcsv/hq${this.configService.conf.hqDate}/hqhl.hqcsv`;
   }
   csvPath(hq) {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     // const hqDate = hq[dateCol].replace(/-/g, '');
     // const hqDate = this.datepipe.transform(new Date(), 'yyyyMMdd');
-    return `hqcsv/hq${this.configService.hqDate}/${hq.ticker}.y.csv`;
+    return `hqcsv/hq${this.configService.conf.hqDate}/${hq.ticker}.y.csv`;
   }
   // css class
   cssGainLoss(delta: number) {
@@ -38,13 +38,13 @@ export class UiService {
 
   // hq Url
   hqQUrl(ticker: string): string {
-    return this.configService.hqConf.hqUrl.q.replace(/{}/g, ticker);
+    return this.configService.conf.hqConf.hqUrl.q.replace(/{}/g, ticker);
   }
   hqCUrl(ticker: string): string {
-    return this.configService.hqConf.hqUrl.c.replace("{}", ticker);
+    return this.configService.conf.hqConf.hqUrl.c.replace("{}", ticker);
   }
   hqHUrl(ticker: string): string {
-    return this.configService.hqConf.hqUrl.h.replace(/{}/g, ticker);
+    return this.configService.conf.hqConf.hqUrl.h.replace(/{}/g, ticker);
   }
 
   compare = (key: string, desc: number) => {

@@ -20,7 +20,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   constructor(private configService: ConfigService) { }
 
   ngOnInit() {
-    this.pis = this.configService.pis;
+    this.pis = this.configService.conf.pis;
     this.pis.forEach(pi => {
       this.piImgs.push({ ...pi, show: 0 });
     });

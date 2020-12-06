@@ -6,27 +6,23 @@ import { DataService } from '../services/data.service';
 })
 export class ConfigService {
 
-  private pis_: any;
-  private hqDate_: any;
-  private hqConf_: any;
-  private accounts_: any;
+  private pis: any;
+  private hqDate: any;
+  private hqConf: any;
+  private accounts: any;
 
   constructor(private dataService: DataService) { }
 
-  get pis() {
-    return this.pis_;
-  }
-  get hqDate() {
-    return this.hqDate_;
-  }
-  get hqConf() {
-    return this.hqConf_;
-  }
-  get accounts() {
-    return this.accounts_;
+  get conf() {
+    return {
+      pis: this.pis,
+      hqDate: this.hqDate,
+      hqConf: this.hqConf,
+      accounts: this.accounts
+    };
   }
   get loaded() {
-    return this.pis && this.hqDate && this.hqConf;
+    return this.pis && this.hqConf;
   }
 
   public load(): Promise<any> {
@@ -34,28 +30,26 @@ export class ConfigService {
     return new Promise((resolve, reject) => {
 
       this.dataService.getAssetCsvData('account.csv')
-        // .toPromise()
         .subscribe(data => {
-          this.accounts_ = data;
-          // resolve(this.loaded)
+          this.accounts = data;
         });
       this.dataService.getAssetJsonData('pi-addr.json')
         .toPromise()
         .then(data => {
-          this.pis_ = data;
+          this.pis = data;
           resolve(this.loaded)
         });
       this.dataService.getAssetJsonData('hqcsv/hqdate.json')
         .toPromise()
         .then(data => {
-        this.hqDate_ = data.hqdate;
+        this.hqDate = data.hqdate;
           console.log(this.hqDate);
           resolve(this.loaded)
         });
       this.dataService.getAssetJsonData('hqrobot.json')
         .toPromise()
         .then(data => {
-          this.hqConf_ = data;
+          this.hqConf = data;
           console.log(this.hqConf);
           resolve(this.loaded)
         });

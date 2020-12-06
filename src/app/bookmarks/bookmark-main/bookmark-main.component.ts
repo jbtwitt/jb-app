@@ -13,7 +13,7 @@ export class BookmarkMainComponent implements OnInit {
   notes: any[];
   educations: any[];
   hqCategory = ['etf', 'idx', 'tickers', 'covid19'];
-  hqConf: any = this.configService.hqConf;
+  hqConf: any = this.configService.conf.hqConf;
 
   constructor(
     private configService: ConfigService,
