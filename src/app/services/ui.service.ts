@@ -47,11 +47,28 @@ export class UiService {
     return this.configService.conf.hqConf.hqUrl.h.replace(/{}/g, ticker);
   }
 
-  compare = (key: string, desc: number) => {
-    return (a, b) => (a[key] > b[key] ? desc : b[key] > a[key] ? -desc : 0);
-  };
+  // compare = (key: string, desc: number) => {
+  //   if (key.endsWith('Date')) {
+  //     return (a, b) => {
+  //       const c = a[key] ? this.datePipe.transform(a[key], 'yyyyMMdd') : '9';
+  //       const d = b[key] ? this.datePipe.transform(b[key], 'yyyyMMdd') : '9';
+  //       return (c > d ? desc : d > c ? -desc : 0);
+  //     }
+  //   }
+  //   return (a, b) => (a[key] > b[key] ? desc : b[key] > a[key] ? -desc : 0);
+  // };
   orderBy(list: any[], key: string, desc: boolean = false) {
-    return list.concat().sort(this.compare(key, desc ? -1 : 1));
+    const compare = (key: string, desc: number) => {
+      if (key.endsWith('Date')) {
+        return (a, b) => {
+          const c = a[key] ? this.datePipe.transform(a[key], 'yyyyMMdd') : '9';
+          const d = b[key] ? this.datePipe.transform(b[key], 'yyyyMMdd') : '9';
+          return (c > d ? desc : d > c ? -desc : 0);
+        }
+      }
+      return (a, b) => (a[key] > b[key] ? desc : b[key] > a[key] ? -desc : 0);
+    };
+    return list.concat().sort(compare(key, desc ? -1 : 1));
   }
   dateCompare(d1, d2) {
     return this.datePipe.transform(d1, 'yyyyMMdd') >= this.datePipe.transform(d2, 'yyyyMMdd');

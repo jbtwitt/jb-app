@@ -28,6 +28,7 @@ export class LedgerMainComponent implements OnInit {
       });
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(data => {
       console.log(data);
+      data = this.uiService.orderBy(data, 'soldDate', true);
       this.accounts.forEach(account => {
         const rows = data.filter(t =>
           t.broker === account.broker &&
