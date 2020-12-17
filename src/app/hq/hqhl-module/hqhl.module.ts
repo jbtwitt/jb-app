@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HqhlRoutingModule } from './hqhl-routing.module';
 import { HqhlMainComponent } from './hqhl-main/hqhl-main.component';
+import { HqPercentListComponent } from './components/hq-percent-list/hq-percent-list.component';
 import { HqhlListComponent } from './hqhl-list/hqhl-list.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [HqhlMainComponent, HqhlListComponent],
+  declarations: [HqhlMainComponent, HqhlListComponent, HqPercentListComponent],
   imports: [
     CommonModule,
     FormsModule,

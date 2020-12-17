@@ -8,10 +8,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { BookmarksRoutingModule } from './bookmarks-routing.module';
 import { BookmarkMainComponent } from './bookmark-main/bookmark-main.component';
-import { HqPercentListComponent } from './components/hq-percent-list/hq-percent-list.component';
+// import { HqPercentListComponent } from './components/hq-percent-list/hq-percent-list.component';
 
 @NgModule({
-  declarations: [BookmarkMainComponent, HqPercentListComponent],
+  declarations: [BookmarkMainComponent],
   imports: [
     CommonModule,
     FormsModule,
