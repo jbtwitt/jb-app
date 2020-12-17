@@ -1,21 +1,49 @@
+<table mat-table matSort [dataSource]="dataSource" style="width: 100%;">
+
+  <ng-container matColumnDef="negative">
+    <th mat-header-cell *matHeaderCellDef>
+    </th>
+    <td mat-cell *matCellDef="let row" style="color: red; width: 40%; text-align: right;">
+      {{ hqPrice - hqPrice * row.percent | currency:'USD':'symbol': '.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="percent">
+    <th mat-header-cell *matHeaderCellDef><b>{{ hqHlRow?.ticker }}</b></th>
+    <td mat-cell *matCellDef="let row" style="width: 20%; text-align: center;"> {{ row.percent * 100 | number: '.0' }}%</td>
+  </ng-container>
+
+  <ng-container matColumnDef="positive">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row" style="width: 40%; color: blue;">
+      {{ hqPrice + hqPrice * row.percent | currency:'USD':'symbol': '.2-2' }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+
 <div style="padding-left: 10px;">
-    <mat-form-field style="width: 120px;">
-        <mat-label>hq</mat-label>
-        <input matInput placeholder="hq" type="number" [(ngModel)]="hqPrice">
-    </mat-form-field>
-    <table>
-        <tr *ngFor="let i of percentList">
-            <td style="text-align: right;">
-                {{ hqPrice + hqPrice * i | currency:'USD':'symbol': '.2-2' }}
-            </td>
-            <td style="color: blue; text-align: right;">
-                {{ 100 * i | number: .0 }}%
-            </td>
-            <td style="color: red; text-align: right;">
-                {{ hqPrice - hqPrice * i | currency:'USD':'symbol': '.2-2' }}
-            </td>
-        </tr>
-    </table>
+  <mat-form-field style="width: 120px;">
+    <mat-label>hq</mat-label>
+    <input matInput placeholder="hq" type="number" [(ngModel)]="hqPrice">
+  </mat-form-field>
+  <table style="width: 100%;">
+    <tr *ngFor="let i of percentList">
+      <td style="text-align: right;">
+          {{ hqPrice + hqPrice * i | currency:'USD':'symbol': '.2-2' }}
+      </td>
+      <td style="color: blue; text-align: right;">
+          {{ 100 * i | number: .0 }}%
+      </td>
+      <td style="color: red; text-align: right;">
+          {{ hqPrice - hqPrice * i | currency:'USD':'symbol': '.2-2' }}
+      </td>
+    </tr>
+  </table>
 </div>
 
 <!-- <div style="float: left; padding-left: 20px;">

@@ -15,9 +15,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
+import { HqPlayMainComponent } from './hq-play-main/hq-play-main.component';
+import { TickerListComponent } from './components/ticker-list/ticker-list.component';
 
 @NgModule({
-  declarations: [HqhlMainComponent, HqhlListComponent, HqPercentListComponent],
+  declarations: [HqhlMainComponent, HqhlListComponent, HqPercentListComponent, HqPlayMainComponent, TickerListComponent],
   imports: [
     CommonModule,
     FormsModule,

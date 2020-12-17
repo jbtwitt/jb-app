@@ -40,6 +40,11 @@ export class AppComponent implements OnDestroy {
       route: "ledger",
       icon: "list",
     },
+    {
+      title: "Hq Play",
+      route: "hqplay",
+      icon: "speed",
+    },
   ];
   
   constructor(
