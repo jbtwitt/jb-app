@@ -8,8 +8,8 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./hq-play-main.component.sass']
 })
 export class HqPlayMainComponent implements OnInit {
-  hqHl: any;
-  hqHlRow: any;
+  hqDay0: any;
+  hqDay0Row: any;
 
   constructor(
     private dataService: DataService,
@@ -18,15 +18,15 @@ export class HqPlayMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService
-      .getAssetCsvData(this.uiService.hqhlPath)
+      .getAssetCsvData(this.uiService.hqday0Path)
       .subscribe(data => {
-        this.hqHl = data;
-        // this.getHqHl(this.ndaysList[0]);
+        this.hqDay0 = data;
+        // console.log(data)
       });  
   }
 
-  hqHlRowChanged(row) {
+  hqDay0RowChanged(row) {
     console.log(row)
-    this.hqHlRow = row;
+    this.hqDay0Row = row;
   }
 }

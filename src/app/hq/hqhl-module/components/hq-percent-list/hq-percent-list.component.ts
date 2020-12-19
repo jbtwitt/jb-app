@@ -9,7 +9,7 @@ const TOP = 15
   styleUrls: ['./hq-percent-list.component.sass']
 })
 export class HqPercentListComponent implements OnInit, OnChanges {
-  @Input() hqHlRow: any;
+  @Input() hqDay0Row: any;
   hqPrice: number = 10;
   percentList = []
   dataSource: MatTableDataSource<any[]>;
@@ -30,9 +30,8 @@ export class HqPercentListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    // console.log(this.hqHlRow)
-    if (this.hqHlRow) {
-      this.hqPrice = this.hqHlRow.close;
+    if (this.hqDay0Row) {
+      this.hqPrice = this.hqDay0Row.close;
     }
   }
 }

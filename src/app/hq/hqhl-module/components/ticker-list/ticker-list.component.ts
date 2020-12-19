@@ -9,8 +9,8 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./ticker-list.component.sass']
 })
 export class TickerListComponent implements OnInit, OnChanges {
-  @Input() hqHl: any[];
-  @Output() hqHlRowChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Input() hqDay0: any;
+  @Output() hqDay0RowChanged: EventEmitter<any> = new EventEmitter<any>();
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
@@ -28,16 +28,13 @@ export class TickerListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.hqHl && this.hqHl.length > 0) {
-      this.hqHl = this.hqHl.filter(q => q.ndaysHL === 10);
-      // console.log(this.hqHl)
-      // this.hqHl = this.uiService.orderBy(this.hqHl, 'lvPos');
-      this.dataSource = new MatTableDataSource(this.hqHl);
+    if (this.hqDay0 && this.hqDay0.length > 0) {
+      this.dataSource = new MatTableDataSource(this.hqDay0);
       this.dataSource.sort = this.sort;
     }
   }
-  selectedHqTicker(hlRow) {
+  selectedHqTicker(hqDay0Row) {
     // console.log(hlRow)
-    this.hqHlRowChanged.emit(hlRow);
+    this.hqDay0RowChanged.emit(hqDay0Row);
   }
 }
