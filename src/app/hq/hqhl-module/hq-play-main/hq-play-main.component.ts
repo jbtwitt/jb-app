@@ -20,8 +20,8 @@ export class HqPlayMainComponent implements OnInit {
     this.dataService
       .getAssetCsvData(this.uiService.hqday0Path)
       .subscribe(data => {
-        this.hqDay0 = data;
-        // console.log(data)
+        this.hqDay0 = data.map(r => (r.cl = (r.close - r.low) / (r.high - r.low)) && r);
+        console.log(this.hqDay0)
       });  
   }
 

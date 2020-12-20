@@ -58,6 +58,13 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="cl">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>CL%</th>
+    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
+      {{100 * row.cl | number:'.2-2'}}%
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="lvPos">
   <th mat-header-cell *matHeaderCellDef mat-sort-header><b>LV Pos</b></th>
   <td style="color: blue; text-align: center;" mat-cell *matCellDef="let row">

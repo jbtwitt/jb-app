@@ -29,7 +29,7 @@
     <td class="alignR" mat-cell *matCellDef="let row">
       <a href="javascript:"
         (click)="selectedHqTicker(row)">
-        {{row.close | number:'.2-2'}}
+        {{row.close | currency:'USD':'symbol':'.2-2'}}
       </a>
     </td>
   </ng-container>
@@ -41,6 +41,13 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="cl">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>CL%</b></th>
+    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
+      {{100 * row.cl | number:'.2-2'}}%
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="vChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
     <td [class]="uiService.cssGainLoss(row.vChange - 1)" mat-cell *matCellDef="let row">
@@ -48,79 +55,20 @@
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="lvPos">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header><b>LV Pos</b></th>
-  <td style="color: blue; text-align: center;" mat-cell *matCellDef="let row">
-      {{ row.lvPos }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lvDate">
-    <th mat-header-cell *matHeaderCellDef>LV Date</th>
-    <td style="text-align: center;" mat-cell *matCellDef="let row">
-      {{row.lvDate | date: 'MM/dd/yyyy'}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="hvPos">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>HV Pos</th>
-    <td class="td-center" mat-cell *matCellDef="let row">
-      {{ row.hvPos }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="hvDate">
-    <th mat-header-cell *matHeaderCellDef>HV Date</th>
-    <td style="text-align: center;" mat-cell *matCellDef="let row">
-      {{row.hvDate | date: 'MM/dd/yyyy'}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lcPos">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>LC Pos</b></th>
-    <td class="td-center" mat-cell *matCellDef="let row">
-      {{ row.lcPos }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lcDate">
-    <th mat-header-cell *matHeaderCellDef>LC Date</th>
-    <td style="text-align: center;" mat-cell *matCellDef="let row">
-      {{row.lcDate | date: 'MM/dd/yyyy'}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lClose">
-    <th mat-header-cell *matHeaderCellDef>LC</th>
+  <ng-container matColumnDef="low">
+    <th mat-header-cell *matHeaderCellDef>Low</th>
     <td class="alignR" mat-cell *matCellDef="let row">
-      <u>{{row.lClose | number:'.2-2'}}</u></td>
+        {{row.low | currency:'USD':'symbol':'.2-2'}}
+    </td>
   </ng-container>
 
-  <ng-container matColumnDef="lcChange">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>LC%</th>
-    <td [class]="uiService.cssGainLoss(row.lcChange)" mat-cell *matCellDef="let row">
-    <u>{{100 * row.lcChange | number:'.2-2'}}%</u></td>
-  </ng-container>
-
-  <ng-container matColumnDef="hcPos">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>HC Pos</b></th>
-    <td class="td-center" mat-cell *matCellDef="let row">
-      {{ row.hcPos }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="hcDate">
-    <th mat-header-cell *matHeaderCellDef>HC Date</th>
-    <td class="td-date" mat-cell *matCellDef="let row">
-      {{row.hcDate | date: 'MM/dd/yyyy'}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="hClose">
-    <th mat-header-cell *matHeaderCellDef>HC</th>
+  <ng-container matColumnDef="high">
+    <th mat-header-cell *matHeaderCellDef>High</th>
     <td class="alignR" mat-cell *matCellDef="let row">
-    <u>{{row.hClose | number:'.2-2'}}</u></td>
+        {{row.high | currency:'USD':'symbol':'.2-2'}}
+    </td>
   </ng-container>
 
-  <ng-container matColumnDef="hcChange">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>HC%</th>
-    <td [class]="uiService.cssGainLoss(row.hcChange)" mat-cell *matCellDef="let row">
-    <u>{{100 * row.hcChange | number:'.2-2'}}%</u></td>
-  </ng-container>
-
-  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

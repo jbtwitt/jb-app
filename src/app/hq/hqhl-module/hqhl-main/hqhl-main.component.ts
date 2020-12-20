@@ -32,7 +32,7 @@ export class HqhlMainComponent implements OnInit {
       .subscribe(data => {
         this.hqHl = data;
         this.getHqHl(this.ndaysList[0]);
-      });  
+      });
 }
 
   getHqHl(ndays: number) {

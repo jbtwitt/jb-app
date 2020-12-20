@@ -4,7 +4,7 @@ from hqrobot import CsvFolder, CsvFileName
 
 HqHlFileNameFormatter = "{}/hq{}/hqhl.hqcsv"
 HqHlHeader = "s:ticker,ndaysHL,s:date,"
-HqHlHeader += "close,cChange,vChange,"
+HqHlHeader += "close,cChange,vChange,cl,"
 HqHlHeader += "lcPos,s:lcDate,lClose,lcChange,"
 HqHlHeader += "hcPos,s:hcDate,hClose,hcChange,"
 HqHlHeader += "lvPos,s:lvDate,lVolume,"
@@ -19,6 +19,7 @@ def hqhlLine(ticker, df, ndays):
     if vChange > 0:
         vChange = hq0Row.Volume / hq0Row.PreVolume
         # vChange = (hq0Row.Volume - hq0Row.PreVolume) / hq0Row.PreVolume
+    # cl = (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low)
     lcIdx, hcIdx = (df.Close.idxmin(), df.Close.idxmax())
     lvIdx, hvIdx = (df.Volume.idxmin(), df.Volume.idxmax())
     lcRow, hcRow = (df.loc[lcIdx], df.loc[hcIdx])
@@ -28,6 +29,7 @@ def hqhlLine(ticker, df, ndays):
         hq0Row.Close,
         (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
         vChange,
+        (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low), #CL/HL
         df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
         (hq0Row.Close - lcRow.Close) / lcRow.Close,
         df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
@@ -48,7 +50,7 @@ def csvHqHl(ticker, csvFolder, ndaysList=[20]):
         result += hqhlLine(ticker, df, ndays)
     return result
 
-def run(hqConf, hqDate, ndaysList=[20]):
+def run(hqConf, hqDate, ndaysList=[10]):
     result = ""
     csvFolder = CsvFolder.format(hqConf['repo'], hqDate)
     for group in ['etf', 'idx', 'tickers', 'covid19']:
@@ -61,5 +63,5 @@ def run(hqConf, hqDate, ndaysList=[20]):
 import json
 if __name__ == "__main__":
     hqConf = json.load(open("/gitrepo/jb/jb-app/src/assets/hqrobot.json"))
-    hqDate = "20200423"
+    hqDate = "20201219"
     run(hqConf, hqDate)
