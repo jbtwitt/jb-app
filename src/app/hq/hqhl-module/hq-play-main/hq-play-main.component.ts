@@ -20,9 +20,13 @@ export class HqPlayMainComponent implements OnInit {
     this.dataService
       .getAssetCsvData(this.uiService.hqday0Path)
       .subscribe(data => {
-        this.hqDay0 = data.map(r => (r.cl = (r.close - r.low) / (r.high - r.low)) && r);
-        console.log(this.hqDay0)
-      });  
+        // data = data.filter(r => !r.ticker.includes('^'));
+        this.hqDay0 = this.uiService.orderBy(data.map(r => (
+          (r.cl = (r.close == r.low || r.high == r.low) ? "0" : (r.close - r.low) / (r.high - r.low))
+          && r
+        )), "cl", true);
+        console.log(this.hqDay0);
+      });
   }
 
   hqDay0RowChanged(row) {
