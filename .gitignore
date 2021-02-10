@@ -3,6 +3,7 @@
 # hq
 /py/__pycache__
 /src/assets/hqcsv
+/py/notebooks/.ipynb_checkpoints
 
 # compiled output
 /dist
