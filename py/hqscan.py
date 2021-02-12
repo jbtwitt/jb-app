@@ -1,10 +1,11 @@
 import pandas as pd
 from pandas_datareader import data as pdr
 from datetime import datetime, timedelta
+import numpy as np
 
 DateFormat = "%Y-%m-%d"
-HqRepo = "/tmp/hq/{}.csv"
-symbols = """VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,
+HqRepo = "/home/jb/hq/download/{}.csv"
+symbols = """VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,
 XM,SPCE,GEVO"""
 
 symbols = symbols.replace("\n", "").split(',')
@@ -15,24 +16,46 @@ def hqdownload(symbols, startDate):
     df = pdr.DataReader(symbol, data_source="yahoo", start=startDate, end=today)
     df.to_csv(HqRepo.format(symbol))
 
-def hqscan(symbols):
+def hq_llbcp(symbol, df, results, withinDays=3):
+  # Low Low but Close Positive
+  llbcp = df[(df.LowSlope < 0) & (df.Close > df.PrvClose) & (df.No < withinDays)]
+  if len(llbcp) > 0:
+    for idx in llbcp.index:
+      results.append((symbol, 'LLBCP', idx.strftime(DateFormat), llbcp.No[idx]))
+
+def hq_hhbcn(symbol, df, results, withinDays=3):
+  # High Hight but Close Negative
+  hhbcn = df[(df.HighSlope > 0) & (df.Close < df.PrvClose) & (df.No < withinDays)]
+  if len(hhbcn) > 0:
+    for idx in hhbcn.index:
+      results.append((symbol, 'HHBCN', idx.strftime(DateFormat), hhbcn.No[idx]))
+
+def hq_scan(symbols, withinDays=3):
+  results = []
   for symbol in symbols:
     df = pd.read_csv(HqRepo.format(symbol), index_col=[0], parse_dates=True)
     df['PrvClose'] = df.Close.shift(1)
     df['PrvLow'] = df.Low.shift(1)
+    df['PrvHigh'] = df.High.shift(1)
     df['LowSlope'] = (df.Low - df.PrvLow) / df.PrvClose
-    df['No'] = [df.shape[0] - df.index.get_loc(idx) for idx in df.index]
+    df['HighSlope'] = (df.High - df.PrvHigh) / df.PrvClose
+    df['No'] = [df.shape[0] - df.index.get_loc(idx) - 1 for idx in df.index]
+    df.to_csv(HqRepo.format(symbol))
 
-    # Low Low but Close Positive
-    llbcp = df[(df.LowSlope < 0) & (df.Close > df.PrvClose) & (df.No < 3)]
-    if len(llbcp) > 0:
-      print("*** " + symbol)
-      print(llbcp)
+    # begin scan
+    hq_llbcp(symbol, df, results)
+    hq_hhbcn(symbol, df, results)
+
+  return pd.DataFrame(data=np.array(results), columns=['Symbol', 'HqType', 'Date', 'No'])
 
 def run_hqdownload(symbols, nDays=30):
   startDate = (datetime.now() + timedelta(days=-nDays)).strftime(DateFormat)
   hqdownload(symbols, startDate)
 
 if __name__ == "__main__":
+  begin = datetime.now()
   # run_hqdownload(symbols)
-  hqscan(symbols)
+  results = hq_scan(symbols)
+  print(results.sort_values(by='HqType'))
+  print(begin)
+  print(datetime.now() - begin)
