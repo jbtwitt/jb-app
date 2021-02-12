@@ -5,8 +5,10 @@ import numpy as np
 
 DateFormat = "%Y-%m-%d"
 HqRepo = "/home/jb/hq/download/{}.csv"
-symbols = """VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,
-XM,SPCE,GEVO"""
+HqResultRepo = "/home/jb/hq/"
+HqScanResult = HqResultRepo + "hqscan.csv"
+symbols = """VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,BNGO,FOLD,HOTH,JAGX,JNCE,
+XM,SPCE,GEVO,BLNK"""
 
 symbols = symbols.replace("\n", "").split(',')
 
@@ -16,14 +18,14 @@ def hqdownload(symbols, startDate):
     df = pdr.DataReader(symbol, data_source="yahoo", start=startDate, end=today)
     df.to_csv(HqRepo.format(symbol))
 
-def hq_llbcp(symbol, df, results, withinDays=3):
+def hq_llbcp(symbol, df, results, withinDays=2):
   # Low Low but Close Positive
   llbcp = df[(df.LowSlope < 0) & (df.Close > df.PrvClose) & (df.No < withinDays)]
   if len(llbcp) > 0:
     for idx in llbcp.index:
       results.append((symbol, 'LLBCP', idx.strftime(DateFormat), llbcp.No[idx]))
 
-def hq_hhbcn(symbol, df, results, withinDays=3):
+def hq_hhbcn(symbol, df, results, withinDays=2):
   # High Hight but Close Negative
   hhbcn = df[(df.HighSlope > 0) & (df.Close < df.PrvClose) & (df.No < withinDays)]
   if len(hhbcn) > 0:
@@ -48,14 +50,15 @@ def hq_scan(symbols, withinDays=3):
 
   return pd.DataFrame(data=np.array(results), columns=['Symbol', 'HqType', 'Date', 'No'])
 
-def run_hqdownload(symbols, nDays=30):
+def run(symbols, nDays=90):
   startDate = (datetime.now() + timedelta(days=-nDays)).strftime(DateFormat)
   hqdownload(symbols, startDate)
+  results = hq_scan(symbols)
+  results.to_csv(HqScanResult)
+  print(results.sort_values(by='HqType'))
 
 if __name__ == "__main__":
   begin = datetime.now()
-  # run_hqdownload(symbols)
-  results = hq_scan(symbols)
-  print(results.sort_values(by='HqType'))
+  run(symbols)
   print(begin)
   print(datetime.now() - begin)

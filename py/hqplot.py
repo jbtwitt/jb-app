@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from hqscan import HqRepo, DateFormat
+from hqscan import HqRepo, HqScanResult
 import numpy as np
 
 def hq_lowslope(symbol):
@@ -9,7 +9,7 @@ def hq_lowslope(symbol):
   df['LowSlope'] = (df.Low - df.PrvLow) / df.PrvClose
 
   plt.figure(figsize=[13, 9]) # width and height in inches
-  plt.title(symbol + ' Low Slope Distribution', fontsize=18)
+  plt.suptitle(symbol + ' - Low Slope Distribution', fontsize=18)
 
   plt.subplot(311)
   #plt.plot(range(df.shape[0]), df.LowSlope, 'g', linewidth=1)
@@ -39,7 +39,15 @@ def hq_lowslope(symbol):
   plt.xlabel('Date', fontsize=14)
   plt.show()
 
+def plotLLBCPs():
+  df = pd.read_csv(HqScanResult, header=0, index_col=[0], parse_dates=False)
+  print(df)
+  for symbol in df.Symbol[df.HqType == 'LLBCP']:
+    hq_lowslope(symbol)
+
 if __name__ == "__main__":
   import sys
   if len(sys.argv) > 1:
     hq_lowslope(sys.argv[1])
+  else:
+    plotLLBCPs()
