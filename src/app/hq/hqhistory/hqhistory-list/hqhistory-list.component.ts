@@ -25,6 +25,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
     "hlDelta",
     "hcDelta",
     "clDelta",
+    "cl",
     "cChange",
     "vChange",
   ];
@@ -66,6 +67,7 @@ export class HqhistoryListComponent implements OnInit, OnChanges {
             row.clDelta = (row.Close - row.Low) / row.Low;
             row.cChange = (row.Close - prev.Close) / prev.Close;
             row.vChange = row.Volume / prev.Volume;
+            row.cl = (row.High === row.Low) ? "0" : (row.Close - row.Low) / (row.High - row.Low);
           }
         });
 

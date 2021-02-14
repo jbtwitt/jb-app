@@ -23,6 +23,10 @@
       | <a [href]="uiService.hqCUrl(row.ticker)"
         target="_blank">
         C</a>
+      |
+      <a [routerLink]="['/hqhistory/:csvPath']"
+        [queryParams]="{csvPath: uiService.csvPath(row)}">
+        H</a>
       </span>
     </td>
   </ng-container>

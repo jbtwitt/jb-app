@@ -3,6 +3,7 @@ import json
 import time
 import numpy as np
 import yoloutil
+import imgdiff
 from Yolo import Yolo, DiffYolo, DIFFDECODES
 from emerald_chase_util import httpGetImg, getImgInfo, PiCamCacheRepo
 
@@ -27,23 +28,29 @@ class HomePiApp:
 
   def runTakeaLook(self):
     for img in self.getPiImgs():
-      objs = self.yoloNet.findDetectedObjects(img)
+      objs = self.yoloNet.findDetectedObjects(img, (416,416))
       print(objs)
       if objs is not None:
         yoloutil.drawObjs('PiImg', img, objs)
 
   def runCamMovement(self, piId=0, loop=3):
     pi = self.pis[piId]
-    detect = DiffYolo(trainedImageSize=(608, 608))
+    # detect = DiffYolo(trainedImageSize=(608, 608))
+    objsDiff = imgdiff.ObjsDiff()
     for i in range(loop):
       try:
         imgInfo = getImgInfo(pi)
-        ret = detect.run(self.yoloNet, imgInfo)
-        foundObjs = imgInfo['foundObjs']
-        print(i, 'imgInfo foundObjs -> ', foundObjs)
-        if ret is not None:
-          print('*****', ret, DIFFDECODES[ret])
-          yoloutil.drawObjs('Diff', imgInfo['img'], imgInfo['foundObjs'])
+        objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
+        # foundObjs = imgInfo['foundObjs']
+        # print(i, 'imgInfo foundObjs -> ', foundObjs)
+        # ret = detect.run(self.yoloNet, imgInfo)
+        # if ret is not None:
+        #   print('*****', ret, DIFFDECODES[ret])
+        if objs is not None and len(objs) > 0:
+          nDiff, objDiffs = objsDiff.metaDiff(objs)
+          if nDiff != 0 or imgdiff.evalObjDiffs(objDiffs):
+            print('---', objs, nDiff, objDiffs)
+            yoloutil.drawObjs('Diff', imgInfo['img'], objs)
         time.sleep(.5)
       except Exception as e:
         print('runMovement', e)
@@ -53,10 +60,11 @@ class HomePiApp:
       print(self.pis[i])
       self.runCamMovement(i, loop=3)
 
-  def runSearchCamCache(self, timePattern="14125*.jpg", piId=0, day=1, classIds=[0,2,5,7]):
+  def runSearchCamCache(self, timePattern="115*.jpg", piId=0, day=1, classIds=[0,2,5,7]):
     count = 0
     pi = self.pis[piId]
     piRepo = PiCamCacheRepo(pi)
+    print(piRepo.getCamCacheDate(day))
     imgSrc = piRepo.getImgSrc(day, timePattern)
     while(True):
       imgInfo = piRepo.getImgInfoFromImgSrc(imgSrc)

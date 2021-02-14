@@ -11,12 +11,12 @@ def matchClassIds(objs, targetClassIds):
     if classId == id
   ]
 
-def findTarget(yoloNet, imgdata, classIds, rotate=False):
+def findTarget(yoloNet, imgdata, classIds, rotate=False, TrainedImageSize=(608, 608)):
   try:
     img = cv2.imdecode(np.frombuffer(imgdata, np.uint8), cv2.IMREAD_COLOR)
     if rotate:
       img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-    objs = yoloNet.findDetectedObjects(img)
+    objs = yoloNet.findDetectedObjects(img, TrainedImageSize)
     return matchClassIds(objs, classIds)
   except Exception as e:
     print("findTarget error", e)

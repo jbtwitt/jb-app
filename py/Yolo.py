@@ -27,11 +27,12 @@ class Yolo:
   Apply Model
   # TrainedImageSize = (320, 320)
   # TrainedImageSize = (416, 416)
+  # TrainedImageSize = (512, 512)
   # error below: Incorrect size of input array
   # TrainedImageSize = (52, 52)
   # TrainedImageSize = (240, 240)
   '''
-  def findDetectedObjects(self, image, TrainedImageSize = (608, 608)):
+  def findDetectedObjects(self, image, TrainedImageSize=(608, 608)):
   # def detect(self, image):
     (H, W) = image.shape[:2]
 
@@ -94,6 +95,21 @@ class Yolo:
   #   cv2.imshow(title, image)
   #   cv2.waitKey(0)
 
+"""
+# class members example
+class BOX:
+  _fields_ = [("x", float),
+              ("y", float),
+              ("w", float),
+              ("h", float)]
+
+  def __init__(self):
+    self.x = 0
+
+box = BOX()
+box.x, box.y, box.w, box.h = (1, 0, 2, 3)
+print(box.x, box.y)
+"""
 if __name__ == '__main__':
   import os
   import json

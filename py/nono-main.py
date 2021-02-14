@@ -30,7 +30,7 @@ class NonoApp:
 
   def runTakeaLook(self):
     for imgInfo in self.getCamImgs():
-      objs = self.yoloNet.findDetectedObjects(imgInfo['img'])
+      objs = self.yoloNet.findDetectedObjects(imgInfo['img'], (416,416))
       print(objs)
       if objs is not None:
         yoloutil.drawObjs('CamImg', imgInfo['img'], objs)
@@ -55,8 +55,8 @@ class NonoApp:
       print('channel', ch)
       self.runCamMovement(channel=ch[0], loop=3)
 
-  def app_main(self, methodName='runCamMovement'):
-    method = getattr(self, methodName)
+  def app_main(self, methodName='CamMovement'):
+    method = getattr(self, 'run' + methodName)
     method()
 
 def app_main(runMethod):

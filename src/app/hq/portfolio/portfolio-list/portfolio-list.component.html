@@ -15,15 +15,13 @@
       <span *ngIf="row.ticker">
       <a [href]="uiService.hqQUrl(row.ticker)"
         target="_blank">
-        {{row.ticker}}</a>
-      |
+        {{row.ticker}}</a> |
       <a [href]="uiService.hqCUrl(row.ticker)"
         target="_blank">
-        C</a>
-      |
+        C</a> |
       <a [routerLink]="['/hqhistory/:csvPath']"
           [queryParams]="{csvPath: uiService.csvPath(row)}"
-        target="_blank">H</a>
+          >H</a>
       </span>
     </td>
   </ng-container>

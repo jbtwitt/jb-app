@@ -72,6 +72,13 @@
     </td>
     </ng-container>
 
+    <ng-container matColumnDef="cl">
+    <th mat-header-cell *matHeaderCellDef style="color: blue;">CL %</th>
+    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
+        {{ 100 * row.cl | number: '.2-2'}}%
+    </td>
+    </ng-container>
+
     <ng-container matColumnDef="cChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
     <td [class]="uiService.cssGainLoss(row.cChange)"

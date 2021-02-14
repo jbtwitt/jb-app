@@ -1,5 +1,6 @@
 CONT_REPO_PATH = "\\\\{}\camCache$/{}/"
-CONT_STAGE_PATH = "/jbdata/yolo_repo/emerald_chase/pi{}/{}/"
+# CONT_STAGE_PATH = "/jbdata/yolo_repo/emerald_chase/pi{}/{}/"
+CONT_STAGE_PATH = "/jbdata/yolo_repo/ec/pi{}/{}/"
 
 import shutil
 import datetime

@@ -1,3 +1,4 @@
+import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -8,7 +9,10 @@ import hqop
 YhooChart = "https://finance.yahoo.com/chart/"
 
 def browser(symbol):
-  subprocess.Popen("firefox --new-tab {}{} &".format(YhooChart, symbol), shell=True)
+  cmd = "firefox' --new-tab {}{}"
+  if os.name == 'nt':
+    cmd = r"\Users\jb\AppData\Local\GabAI\Dissenter\Application\dissenter.exe {}{}"
+  subprocess.Popen(cmd.format(YhooChart, symbol), shell=True)
 
 def hq_LLChg(symbol):
   df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
@@ -55,10 +59,10 @@ if __name__ == "__main__":
   import sys
   print("usage: python {} [symbol]".format(sys.argv[0]))
   if len(sys.argv) > 1:
-    import os
-    symbol = sys.argv[1].upper()
-    browser(symbol)
-    if os.path.exists(HqCsvRepo.format(symbol)):
-      hq_LLChg(symbol)
+    for symbol in sys.argv[1:]:
+      symbol = symbol.upper()
+      browser(symbol)
+      if os.path.exists(HqCsvRepo.format(symbol)):
+        hq_LLChg(symbol)
   else:
     plotLLBCPs()

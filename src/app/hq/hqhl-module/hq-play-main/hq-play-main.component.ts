@@ -22,7 +22,7 @@ export class HqPlayMainComponent implements OnInit {
       .subscribe(data => {
         // data = data.filter(r => !r.ticker.includes('^'));
         this.hqDay0 = this.uiService.orderBy(data.map(r => (
-          (r.cl = (r.close == r.low || r.high == r.low) ? "0" : (r.close - r.low) / (r.high - r.low))
+          (r.cl = (r.close === r.low || r.high === r.low) ? "0" : (r.close - r.low) / (r.high - r.low))
           && r
         )), "cl", true);
         console.log(this.hqDay0);
