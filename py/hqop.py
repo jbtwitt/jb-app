@@ -1,7 +1,7 @@
 # hq operation library
 
 DateFormat = "%Y-%m-%d"
-HqOpColumns = ['Symbol', 'HqType', 'Date', 'No', 'HqTypeChg', 'CCChg']
+HqOpColumns = ['Symbol', 'HqType', 'Date', 'No', 'HqTypeChg', 'CCChg', 'MetaInfo']
 
 def hq_addCols(df):
   df['PrvClose'] = df.Close.shift(1)
@@ -18,19 +18,23 @@ def hq_llbcp(symbol, df, results, withinDays=2):
   # Low Low but Close Positive
   llbcp = df[(df.LLChg < 0) & (df.Close > df.PrvClose) & (df.No < withinDays)]
   if len(llbcp) > 0:
+    lastnDays = 5
+    metaInfo = "LLChgs {}/{}".format(df[(df.LLChg < 0) & (df.No < lastnDays)].shape[0], lastnDays)
     for idx in llbcp.index:
       results.append((
         symbol, 'LLBCP{}'.format(withinDays), idx.strftime(DateFormat),
-        llbcp.No[idx], llbcp.LLChg[idx], llbcp.CCChg[idx]))
+        llbcp.No[idx], llbcp.LLChg[idx], llbcp.CCChg[idx], metaInfo))
 
 def hq_hhbcn(symbol, df, results, withinDays=2):
   # High Hight but Close Negative
   hhbcn = df[(df.HHChg > 0) & (df.Close < df.PrvClose) & (df.No < withinDays)]
   if len(hhbcn) > 0:
+    lastnDays = 5
+    metaInfo = "HHChgs {}/{}".format(df[(df.HHChg > 0) & (df.No < lastnDays)].shape[0], lastnDays)
     for idx in hhbcn.index:
       results.append((
         symbol, 'HHBCN{}'.format(withinDays), idx.strftime(DateFormat),
-        hhbcn.No[idx], hhbcn.HHChg[idx], hhbcn.CCChg[idx]))
+        hhbcn.No[idx], hhbcn.HHChg[idx], hhbcn.CCChg[idx], metaInfo))
 
 def hq_testVolume():
   import pandas as pd

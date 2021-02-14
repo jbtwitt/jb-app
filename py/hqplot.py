@@ -9,7 +9,7 @@ import hqop
 YhooChart = "https://finance.yahoo.com/chart/"
 
 def browser(symbol):
-  cmd = "firefox' --new-tab {}{}"
+  cmd = "firefox --new-tab {}{} &"
   if os.name == 'nt':
     cmd = r"\Users\jb\AppData\Local\GabAI\Dissenter\Application\dissenter.exe {}{}"
   subprocess.Popen(cmd.format(YhooChart, symbol), shell=True)
