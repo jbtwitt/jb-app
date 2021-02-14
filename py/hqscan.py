@@ -10,7 +10,8 @@ HqScanResult = HqRepo + "hqscan.csv"
 symbols = """
 VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,BNGO,FOLD,HOTH,JAGX,JNCE,
 IMGN,SNDL,
-XM,SPCE,GEVO,BLNK,QS,ACMR
+XM,SPCE,GEVO,BLNK,QS,FSR,RIDE,ACMR,
+NUGT
 """
 
 symbols = symbols.replace("\n", "").split(',')
