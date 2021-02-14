@@ -1,25 +1,31 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from hqscan import HqRepo, HqScanResult
 import numpy as np
+import subprocess
+from hqscan import HqCsvRepo, HqScanResult
+import hqop
 
-def hq_lowslope(symbol):
-  df = pd.read_csv(HqRepo.format(symbol), index_col=[0], parse_dates=True)
-  df['PrvLow'] = df.Low.shift(1)
-  df['LowSlope'] = (df.Low - df.PrvLow) / df.PrvClose
+YhooChart = "https://finance.yahoo.com/chart/"
+
+def browser(symbol):
+  subprocess.Popen("firefox --new-tab {}{} &".format(YhooChart, symbol), shell=True)
+
+def hq_LLChg(symbol):
+  df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
+  hqop.hq_addCols(df)
 
   plt.figure(figsize=[13, 9]) # width and height in inches
-  plt.suptitle(symbol + ' - Low Slope Distribution', fontsize=18)
+  plt.suptitle('{} ({} days) - LLChg Distribution'.format(symbol, df.shape[0]), fontsize=18)
 
   plt.subplot(311)
-  #plt.plot(range(df.shape[0]), df.LowSlope, 'g', linewidth=1)
+  #plt.plot(range(df.shape[0]), df.LLChg, 'g', linewidth=1)
   #plt.hlines(0, 0, df.shape[0], colors='r')
-  plt.plot(df.LowSlope, color='g', linewidth=1)
-  plt.plot(df.LowSlope, 'go', markersize=3)
+  plt.plot(df.LLChg, color='g', linewidth=1)
+  plt.plot(df.LLChg, 'go', markersize=3)
   plt.hlines(0, df.index[0], df.index[df.shape[0]-1], colors='r')
 
-  #markerData = df.LowSlope[df.LowSlope.isin([0])] # marker where slope = 0
-  markerData = df.LowSlope[(df.LowSlope < 0.01) & (df.LowSlope >= 0)] # less than -1%
+  #markerData = df.LLChg[df.LLChg.isin([0])] # marker where slope = 0
+  markerData = df.LLChg[(df.LLChg < 0.01) & (df.LLChg >= 0)] # less than -1%
   plt.plot(markerData, 'ko', markersize=5, label=markerData.index)
   plt.legend(loc='upper left')
   plt.ylabel('(Low - PrvLow)/PrvClose', fontsize=12)
@@ -42,12 +48,17 @@ def hq_lowslope(symbol):
 def plotLLBCPs():
   df = pd.read_csv(HqScanResult, header=0, index_col=[0], parse_dates=False)
   print(df)
-  for symbol in df.Symbol[df.HqType == 'LLBCP']:
-    hq_lowslope(symbol)
+  for symbol in df.Symbol[df.HqType == 'LLBCP2']:
+    hq_LLChg(symbol)
 
 if __name__ == "__main__":
   import sys
+  print("usage: python {} [symbol]".format(sys.argv[0]))
   if len(sys.argv) > 1:
-    hq_lowslope(sys.argv[1])
+    import os
+    symbol = sys.argv[1].upper()
+    browser(symbol)
+    if os.path.exists(HqCsvRepo.format(symbol)):
+      hq_LLChg(symbol)
   else:
     plotLLBCPs()
