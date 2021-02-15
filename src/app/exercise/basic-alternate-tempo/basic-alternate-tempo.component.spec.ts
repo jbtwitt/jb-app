@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BasicAlternateTempoComponent } from './basic-alternate-tempo.component';
 
@@ -6,7 +6,7 @@ describe('BasicAlternateTempoComponent', () => {
   let component: BasicAlternateTempoComponent;
   let fixture: ComponentFixture<BasicAlternateTempoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BasicAlternateTempoComponent ]
     })

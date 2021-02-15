@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HqPercentListComponent } from './hq-percent-list.component';
 
@@ -6,7 +6,7 @@ describe('HqPercentListComponent', () => {
   let component: HqPercentListComponent;
   let fixture: ComponentFixture<HqPercentListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HqPercentListComponent ]
     })

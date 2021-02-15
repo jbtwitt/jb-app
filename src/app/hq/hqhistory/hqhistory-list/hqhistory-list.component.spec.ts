@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HqhistoryListComponent } from './hqhistory-list.component';
 
@@ -6,7 +6,7 @@ describe('HqhistoryListComponent', () => {
   let component: HqhistoryListComponent;
   let fixture: ComponentFixture<HqhistoryListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HqhistoryListComponent ]
     })
