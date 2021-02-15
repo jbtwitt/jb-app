@@ -1,0 +1,29 @@
+<table mat-table matSort width="100%"
+  [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{col}}</th>
+    <td mat-cell *matCellDef="let row">
+      <span *ngIf="col === 'Symbol'">
+      <a [href]="uiService.hqQUrl(row[col])"
+        target="_blank">
+        {{row[col]}}</a> | 
+      <a [href]="uiService.hqCUrl(row[col])"
+        target="_blank">
+        C</a> |
+      <a [routerLink]="['/hqhistory/:csvPath']"
+        [queryParams]="{csvPath: uiService.csvPath(row)}">
+        H</a>
+      </span>
+      <span *ngIf="'HqTypeChg,CCChg,'.includes(col + ',')">
+        {{100 * row[col] | number:'.2-2'}}%
+      </span>
+      <span *ngIf="col !== 'Symbol' && !'HqTypeChg,CCChg,'.includes(col + ',')">
+        {{ row[col] }}
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>

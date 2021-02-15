@@ -23,6 +23,7 @@ import { HqhlModule } from './hq/hqhl-module/hqhl.module';
 import { LedgerModule } from './hq/ledger/ledger.module';
 import { DatePipe } from '@angular/common';
 import { AppConfigModule } from './app-config/app-config.module';
+import { HqscanModule } from './hq/hqscan/hqscan.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AppConfigModule } from './app-config/app-config.module';
     HqhistoryModule,
     HqhlModule,
     LedgerModule,
+    HqscanModule,
   ],
   providers: [
     DatePipe,
