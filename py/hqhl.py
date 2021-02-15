@@ -20,23 +20,27 @@ def hqhlLine(ticker, df, ndays):
         vChange = hq0Row.Volume / hq0Row.PreVolume
         # vChange = (hq0Row.Volume - hq0Row.PreVolume) / hq0Row.PreVolume
     # cl = (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low)
-    lcIdx, hcIdx = (df.Close.idxmin(), df.Close.idxmax())
-    lvIdx, hvIdx = (df.Volume.idxmin(), df.Volume.idxmax())
-    lcRow, hcRow = (df.loc[lcIdx], df.loc[hcIdx])
-    lvRow, hvRow = (df.loc[lvIdx], df.loc[hvIdx])
-    return HqHlFormatter.format(
-        ticker, ndays, hq0Idx,
-        hq0Row.Close,
-        (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
-        vChange,
-        (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low), #CL/HL
-        df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
-        (hq0Row.Close - lcRow.Close) / lcRow.Close,
-        df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
-        (hq0Row.Close - hcRow.Close) / hcRow.Close,
-        df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
-        df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
-    )
+    try:
+      lcIdx, hcIdx = (df.Close.idxmin(), df.Close.idxmax())
+      lvIdx, hvIdx = (df.Volume.idxmin(), df.Volume.idxmax())
+      lcRow, hcRow = (df.loc[lcIdx], df.loc[hcIdx])
+      lvRow, hvRow = (df.loc[lvIdx], df.loc[hvIdx])
+      return HqHlFormatter.format(
+          ticker, ndays, hq0Idx,
+          hq0Row.Close,
+          (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
+          vChange,
+          (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low), #CL/HL
+          df.index.get_loc(lcIdx), lcIdx, lcRow.Close,
+          (hq0Row.Close - lcRow.Close) / lcRow.Close,
+          df.index.get_loc(hcIdx), hcIdx, hcRow.Close,
+          (hq0Row.Close - hcRow.Close) / hcRow.Close,
+          df.index.get_loc(lvIdx), lvIdx, lvRow.Volume,
+          df.index.get_loc(hvIdx), hvIdx, hvRow.Volume
+      )
+    except Exception as e:
+      print("{} failed".format(ticker))
+      print(str(e))
 
 def csvHqHl(ticker, csvFolder, ndaysList=[20]):
     result = ""

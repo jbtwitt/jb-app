@@ -34,7 +34,7 @@ hqhl.run(hqConf, hqDate, [10, 30, 60, 120, 240])
 
 ############################
 # generate copy batch script
-dst = r'\\192.168.0.110\Share\assets\hqcsv'
+dst = r'\\raspberrypi2\Share\assets\hqcsv'
 src = r'..\src\assets\hqcsv'
 cmd = r"copy {}\hqdate.json {}".format(src, dst) + "\n"
 ## the generated hqcsv files below have been moved to hqDate folder

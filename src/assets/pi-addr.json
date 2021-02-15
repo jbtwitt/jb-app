@@ -1,15 +1,14 @@
 [
   {
     "id": 0,
-    "ip": "192.168.0.115",
-    "url": "http://192.168.0.115:5000/pi-monitor",
+    "ip": "raspberrypi",
+    "url": "http://raspberrypi:5000/pi-monitor",
     "rotate": true
   },
   {
     "id": 1,
-    "ip": "192.168.0.110",
-    "url": "http://192.168.0.110:5000/pi-monitor",
+    "ip": "raspberrypi2",
+    "url": "http://raspberrypi2:5000/pi-monitor",
     "rotate": false
   }
 ]
-  
