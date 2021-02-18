@@ -30,8 +30,14 @@ export class PortfolioMainComponent implements OnInit {
 
       this.portfolioClose = csv.filter(p => p.soldDate !== '');
 
+      this.dataService
+      .getHqAssetCsvData(
+        "hqcsv/hqday0.csv",
+        "idx,s:ticker,s:date,high,Low,open,close,adjClose,volume"
+      )
+      .subscribe((data) => {
       // this.dataService.getAssetCsvData("hqcsv/hqday0.hqcsv").subscribe(data => {
-      this.dataService.getAssetCsvData(this.uiService.hqday0Path).subscribe(data => {
+      // this.dataService.getAssetCsvData(this.uiService.hqday0Path).subscribe(data => {
 
         const opens = csv.filter(
           p => p.soldDate === ''

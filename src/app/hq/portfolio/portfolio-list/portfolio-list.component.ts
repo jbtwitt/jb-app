@@ -17,7 +17,7 @@ export class PortfolioListComponent implements OnInit, OnChanges {
   displayedColumns = [
     "broker", "ticker", "shares",
     "buyPrice", "buyDate",
-    "soldPrice", "cChange", "vChange",
+    "soldPrice", //"cChange", "vChange",
     "soldDate", "buyCost",
     'gainLoss', 'gainLossP',
   ];

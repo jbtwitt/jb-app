@@ -15,7 +15,7 @@ export class LedgerListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any[]>;
   displayedColumns = [
     "ticker",
-    "date", "close", "cChange", "vChange",
+    "date", "close", //"cChange", "vChange",
     "shares",
     "buyPrice", "buyDate",
     "soldPrice",

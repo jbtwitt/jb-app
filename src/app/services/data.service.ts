@@ -70,17 +70,17 @@ export class DataService {
         })
       );
   }
-  getHqscanResultCsvData(): Observable<any[]> {
+  getHqAssetCsvData(path, cols): Observable<any[]> {
     return this.httpClient
-      .get<any>(`/assets/hqcsv/hqscan.csv`, { responseType: "text" as "json" })
+      .get<any>(`/assets/` + path, { responseType: "text" as "json" })
       .pipe(
         // transform csv string to array
         map((str: string) => str.split("\n").filter((l) => l.length > 0)),
         // convert to json
         map((lines: string[]) => {
           const rows = [];
-          // replace hqcsv header format
-          lines[0] = "Idx,s:Symbol,s:HqType,s:Date,No,HqTypeChg,CCChg,s:MetaInfo";
+          // use hqcsv header format
+          lines[0] = cols;
           lines.forEach((line) => {
             if (line.substring(0, 1) !== "#" && line.length > 0) {
               line = line.replace("\r", "");

@@ -21,11 +21,20 @@ export class LedgerMainComponent implements OnInit {
   async ngOnInit() {
     this.accounts = this.configService.conf.accounts;
     let hqday0 = [];
-    // await this.dataService.getAssetCsvData('hqcsv/hqday0.hqcsv').toPromise()
-    await this.dataService.getAssetCsvData(this.uiService.hqday0Path).toPromise()
-      .then(data => {
+    await this.dataService
+      .getHqAssetCsvData(
+        "hqcsv/hqday0.csv",
+        "idx,s:ticker,s:date,high,Low,open,close,adjClose,volume"
+      )
+      .toPromise()
+      .then((data) => {
+        console.log(data);
         hqday0 = data;
       });
+    // await this.dataService.getAssetCsvData(this.uiService.hqday0Path).toPromise()
+    //   .then(data => {
+    //     hqday0 = data;
+    //   });
     this.dataService.getAssetCsvData('portfolio.csv').subscribe(data => {
       console.log(data);
       data = this.uiService.orderBy(data, 'soldDate', true);

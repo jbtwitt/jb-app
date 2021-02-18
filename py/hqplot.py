@@ -7,12 +7,13 @@ from hqscan import HqCsvRepo, HqScanResult
 import hqop
 
 YhooChart = "https://finance.yahoo.com/chart/"
+BrowserCmd = r"\Users\jb\AppData\Local\GabAI\Dissenter\Application\dissenter.exe {}{}"
+if os.name != 'nt':
+  BrowserCmd = "firefox --new-tab {}{} &"
 
+print(os.name)
 def browser(symbol):
-  cmd = "firefox --new-tab {}{} &"
-  if os.name == 'nt':
-    cmd = r"\Users\jb\AppData\Local\GabAI\Dissenter\Application\dissenter.exe {}{}"
-  subprocess.Popen(cmd.format(YhooChart, symbol), shell=True)
+  subprocess.Popen(BrowserCmd.format(YhooChart, symbol), shell=True)
 
 def hq_LLChg(symbol):
   df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
