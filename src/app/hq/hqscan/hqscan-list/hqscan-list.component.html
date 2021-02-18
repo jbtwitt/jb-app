@@ -18,7 +18,8 @@
       <span *ngIf="percentColumns.includes(col)">
         {{ 100 * row[col] | number:'.2-2' }}%
       </span>
-      <span *ngIf="col === 'Close'">
+      <span *ngIf="col === 'Close'"
+        [class]="uiService.cssGainLoss(row.CChg)">
         {{ row[col] | number:'.2-2' }}
       </span>
       <span *ngIf="col !== 'Symbol' && col !== 'Close' && !percentColumns.includes(col)">

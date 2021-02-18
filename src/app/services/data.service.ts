@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: "root",
 })
 export class DataService {
-  HqDaysColumns = "idx,s:ticker,s:date,high,Low,open,close,adjClose,volume";
+  HqDaysColumns = "idx,s:ticker,s:date,high,low,open,close,volume,adjClose";
   HqScanColumns =
     "Idx,s:Symbol,s:HqType,s:HqTypeDate,No,HqTypeChg,s:Day0,Close,CChg,VChg,CCChg,s:MetaInfo";
 

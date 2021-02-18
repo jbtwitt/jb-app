@@ -34,6 +34,13 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="volume">
+    <th mat-header-cell *matHeaderCellDef>Volume</th>
+    <td class="alignR" mat-cell *matCellDef="let row">
+      {{ row.volume }}
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="cChange">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
     <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">

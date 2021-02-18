@@ -18,13 +18,12 @@ export class HqPlayMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService
-      .getAssetCsvData(this.uiService.hqday0Path)
-      .subscribe(data => {
-        // data = data.filter(r => !r.ticker.includes('^'));
-        this.hqDay0 = this.uiService.orderBy(data.map(r => (
-          (r.cl = (r.close === r.low || r.high === r.low) ? "0" : (r.close - r.low) / (r.high - r.low))
-          && r
-        )), "cl", true);
+      .getHqAssetCsvData(
+        "hqcsv/hqday0.csv",
+        this.dataService.HqDaysColumns
+      )
+      .subscribe((data) => {
+        this.hqDay0 = data;
         console.log(this.hqDay0);
       });
   }
