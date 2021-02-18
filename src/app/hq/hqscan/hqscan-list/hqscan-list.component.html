@@ -15,10 +15,13 @@
         [queryParams]="{csvPath: uiService.csvPath(row)}">
         H</a>
       </span>
-      <span *ngIf="'HqTypeChg,CCChg,'.includes(col + ',')">
-        {{100 * row[col] | number:'.2-2'}}%
+      <span *ngIf="percentColumns.includes(col)">
+        {{ 100 * row[col] | number:'.2-2' }}%
       </span>
-      <span *ngIf="col !== 'Symbol' && !'HqTypeChg,CCChg,'.includes(col + ',')">
+      <span *ngIf="col === 'Close'">
+        {{ row[col] | number:'.2-2' }}
+      </span>
+      <span *ngIf="col !== 'Symbol' && col !== 'Close' && !percentColumns.includes(col)">
         {{ row[col] }}
       </span>
     </td>

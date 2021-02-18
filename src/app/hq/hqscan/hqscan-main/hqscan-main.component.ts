@@ -17,7 +17,7 @@ export class HqscanMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService
-      .getHqAssetCsvData("hqcsv/hqscan.csv", "Idx,s:Symbol,s:HqType,s:HqTypeDate,No,HqTypeChg,s:Day0,Close,CCChg,s:MetaInfo")
+      .getHqAssetCsvData("hqcsv/hqscan.csv", this.dataService.HqScanColumns)
       .subscribe((data) => {
         this.hqscanResults = this.uiService.orderBy(data, 'HqType', true);
       });

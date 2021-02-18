@@ -24,7 +24,7 @@ export class LedgerMainComponent implements OnInit {
     await this.dataService
       .getHqAssetCsvData(
         "hqcsv/hqday0.csv",
-        "idx,s:ticker,s:date,high,Low,open,close,adjClose,volume"
+        this.dataService.HqDaysColumns
       )
       .toPromise()
       .then((data) => {

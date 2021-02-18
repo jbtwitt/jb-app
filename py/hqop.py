@@ -2,7 +2,8 @@
 
 DateFormat = "%Y-%m-%d"
 HqOpColumns = ['Symbol', 'HqType', 'HqTypeDate', 'No', 'HqTypeChg',
-      'Day0', 'Close', 'CCChg', 'MetaInfo']
+      'Day0', 'Close', 'CChg', 'VChg',
+      'CCChg', 'MetaInfo']
 
 def hq_addCols(df):
   df['PrvClose'] = df.Close.shift(1)
@@ -12,7 +13,7 @@ def hq_addCols(df):
   df['CCChg'] = (df.Close - df.PrvClose) / df.PrvClose
   df['LLChg'] = (df.Low - df.PrvLow) / df.PrvClose
   df['HHChg'] = (df.High - df.PrvHigh) / df.PrvClose
-  df['VVChg'] = df.Volume - df.PrvVolume
+  df['VVChg'] = df.Volume / df.PrvVolume
   df['No'] = [df.shape[0] - df.index.get_loc(idx) - 1 for idx in df.index]
 
 def hq_llbcp(symbol, df, results, withinDays=2):
@@ -26,6 +27,7 @@ def hq_llbcp(symbol, df, results, withinDays=2):
         symbol, 'LLBCP{}'.format(withinDays), idx.strftime(DateFormat),
         llbcp.No[idx], llbcp.LLChg[idx],
         df[df.No == 0].index[0].strftime(DateFormat), df[df.No == 0].Close[0],
+        df[df.No == 0].CCChg[0], df[df.No == 0].VVChg[0],
         llbcp.CCChg[idx], metaInfo))
 
 def hq_hhbcn(symbol, df, results, withinDays=2):
@@ -39,6 +41,7 @@ def hq_hhbcn(symbol, df, results, withinDays=2):
         symbol, 'HHBCN{}'.format(withinDays), idx.strftime(DateFormat),
         hhbcn.No[idx], hhbcn.HHChg[idx],
         df[df.No == 0].index[0].strftime(DateFormat), df[df.No == 0].Close[0],
+        df[df.No == 0].CCChg[0], df[df.No == 0].VVChg[0],
         hhbcn.CCChg[idx], metaInfo))
 
 def hq_testVolume():

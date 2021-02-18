@@ -11,8 +11,11 @@ import { UiService } from 'src/app/services/ui.service';
 export class HqscanListComponent implements OnInit, OnChanges {
   @Input() hqscanResults: any;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  columns = "Symbol,Day0,Close,HqType,No,HqTypeChg,CCChg,MetaInfo".split(",");
+  columns = "Symbol,Day0,Close,CChg,VChg,HqType,No,HqTypeChg,CCChg,MetaInfo".split(
+    ","
+  );
   dataSource: MatTableDataSource<any>;
+  percentColumns = ["CChg", "VChg", "HqTypeChg", "CCChg"];
 
   constructor(public uiService: UiService) {}
 

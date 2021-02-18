@@ -33,7 +33,7 @@ export class PortfolioMainComponent implements OnInit {
       this.dataService
       .getHqAssetCsvData(
         "hqcsv/hqday0.csv",
-        "idx,s:ticker,s:date,high,Low,open,close,adjClose,volume"
+        this.dataService.HqDaysColumns
       )
       .subscribe((data) => {
       // this.dataService.getAssetCsvData("hqcsv/hqday0.hqcsv").subscribe(data => {
