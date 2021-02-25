@@ -35,30 +35,37 @@
   </ng-container>
 
   <ng-container matColumnDef="volume">
-    <th mat-header-cell *matHeaderCellDef>Volume</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Volume</th>
     <td class="alignR" mat-cell *matCellDef="let row">
       {{ row.volume }}
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="cChange">
+  <ng-container matColumnDef="cchg">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>C %</th>
-    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
-      {{100 * row.cChange | number:'.2-2'}}%
+    <td [class]="uiService.cssGainLoss(row.cchg)" mat-cell *matCellDef="let row">
+      {{100 * row.cchg | number:'.2-2'}}%
     </td>
   </ng-container>
 
   <ng-container matColumnDef="cl">
     <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: blue;"><b>CL%</b></th>
-    <td [class]="uiService.cssGainLoss(row.cChange)" mat-cell *matCellDef="let row">
+    <td [class]="uiService.cssGainLoss(row.cchg)" mat-cell *matCellDef="let row">
       {{100 * row.cl | number:'.2-2'}}%
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="vChange">
+  <ng-container matColumnDef="hl">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>HL%</b></th>
+    <td [class]="uiService.cssGainLoss(row.cchg)" mat-cell *matCellDef="let row">
+      {{100 * row.hl | number:'.2-2'}}%
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vchg">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>V %</th>
-    <td [class]="uiService.cssGainLoss(row.vChange - 1)" mat-cell *matCellDef="let row">
-      {{100 * row.vChange | number:'.2-2'}}%
+    <td [class]="uiService.cssGainLoss(row.vchg - 1)" mat-cell *matCellDef="let row">
+      {{100 * row.vchg | number:'.2-2'}}%
     </td>
   </ng-container>
 

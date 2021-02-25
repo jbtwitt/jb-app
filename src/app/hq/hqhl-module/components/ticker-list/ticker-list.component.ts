@@ -14,9 +14,8 @@ export class TickerListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
-    "date", "ticker",
-    "close","volume",// "cChange", "cl", "vChange",
-    "high", "low",
+    "date", "ticker", "close", "volume",
+    "cchg", "vchg", "high", "low", "cl", 'hl'
   ];
 
   constructor(public uiService: UiService) { }

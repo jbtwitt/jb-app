@@ -8,16 +8,19 @@ HqRepo = "../src/assets/hqcsv/"
 HqCsvRepo = HqRepo + "download/{}.csv"
 HqScanResult = HqRepo + "hqscan.csv"
 HqDay0Csv = HqRepo + "hqday0.csv"
-HqDay0Columns = ["Symbol", "Date", "High", "Low", "Open", "Close", "AdjClose", "Volume"]
+HqDay0Columns = ["Symbol", "Date", "High", "Low", "Open", "Close",
+                "AdjClose", "Volume", "PrvClose", "PrvVolume"]
 symbols = """
 VSTM,WATT,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,BNGO,FOLD,HOTH,JAGX,JNCE,
-IMGN,SNDL,
+IMGN,SNDL,VCNX,CTXR,
 XM,SPCE,GEVO,BLNK,QS,FSR,RIDE,ACMR,SCKT,PLTR,
-RIOT,GBTC,TRIP,Z,RDFN,
+RIOT,GBTC,Z,RDFN,PLUG,QUBT,
+COF,TRIP,EXPE,
+DK,
 NUGT,LABD,ERX,SQQQ
 """
 
-# symbols = "ATHX,QS"
+# symbols = "ATHX"
 
 symbols = symbols.replace("\n", "").split(',')
 
@@ -36,6 +39,8 @@ def hq_scan(symbols, withinDays=3):
   results, hqday0 = [], []
   for symbol in symbols:
     df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
+    df['PrvClose'] = df.Close.shift(1)
+    df['PrvVolume'] = df.Volume.shift(1)
     hq_day0(symbol, df, hqday0)
     hqop.hq_addCols(df)
 
