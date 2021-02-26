@@ -15,7 +15,7 @@ export class TickerListComponent implements OnInit, OnChanges {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayedColumns: string[] = [
     "date", "ticker", "close", "volume",
-    "cchg", "vchg", "high", "low", "cl", 'hl'
+    "cchg", "vchg", "cl", 'hl', "high", "low"
   ];
 
   constructor(public uiService: UiService) { }
