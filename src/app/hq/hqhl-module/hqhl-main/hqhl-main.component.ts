@@ -10,7 +10,8 @@ import { UiService } from 'src/app/services/ui.service';
 export class HqhlMainComponent implements OnInit {
   hqHl: any[];
   selectedHqHl: any[];
-  ndaysList: any[] = [10, 30, 60, 120, 240];
+  // ndaysList: any[] = [10, 30, 60, 120, 240];
+  ndaysList: any[] = [10, 20, 30, 70];
   today: Date = new Date();
 
   constructor(

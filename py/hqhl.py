@@ -64,8 +64,11 @@ def run(hqConf, hqDate, ndaysList=[10]):
     hqHlFileName = HqHlFileNameFormatter.format(hqConf['repo'], hqDate)
     hqutil.writeTextFile(hqHlFileName, HqHlHeader + result)
 
+def hqConf_main():
+  hqConf = json.load(open("/gitrepo/jb/jb-app/src/assets/hqrobot.json"))
+  hqDate = "20201219"
+  run(hqConf, hqDate)
+
 import json
 if __name__ == "__main__":
-    hqConf = json.load(open("/gitrepo/jb/jb-app/src/assets/hqrobot.json"))
-    hqDate = "20201219"
-    run(hqConf, hqDate)
+  hqConf_main()

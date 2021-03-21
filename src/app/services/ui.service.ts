@@ -23,7 +23,8 @@ export class UiService {
     return `hqcsv/hq${this.configService.conf.hqDate}/hqday0.hqcsv`;
   }
   get hqhlPath() {
-    return `hqcsv/hq${this.configService.conf.hqDate}/hqhl.hqcsv`;
+    // return `hqcsv/hq${this.configService.conf.hqDate}/hqhl.hqcsv`;
+    return `hqcsv/hqhl.hqcsv`;
   }
   csvPath(hq) {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
