@@ -32,7 +32,7 @@ export class HqhlListComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.hqhl && this.hqhl.length > 0) {
       console.log(this.hqhl)
-      this.hqhl = this.uiService.orderBy(this.hqhl, 'lvPos');
+      this.hqhl = this.uiService.orderBy(this.hqhl, 'hcChange');
       this.dataSource = new MatTableDataSource(this.hqhl);
       this.dataSource.sort = this.sort;
     }
