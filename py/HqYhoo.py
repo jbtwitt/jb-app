@@ -2,10 +2,12 @@ import re
 from urllib.request import urlopen, Request, URLError
 from datetime import datetime
 import calendar
+import gzip
 
 # InitLink = 'https://finance.yahoo.com/quote/AMZN/history?p=AMZN'
 InitLink = 'https://finance.yahoo.com/quote/AMZN?p=AMZN&.tsrc=fin-srch'
 HqLink = 'https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&crumb={}'
+# HqLink = 'https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&includeAdjustedClose=true'
 CrumbRegex = r'CrumbStore":{"crumb":"(.*?)"}'
 CookRegex = r'Set-Cookie: (.*?); '
 DateFormat = "%Y-%m-%d"
@@ -23,7 +25,11 @@ class HqYhoo:
         match = re.search(CookRegex, str(response.info()))
         if match != None:
             self.cookie = match.group(1)
-        txt = response.read().decode("utf-8-sig")  #it is byte like object before using decode
+        # txt = response.read().decode("utf-8-sig")  #it is byte like object before using decode
+        # the above line run into 0x1f 0x8b is the starting bytes for gzip files
+        # below is the work around
+        data = gzip.decompress(response.read())
+        txt = data.decode('utf-8')
         match = re.search(CrumbRegex, txt)
         if match != None:
             self.crumb = match.group(1)

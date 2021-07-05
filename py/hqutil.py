@@ -1,5 +1,5 @@
 
-def writeTextFile(path, text):
+def writeTextFile(path, data, dataType='w'):
     print("creating {} ...".format(path))
-    with open(path, 'w') as f:
-        f.write(text)
+    with open(path, dataType) as f:
+        f.write(data)

@@ -3,6 +3,8 @@ from pandas_datareader import data as pdr
 from datetime import datetime, timedelta
 import numpy as np
 import hqop
+from HqYhoo import HqYhoo, DateFormat
+from hqutil import writeTextFile
 
 HqRepo = "../src/assets/hqcsv/"
 HqCsvRepo = HqRepo + "download/{}.csv"
@@ -12,26 +14,34 @@ HqHlCsv = HqRepo + "hqhl.hqcsv"
 HqDay0Columns = ["Symbol", "Date", "High", "Low", "Open", "Close",
                 "AdjClose", "Volume", "PrvClose", "PrvVolume"]
 symbols = """
+^IXIC,^GSPC,^DJI,
 VSTM,ATHX,OVID,SCPS,BCRX,AGEN,NNOX,NH,VTVT,XBIO,OSMT,BNGO,FOLD,HOTH,
-JAGX,JNCE,IMGN,SNDL,VCNX,CTXR,OCGN,NVAX,ENTX,NLSP,SEEL,
-WATT,SPCE,ACMR,SCKT,PLTR,XM,
+JAGX,JNCE,IMGN,SNDL,VCNX,CTXR,OCGN,NVAX,ENTX,NLSP,SEEL,BNTC,CARA,AVIR,
+WATT,SPCE,ACMR,SCKT,PLTR,XM,TDC,MRIN,
 RIOT,GBTC,
 Z,RDFN,PLUG,QUBT,
-BAC,COF,TRIP,EXPE,HYLN,
-FSR,NKLA,RIDE,BLNK,CHPT,QS,
+BAC,COF,TRIP,EXPE,HYLN,T,
+FSR,NKLA,RIDE,BLNK,CHPT,QS,FUV,SOLO,
 DK,GEVO,
-NUGT,LABD,ERX,SQQQ
+NUGT,LABD,ERX,SQQQ,USTEX
 """
 
-# symbols = "ATHX"
 
 symbols = symbols.replace("\n", "").split(',')
+# symbols = ["AVIR"]  # for test
+hqRobot = HqYhoo()
 
 def hqdownload(symbols, startDate):
   today = datetime.now().strftime(hqop.DateFormat)
   for symbol in symbols:
-    df = pdr.DataReader(symbol, data_source="yahoo", start=startDate, end=today)
-    df.to_csv(HqCsvRepo.format(symbol))
+    try:
+      # DataReader doesn't work 7/5/2021
+      # df = pdr.DataReader(symbol, data_source="yahoo", start=startDate, end=today)
+      # df.to_csv(HqCsvRepo.format(symbol))
+      csv = hqRobot.hqGet(symbol, startDate, today)
+      writeTextFile(HqCsvRepo.format(symbol), csv, 'wb')
+    except Exception as e:
+      print("{} failed: {}".format(symbol, str(e)))
 
 def hq_day0(symbol, df, hqday0):
   # row to array
@@ -77,7 +87,7 @@ def run_hqhl(symbols, ndaysList=[20]):
 
 if __name__ == "__main__":
   begin = datetime.now()
-  # run(symbols)
+  run(symbols)
   run_hqhl(symbols, [10, 20, 30, 70])
   print(begin)
   print(datetime.now() - begin)
