@@ -24,6 +24,7 @@ import { LedgerModule } from './hq/ledger/ledger.module';
 import { DatePipe } from '@angular/common';
 import { AppConfigModule } from './app-config/app-config.module';
 import { HqscanModule } from './hq/hqscan/hqscan.module';
+import { CalcModule } from './calc/calc.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { HqscanModule } from './hq/hqscan/hqscan.module';
     HqhlModule,
     LedgerModule,
     HqscanModule,
+    CalcModule,
   ],
   providers: [
     DatePipe,

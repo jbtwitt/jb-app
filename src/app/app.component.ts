@@ -50,6 +50,11 @@ export class AppComponent implements OnDestroy {
       route: "hqscan",
       icon: "scanner",
     },
+    {
+      title: "Calc",
+      route: "calc",
+      icon: "calculate",
+    },
   ];
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {

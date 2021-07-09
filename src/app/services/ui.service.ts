@@ -30,7 +30,8 @@ export class UiService {
     // const dateCol = (hq.soldDate === undefined) ? 'date' : 'soldDate';
     // const hqDate = hq[dateCol].replace(/-/g, '');
     // const hqDate = this.datepipe.transform(new Date(), 'yyyyMMdd');
-    return `hqcsv/hq${this.configService.conf.hqDate}/${hq.ticker}.y.csv`;
+    // return `hqcsv/hq${this.configService.conf.hqDate}/${hq.ticker}.y.csv`;
+    return `hqcsv/download/${hq.ticker}.csv`;
   }
   // css class
   cssGainLoss(delta: number) {

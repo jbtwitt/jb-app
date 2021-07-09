@@ -1,0 +1,58 @@
+<mat-card>
+<div>
+  <mat-form-field>
+    <mat-label>Principle</mat-label>
+    <input matInput type="number" class="right"
+      placeholder="Principle"
+      [(ngModel)]="bankRate.principle" />
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field>
+    <span matSuffix>%</span>
+    <mat-label>Rate</mat-label>
+    <input matInput type="number" class="right"
+      placeholder="Rate"
+      [(ngModel)]="bankRate.rate" />
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field>
+    <mat-label>Number of Periods</mat-label>
+    <input matInput type="number" class="right"
+      placeholder="Number of Periods"
+      [(ngModel)]="bankRate.nPeriods" />
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field>
+    <mat-label>End</mat-label>
+    <input matInput type="number" class="right"
+      placeholder="End"
+      [(ngModel)]="bankRate.end" />
+  </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary"
+    (click)="calc()">
+    <mat-icon>play_arrow</mat-icon>Calc</button>
+
+<br><br>
+
+<div>
+  <mat-form-field>
+    <mat-label>Target</mat-label>
+    <input matInput type="number" class="right"
+      placeholder="Target"
+      [(ngModel)]="bankRate.target" />
+  </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary"
+    (click)="calcTarget()">
+    <mat-icon>play_arrow</mat-icon>Calc Target</button>
+
+</mat-card>
