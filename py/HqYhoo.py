@@ -7,7 +7,6 @@ import gzip
 # InitLink = 'https://finance.yahoo.com/quote/AMZN/history?p=AMZN'
 InitLink = 'https://finance.yahoo.com/quote/AMZN?p=AMZN&.tsrc=fin-srch'
 HqLink = 'https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&crumb={}'
-# HqLink = 'https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&includeAdjustedClose=true'
 CrumbRegex = r'CrumbStore":{"crumb":"(.*?)"}'
 CookRegex = r'Set-Cookie: (.*?); '
 DateFormat = "%Y-%m-%d"
