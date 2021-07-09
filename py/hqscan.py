@@ -1,6 +1,6 @@
+import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-import numpy as np
 import hqop
 import hqutil as hqu
 
@@ -25,10 +25,7 @@ def hq_scan(symbols, withinDays=3):
   for symbol in symbols:
     # df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
     df = hqu.pdtick(symbol)
-    # df['PrvClose'] = df.Close.shift(1)
-    # df['PrvVolume'] = df.Volume.shift(1)
-    # hq_day0(symbol, df, hqday0)
-    hqop.hq_addCols(df)
+    hqu.pdAddCols(df)
 
     # begin scan
     hqop.hq_llbcp(symbol, df, results)

@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import subprocess
-from hqscan import HqCsvRepo, HqScanResult
+import hqutil as hqu
+from hqscan import HqScanResult
 import hqop
 
 YhooChart = "https://finance.yahoo.com/chart/"
@@ -16,8 +17,8 @@ def browser(symbol):
   subprocess.Popen(BrowserCmd.format(YhooChart, symbol), shell=True)
 
 def hq_LLChg(symbol):
-  df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
-  hqop.hq_addCols(df)
+  df = hqu.pdtick(symbol)
+  hqu.pdAddCols(df)
 
   plt.figure(figsize=[13, 9]) # width and height in inches
   plt.suptitle('{} ({} days) - LLChg Distribution'.format(symbol, df.shape[0]), fontsize=18)
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     for symbol in sys.argv[1:]:
       symbol = symbol.upper()
       browser(symbol)
-      if os.path.exists(HqCsvRepo.format(symbol)):
+      if os.path.exists(hqu.HqCsvRepo.format(symbol)):
         hq_LLChg(symbol)
   else:
     plotLLBCPs()

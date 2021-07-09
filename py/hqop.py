@@ -1,22 +1,13 @@
 # hq operation library
-
 import pandas as pd
+import hqutil as hqu
+from HqYhoo import DateFormat
 
-DateFormat = "%Y-%m-%d"
+# DateFormat = "%Y-%m-%d"
 HqOpColumns = ['Symbol', 'HqType', 'HqTypeDate', 'No', 'HqTypeChg',
       'Day0', 'Close', 'CChg', 'VChg',
       'CCChg', 'MetaInfo']
 
-def hq_addCols(df):
-  # df['PrvClose'] = df.Close.shift(1)
-  df['PrvLow'] = df.Low.shift(1)
-  df['PrvHigh'] = df.High.shift(1)
-  # df['PrvVolume'] = df.Volume.shift(1)
-  df['CCChg'] = (df.Close - df.PrvClose) / df.PrvClose
-  df['LLChg'] = (df.Low - df.PrvLow) / df.PrvClose
-  df['HHChg'] = (df.High - df.PrvHigh) / df.PrvClose
-  df['VVChg'] = df.Volume / df.PrvVolume
-  df['No'] = [df.shape[0] - df.index.get_loc(idx) - 1 for idx in df.index]
 
 def hq_llbcp(symbol, df, results, withinDays=1):
   # Low Low but Close Positive
@@ -60,7 +51,7 @@ def hq_testVolume():
   from hqscan import symbols, HqCsvRepo
   for symbol in symbols:
     df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
-    hq_addCols(df)
+    hqu.pdAddCols(df)
     # last number days on volume grow 
     # print(symbol, df.PrvVolume[df.No == 0], df.Volume[df.No == 0], df.VVChg[df.No == 0].sum())
     print(symbol, df.VVChg[df.No < 10].sum())
@@ -68,9 +59,6 @@ def hq_testVolume():
 def hq_test():
   # symbol = "HOTH"
   df = pd.read_csv("../src/assets/hqcsv/hqhl.hqcsv", index_col=[0], parse_dates=False)
-  # df['PrvClose'] = df.Close.shift(1)
-  # df['PrvVolume'] = df.Volume.shift(1)
-  # hq_addCols(df)
   # hq_high_low(df, nDays=10)
   print(df)
 

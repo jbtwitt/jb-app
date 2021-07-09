@@ -17,13 +17,15 @@ def writeTextFile(path, data, dataType='w'):
     f.write(data)
     return path
 
+# support comments began with #
 def hqticks(path):
   with open(path, 'r') as f:
     ticks = f.read()
     # filter out comments with regular expression
-    ticks = re.sub(r"  +[-#> \w]*\n", "", ticks)
+    # ticks = re.sub(r"  +[-#> \w]*\n", "", ticks)
     # to an array
-    return ticks.replace("\n", "").split(',')
+    # return ticks.replace("\n", "").split(',')
+    return re.sub(r"#[-:#>( )\w]*\n", "", ticks).replace(" ", "").replace("\n", "").split(',')
 
 def hqdownload(symbols, nDays=260):
   hqRobot = HqYhoo.HqYhoo()
@@ -44,7 +46,7 @@ def hqcsv(tick):
   with open(HqCsvRepo.format(tick), 'r') as f:
     return f.read()
 
-def createHqDay0FromCsv(ticks):
+def runHqDay0FromCsv(ticks):
   hqday0 = ",Symbol,Date,Open,High,Low,Close,AdjClose,Volume\n"
   for idx, tick in enumerate(ticks):
     csv = hqcsv(tick)
@@ -58,6 +60,15 @@ def pdtick(tick):
   df['PrvClose'] = df.Close.shift(1)
   df['PrvVolume'] = df.Volume.shift(1)
   return df
+
+def pdAddCols(df):
+  df['PrvLow'] = df.Low.shift(1)
+  df['PrvHigh'] = df.High.shift(1)
+  df['CCChg'] = (df.Close - df.PrvClose) / df.PrvClose
+  df['LLChg'] = (df.Low - df.PrvLow) / df.PrvClose
+  df['HHChg'] = (df.High - df.PrvHigh) / df.PrvClose
+  df['VVChg'] = df.Volume / df.PrvVolume
+  df['No'] = [df.shape[0] - df.index.get_loc(idx) - 1 for idx in df.index]
 
 def hqday0(ticks):
   hqday0 = []
@@ -79,11 +90,11 @@ def runHqhl(symbols, ndaysList=[20]):
 
 if __name__ == "__main__":
   # test
-  # ticks = hqticks('ticks.hq')
-  # print(ticks)
+  ticks = hqticks('ticks.hq')
+  print(ticks)
   # hqdownload(['AVIR'])
   # df = pdtick('AVIR')
   # row = df.iloc[df.shape[0] - 1].to_numpy().tolist()
   # print(row)
   # hqday0(['AVIR', 'MRIN'])
-  runHqhl(['AVIR', 'MRIN'])
+  # runHqhl(['AVIR', 'MRIN'])
