@@ -17,7 +17,7 @@ def hqhlLine(ticker, df, ndays):
     hq0Row = df.loc[hq0Idx]
     vChange = hq0Row.Volume
     if vChange > 0:
-        vChange = hq0Row.Volume / hq0Row.PreVolume
+        vChange = hq0Row.Volume / hq0Row.PrvVolume
         # vChange = (hq0Row.Volume - hq0Row.PreVolume) / hq0Row.PreVolume
     # cl = (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low)
     try:
@@ -28,7 +28,7 @@ def hqhlLine(ticker, df, ndays):
       return HqHlFormatter.format(
           ticker, ndays, hq0Idx,
           hq0Row.Close,
-          (hq0Row.Close - hq0Row.PreClose) / hq0Row.PreClose,
+          (hq0Row.Close - hq0Row.PrvClose) / hq0Row.PrvClose,
           vChange,
           (hq0Row.Close - hq0Row.Low) / (hq0Row.High - hq0Row.Low), #CL/HL
           df.index.get_loc(lcIdx), lcIdx, lcRow.Close,

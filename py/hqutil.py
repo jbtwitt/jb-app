@@ -4,10 +4,12 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 import HqYhoo
+import hqhl
 
 HqRepo = "../src/assets/hqcsv/"
 HqCsvRepo = HqRepo + "download/{}.csv"
 HqDay0Csv = HqRepo + "hqday0.csv"
+HqHlCsv = HqRepo + "hqhl.hqcsv"
 
 def writeTextFile(path, data, dataType='w'):
   # print("creating {} ...".format(path))
@@ -51,7 +53,13 @@ def createHqDay0FromCsv(ticks):
   # writeTextFile(HqDay0Csv, hqday0, 'w')
   return hqday0
 
-def createHqDay0FromPd(ticks):
+def pdtick(tick):
+  df = pd.read_csv(HqCsvRepo.format(tick), index_col=[0], parse_dates=True)
+  df['PrvClose'] = df.Close.shift(1)
+  df['PrvVolume'] = df.Volume.shift(1)
+  return df
+
+def hqday0(ticks):
   hqday0 = []
   for tick in ticks:
     df = pdtick(tick)
@@ -60,11 +68,14 @@ def createHqDay0FromPd(ticks):
   pd.DataFrame(data=np.array(hqday0), columns=["Symbol", "Date", "High", "Low",
     "Open", "Close", "AdjClose", "Volume", "PrvClose", "PrvVolume"]).to_csv(HqDay0Csv)
 
-def pdtick(tick):
-  df = pd.read_csv(HqCsvRepo.format(tick), index_col=[0], parse_dates=True)
-  df['PrvClose'] = df.Close.shift(1)
-  df['PrvVolume'] = df.Volume.shift(1)
-  return df
+def runHqhl(symbols, ndaysList=[20]):
+  result = ""
+  for symbol in symbols:
+    df = pdtick(symbol)
+    df = df.reindex(index=df.index[::-1])   # reverse date order
+    for ndays in ndaysList:
+      result += hqhl.hqhlLine(symbol, df, ndays)
+  writeTextFile(HqHlCsv, hqhl.HqHlHeader + result)
 
 if __name__ == "__main__":
   # test
@@ -74,4 +85,5 @@ if __name__ == "__main__":
   # df = pdtick('AVIR')
   # row = df.iloc[df.shape[0] - 1].to_numpy().tolist()
   # print(row)
-  createHqDay0FromPd(['AVIR', 'MRIN'])
+  # hqday0(['AVIR', 'MRIN'])
+  runHqhl(['AVIR', 'MRIN'])
