@@ -1,16 +1,16 @@
 # hq operation library
 import pandas as pd
 import hqutil as hqu
+import hqpdutil as hqpdu
 from HqYhoo import DateFormat
 
 # DateFormat = "%Y-%m-%d"
-HqOpColumns = ['Symbol', 'HqType', 'HqTypeDate', 'No', 'HqTypeChg',
-      'Day0', 'Close', 'CChg', 'VChg',
-      'CCChg', 'MetaInfo']
+HqOpColumns = ['ticker', 'HqType', 'HqTypeDate', 'No', 'HqTypeChg',
+  'Day0', 'Close', 'CChg', 'VChg', 'CCChg', 'MetaInfo']
 
 
 def hq_llbcp(symbol, df, results, withinDays=1):
-  # Low Low but Close Positive
+  # Low Low but Close Positive within default 1 day
   llbcp = df[(df.LLChg < 0) & (df.Close > df.PrvClose) & (df.No < withinDays)]
   if len(llbcp) > 0:
     lastnDays = 6
@@ -56,12 +56,14 @@ def hq_testVolume():
     # print(symbol, df.PrvVolume[df.No == 0], df.Volume[df.No == 0], df.VVChg[df.No == 0].sum())
     print(symbol, df.VVChg[df.No < 10].sum())
 
-def hq_test():
-  # symbol = "HOTH"
-  df = pd.read_csv("../src/assets/hqcsv/hqhl.hqcsv", index_col=[0], parse_dates=False)
+def hq_test(symbol):
+  df = hqu.pdtick(symbol)
+  hqu.pdAddCols(df)
   # hq_high_low(df, nDays=10)
-  print(df)
+  results = []
+  hq_llbcp(symbol, df, results)
+  print(results)
 
 if __name__ == "__main__":
   # hq_testVolume()
-  hq_test()
+  hq_test('BNGO')

@@ -83,6 +83,7 @@ def runHqhl(symbols, ndaysList=[20]):
   result = ""
   for symbol in symbols:
     df = pdtick(symbol)
+    pdAddCols(df)
     df = df.reindex(index=df.index[::-1])   # reverse date order
     for ndays in ndaysList:
       result += hqhl.hqhlLine(symbol, df, ndays)

@@ -21,7 +21,7 @@ HqScanResult = hqu.HqRepo + "hqscan.csv"
 
 
 def hq_scan(symbols, withinDays=3):
-  results, hqday0 = [], []
+  results = []
   for symbol in symbols:
     # df = pd.read_csv(HqCsvRepo.format(symbol), index_col=[0], parse_dates=True)
     df = hqu.pdtick(symbol)
@@ -31,7 +31,7 @@ def hq_scan(symbols, withinDays=3):
     hqop.hq_llbcp(symbol, df, results)
     hqop.hq_hhbcn(symbol, df, results)
 
-  return (pd.DataFrame(data=np.array(results), columns=hqop.HqOpColumns))
+  return pd.DataFrame(data=np.array(results), columns=hqop.HqOpColumns)
 
 def run(symbols, nDays=120):
   # startDate = (datetime.now() + timedelta(days=-nDays)).strftime(hqop.DateFormat)
