@@ -19,7 +19,7 @@ def pdStraightLlDays(llDays):
   llDays['NextNo'] = llDays.No.shift(1)
   llDays['NoStep'] = llDays.NextNo - llDays.No          # next day indicator if eq 1
   llDays = llDays.reindex(index=llDays.index[::-1])     # reverse date order
-  return llDays.No[0], llDays[llDays.NoStep != 1].No[0] # return straightStart, straightEnd
+  return llDays[llDays.NoStep != 1].No[0], llDays.No[0] # return straightStart, straightEnd
 
 if __name__ == "__main__":
   # ticks = hqu.hqticks('ticks.hq')
