@@ -61,6 +61,11 @@ def pdtick(tick):
   df['PrvVolume'] = df.Volume.shift(1)
   return df
 
+def pdtickDateAgo(tick, date):
+  df = pdtick(tick)
+  df = pd.DataFrame(data = df[df.index <= date])
+  return df
+
 def pdAddCols(df):
   df['PrvLow'] = df.Low.shift(1)
   df['PrvHigh'] = df.High.shift(1)
