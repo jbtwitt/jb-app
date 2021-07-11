@@ -12,8 +12,8 @@ export class HqPlayMainComponent implements OnInit {
   hqDay0Row: any;
 
   constructor(
-    private dataService: DataService,
     private uiService: UiService,
+    private dataService: DataService,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +35,14 @@ export class HqPlayMainComponent implements OnInit {
         console.log(this.hqDay0);
         this.hqDay0 = this.uiService.orderBy(this.hqDay0, 'cchg', true);
       });
+  }
+
+  get top5VChg() {
+    return this.hqDay0 && this.uiService.orderBy(this.hqDay0, 'vchg', true).slice(0, 5);
+  }
+
+  get top5CChg() {
+    return this.hqDay0 && this.uiService.orderBy(this.hqDay0, 'cchg', true).slice(0, 5);
   }
 
   hqDay0RowChanged(row) {

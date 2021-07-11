@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { HqPlayMainComponent } from './hq-play-main/hq-play-main.component';
 import { TickerListComponent } from './components/ticker-list/ticker-list.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [HqhlMainComponent, HqhlListComponent, HqPercentListComponent, HqPlayMainComponent, TickerListComponent],
@@ -32,6 +33,7 @@ import { TickerListComponent } from './components/ticker-list/ticker-list.compon
     MatFormFieldModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatTabsModule,
     HqhlRoutingModule
   ]
 })

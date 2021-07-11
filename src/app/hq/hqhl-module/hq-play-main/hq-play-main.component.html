@@ -1,11 +1,24 @@
+<mat-tab-group>
+  <mat-tab label="TOP 5 VChg%">
+    <app-ticker-list
+      [hqDay0]="top5VChg"
+      (hqDay0RowChanged)="hqDay0RowChanged($event)"></app-ticker-list>
+  </mat-tab>
+  <mat-tab label="TOP 5 CChg%">
+    <app-ticker-list
+      [hqDay0]="top5CChg"
+      (hqDay0RowChanged)="hqDay0RowChanged($event)"></app-ticker-list>
+  </mat-tab>
+  <mat-tab label="Hq Play">
+    <span style="float: left; width: 800px;">
+      <app-ticker-list
+        [hqDay0]="hqDay0"
+        (hqDay0RowChanged)="hqDay0RowChanged($event)"></app-ticker-list>
+    </span>
 
-<span style="float: left; width: 800px;">
-  <app-ticker-list
-    [hqDay0]="hqDay0"
-    (hqDay0RowChanged)="hqDay0RowChanged($event)"></app-ticker-list>
-</span>
-
-<span style="float: left; width: 240px;">
-  <app-hq-percent-list
-    [hqDay0Row]="hqDay0Row"></app-hq-percent-list>
-</span>
+    <span style="float: left; width: 240px;">
+      <app-hq-percent-list
+        [hqDay0Row]="hqDay0Row"></app-hq-percent-list>
+    </span>
+  </mat-tab>
+</mat-tab-group>
